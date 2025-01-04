@@ -1,0 +1,558 @@
+.AU-main-container {
+    position: relative;
+    width: 1732px;
+    height: 627px;
+    margin: 0 auto;
+  }
+  .AU-rectangle {
+    position: absolute;
+    width: 1732px;
+    height: 625px;
+    top: 0;
+    left: 0;
+    background: rgba(30, 30, 30, 0.85);
+    z-index: 1;
+  }
+  .AU-rectangle-1 {
+    position: absolute;
+    width: 1732px;
+    height: 625px;
+    top: 2px;
+    left: 0;
+    background: url(../../assets/images/aboutus.png)
+      no-repeat center;
+    background-size: cover;
+  }
+  .AU-frame {
+    margin-left: 209px;
+    margin-top: 112px;
+    display: flex
+;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 26px;
+    /* position: absolute; */
+    /* width: 825.106px; */
+    height: 426px;
+    top: 112px;
+    left: 209.283px;
+    z-index: 2;
+  }
+  .AU-frame-2 {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 28px;
+    position: relative;
+    width: 603px;
+    z-index: 3;
+  }
+  .AU-vector {
+    flex-shrink: 0;
+    position: relative;
+    width: 10px;
+    height: 202px;
+    background: url(../../assets/images/Vector22.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 4;
+  }
+  .AU-about-our-spark-tech {
+    flex-shrink: 0;
+    position: relative;
+    width: 575px;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 70px;
+    text-align: left;
+    z-index: 5;
+  }
+  .AU-about-our {
+    position: relative;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 70px;
+    text-align: left;
+  }
+  .AU-tech-ventures {
+    position: relative;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 70px;
+    text-align: left;
+  }
+  .AU-about-our-3 {
+    position: relative;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 70px;
+    text-align: left;
+  }
+  .AU-tech-ventures-4 {
+    position: relative;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 70px;
+    text-align: left;
+  }
+  .AU-company {
+    position: relative;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 70px;
+    text-align: left;
+  }
+  .AU-frame-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 39px;
+    position: relative;
+    width: 686px;
+    z-index: 6;
+  }
+  .AU-construction-equipment {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    width: 686px;
+    height: 96px;
+    color: #ffffff;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: left;
+    z-index: 7;
+  }
+  .AU-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 10px;
+    position: relative;
+    width: 230px;
+    height: 55px;
+    padding: 31px 91px 31px 91px;
+    cursor: pointer;
+    background: #ffb400;
+    border: none;
+    z-index: 8;
+  }
+  .AU-get-free-quote {
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 17px;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16.59px;
+    text-align: left;
+    white-space: nowrap;
+    letter-spacing: 1.4px;
+    z-index: 9;
+  }
+ 
+
+  .Aumain-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 25px;
+    position: relative;
+    width: 391px;
+    margin-left: 100px;
+  }
+
+  .AUS-frame-1 {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 13px;
+    position: relative;
+    min-width: 0;
+  }
+  .AUS-group {
+    flex-shrink: 0;
+    position: relative;
+    width: 56.411px;
+    height: 58.5px;
+    background: url(../../assets/images/aboutus/Group429.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 1;
+  }
+  .AUS-frame-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 4px;
+    position: relative;
+    width: 275px;
+    z-index: 2;
+  }
+  .AUS-building-construction {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    min-width: 0;
+    height: 40px;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 3;
+  }
+  .AUS-construction-equipment {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    width: 275px;
+    min-width: 0;
+    height: 57px;
+    color: #ffffff;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    letter-spacing: 0.6px;
+    z-index: 4;
+  }
+  .AUS-frame-3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 13px;
+    position: relative;
+    width: 341.549px;
+    z-index: 5;
+  }
+  .AUS-group-4 {
+    flex-shrink: 0;
+    position: relative;
+    width: 53.549px;
+    height: 59.5px;
+    background: url(../../assets/images/aboutus/Group434.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 6;
+  }
+  .AUS-frame-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 4px;
+    position: relative;
+    width: 275px;
+    z-index: 7;
+  }
+  .AUS-building-repairs {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 40px;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 8;
+  }
+  .AUS-periodic-maintenance {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    width: 275px;
+    height: 57px;
+    color: #ffffff;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    letter-spacing: 0.6px;
+    z-index: 9;
+  }
+  .AUS-frame-6 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 13px;
+    position: relative;
+    width: 330.618px;
+    z-index: 10;
+  }
+  .AUS-group-7 {
+    flex-shrink: 0;
+    position: relative;
+    width: 42.618px;
+    height: 69px;
+    background: url(../../assets/images/aboutus/Group433.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 11;
+  }
+  .AUS-frame-8 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 4px;
+    position: relative;
+    width: 275px;
+    z-index: 12;
+  }
+  .AUS-custom-design {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 40px;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 13;
+  }
+  .AUS-text-6 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    width: 275px;
+    height: 57px;
+    color: #ffffff;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    letter-spacing: 0.6px;
+    z-index: 14;
+  }
+  .flex{
+    display: flex;
+  }
+  .what-we-do {
+    margin-top: 116px;
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    min-width: 0;
+    height: 51px;
+    color: #ffb400;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 50.4px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 2;
+  }
+
+  .new{
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.vector {
+    height: 5px;
+    margin-bottom: 14px;
+    background: url(/src/assets/images/vector23hehe.png) no-repeat center;
+}
+
+.AU-test.col-6 {
+    display: flex;
+    text-align: justify;
+    padding: 50px;
+}
+.Au-mid {
+    margin-top: 150px;
+}
+.AU-end {
+    width: 85%;
+}
+.AU-end-container{
+    display: flex;
+}
+.only-the-best {
+    margin: 69px 0 47px 139px;
+    color: #2a2a2a;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 32px;
+    font-weight: 700;
+    z-index: 2;
+}
+
+  .AUE-frame-3 {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 19px;
+    position: relative;
+    width: 333px;
+    padding: 7px 0 7px 0;
+    z-index: 5;
+  }
+  .AUE-group {
+    flex-shrink: 0;
+    position: relative;
+    width: 38px;
+    height: 34.088px;
+    background: url(../../assets/images/aboutus/Group445.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 6;
+    border-radius: 1.118px;
+  }
+  .AUE-frame-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 8px;
+    position: relative;
+    width: 276px;
+    z-index: 7;
+  }
+  .AUE-eco-friendly-construction {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    width: 226px;
+    height: 28px;
+    color: #000000;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 25px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 8;
+  }
+  .AUE-leading-brands-equipment {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    width: 276px;
+    height: 135px;
+    color: #000000;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    letter-spacing: 0.6px;
+    z-index: 9;
+  }
+  .AUE-button {
+    margin-left: 53px;
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 275.968px;
+    height: 65px;
+    top: 667px;
+    left: 537px;
+    padding: 31px 91px 31px 91px;
+    cursor: pointer;
+    background: transparent;
+    border: 5px solid #ffb400;
+  }
+  .AUE-free-quote {
+    height: 17px;
+    color: #ffb400;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16.59px;
+    text-align: left;
+    white-space: nowrap;
+    letter-spacing: 1.4px;
+    z-index: 23;
+  }
+  .AUE-Picture1{
+    width: 612px;
+    height: 432px;
+    margin: 0 auto;
+    background: url(../../assets/images/aboutus/iii.png)
+      no-repeat center;
+    background-size: cover;
+  }
+  .AUE-Picture2{
+    margin-top: 20px;
+    width: 612px;
+    height: 432px;
+    margin: 65px auto;
+    background: url(../../assets/images/aboutus/eee.png)
+      no-repeat center;
+    background-size: cover;
+  }
+  .hehed {
+    margin-left: 200px;
+}
+
+  

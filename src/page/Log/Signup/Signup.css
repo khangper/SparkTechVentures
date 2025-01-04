@@ -1,0 +1,100 @@
+.SU-Container{
+    height: 526px;
+    top: 0;
+    left: 0;
+    background: url(../../../assets/images/Contactus/picture.png)
+      no-repeat center;
+    background-size: cover;
+}
+.SU-ra1{
+    width: 100%;
+    position: absolute;
+    height: 526px;
+    background: rgba(30, 30, 30, 0.85);
+}
+.SU-frame-135 {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+  }
+  .SU-personal-infor {
+    color: var(--main-black, #2a2a2a);
+    text-align: left;
+    font-family: var(--h2-font-family, "Rubik-Bold", sans-serif);
+    font-size: var(--h2-font-size, 40px);
+    line-height: var(--h2-line-height, 25px);
+    font-weight: var(--h2-font-weight, 700);
+    position: relative;
+  }
+  .SU-vector-2 {
+    flex-shrink: 0;
+    width: 48px;
+    height: 10px;
+    background-color:#ffb400;
+    position: relative;
+    overflow: visible;
+  }
+  .SU-from {
+    margin: 200px 0;
+}
+.SU-PersonalIn4 {
+    margin-left: 40px;
+    margin-top: 35px;
+}
+.SU-frame-14 {
+    background: #ffffff;
+    padding: 13px 18px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+  }
+  input.SU-first-name {
+    width: 80%;
+    color: var(--construction-gray, #666666);
+    text-align: left;
+    font-family: var(--construction-text-font-family, "OpenSans-Regular", sans-serif);
+    font-size: var(--construction-text-font-size, 15px);
+    line-height: var(--construction-text-line-height, 27px);
+    letter-spacing: var(--construction-text-letter-spacing, 0.04em);
+    font-weight: var(--construction-text-font-weight, 400);
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 5px 5px 5px 5px;
+}
+.SU-Button {
+    display: flex;
+    justify-content: center;
+    margin-top: 65px;
+}
+
+.SsU-button {
+    border-style: solid;
+    border-color: #2a2a2a;
+    border-width: 4px;
+    padding: 31px 91px 31px 91px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 252.18px;
+    height: 41px;
+    position: relative;
+  }
+  .SU-free-quote {
+    color: #2a2a2a;
+    text-align: left;
+    font-family: "Rubik-SemiBold", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    position: relative;
+  }
+  

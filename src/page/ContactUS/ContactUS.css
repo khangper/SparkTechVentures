@@ -1,0 +1,491 @@
+.CU-container{
+    position: relative;
+  width: 1729px;
+  height: 526px;
+  margin: 0 auto;
+}
+.CU-rectangle {
+    position: absolute;
+    width: 1203.096px;
+    height: 526px;
+    top: 0;
+    left: 0;
+    background: url(../../assets/images/Contactus/picture.png)
+      no-repeat center;
+    background-size: cover;
+  }
+  .CU-rectangle-1 {
+    position: absolute;
+    width: 1203.096px;
+    height: 526px;
+    top: 0;
+    left: 0;
+    background: rgba(30, 30, 30, 0.85);
+    z-index: 1;
+  }
+  .CU-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 28px;
+    position: relative;
+    width: 894.517px;
+    margin: 110px 0 0 208.921px;
+    z-index: 2;
+  }
+  .CU-frame-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 28px;
+    position: relative;
+    width: 384px;
+    z-index: 3;
+  }
+  .CU-frame-3 {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 28px;
+    position: relative;
+    width: 384px;
+    z-index: 4;
+  }
+  .CU-vector {
+    flex-shrink: 0;
+    position: relative;
+    width: 10px;
+    height: 104px;
+    background: url(../../assets/images/Contactus/Vectoryellow.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 5;
+  }
+  .CU-contact-us {
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 70px;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 70px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 6;
+  }
+  .CU-frame-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 57px;
+    position: relative;
+    width: 745px;
+    z-index: 7;
+  }
+  .CU-lorem-ipsum {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    width: 745px;
+    height: 96px;
+    color: #ffffff;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: left;
+    z-index: 8;
+  }
+  .CU-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 10px;
+    position: relative;
+    width: 230px;
+    height: 55px;
+    padding: 31px 91px 31px 91px;
+    cursor: pointer;
+    background: #ffb400;
+    border: none;
+    z-index: 9;
+  }
+  .CU-send-message {
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 17px;
+    color: #ffffff;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16.59px;
+    text-align: left;
+    white-space: nowrap;
+    letter-spacing: 1.4px;
+    z-index: 10;
+  }
+  .CU-rectangle-5 {
+    position: absolute;
+    width: 525.904px;
+    height: 526px;
+    top: 0;
+    left: 1203.096px;
+    background: #ffb400;
+    z-index: 12;
+  }
+  .CU-frame-6 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 21px;
+    position: relative;
+    width: 309px;
+    margin: 49px 0 0 50.429px;
+    z-index: 13;
+  }
+  .CU-frame-7 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 8px;
+    position: relative;
+    width: 309px;
+    z-index: 14;
+  }
+  .CU-contact-info {
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 51px;
+    color: #2a2a2a;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 50.4px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 15;
+  }
+  .CU-frame-8 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 26px;
+    position: relative;
+    width: 309px;
+    height: 339px;
+    z-index: 16;
+  }
+  .CU-frame-9 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 4px;
+    position: relative;
+    width: 309px;
+    z-index: 17;
+  }
+  .CU-our-office {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    width: 160.07px;
+    height: 40px;
+    color: #2a2a2a;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 18;
+  }
+  .CU-divi-st {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    width: 309px;
+    height: 57px;
+    color: #2a2a2a;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    letter-spacing: 0.6px;
+    z-index: 19;
+  }
+  .CU-frame-a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 4px;
+    position: relative;
+    width: 190px;
+    z-index: 20;
+  }
+  .CU-open-office-hours {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    width: 190px;
+    height: 23px;
+    color: #2a2a2a;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 23px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 21;
+  }
+  .CU-office-hours {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    width: 126px;
+    height: 54px;
+    color: #2a2a2a;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    letter-spacing: 0.6px;
+    z-index: 22;
+  }
+  .CU-frame-b {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 4px;
+    position: relative;
+    width: 177px;
+    z-index: 23;
+  }
+  .CU-get-in-touch {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    width: 177px;
+    height: 24px;
+    color: #2a2a2a;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 24;
+  }
+  .CU-construction-inc {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    width: 160px;
+    height: 54px;
+    color: #2a2a2a;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    text-overflow: initial;
+    letter-spacing: 0.6px;
+    z-index: 25;
+    overflow: hidden;
+  }
+  .CU-frame-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 27px;
+    position: relative;
+    width: 123px;
+    z-index: 26;
+  }
+  .CU-facebook {
+    flex-shrink: 0;
+    position: relative;
+    width: 23px;
+    height: 22px;
+    background: url(../../assets/images/Contactus/facebook.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 27;
+    overflow: hidden;
+  }
+  .CU-twitter {
+    flex-shrink: 0;
+    position: relative;
+    width: 22px;
+    height: 22px;
+    background: url(../../assets/images/Contactus/twitter.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 28;
+    overflow: hidden;
+  }
+  .CU-linkedin {
+    flex-shrink: 0;
+    position: relative;
+    width: 24px;
+    height: 22px;
+    background: url(../../assets/images/Contactus/linkedin.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 29;
+    overflow: hidden;
+  }
+  .CU-mid{
+    margin-bottom: 150px;
+    margin-top: 80px;
+  }
+
+  .CU-mid-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 18px;
+    position: relative;
+    width: 559px;
+    margin: 0 auto;
+  }
+  .call {
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 25px;
+    color: #ffb400;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 25px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .make-ideas-reality {
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 51px;
+    color: #2a2a2a;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 50.4px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 1;
+  }
+
+  .CU-mid-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 275.968px;
+    height: 65px;
+    top: 667px;
+    left: 537px;
+    padding: 31px 91px 31px 91px;
+    cursor: pointer;
+    background: transparent;
+    border: 5px solid #ffb400;
+  }
+  .AUE-free-quote {
+    height: 17px;
+    color: #ffb400;
+    font-family: Rubik, var(--default-font-family);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16.59px;
+    text-align: left;
+    white-space: nowrap;
+    letter-spacing: 1.4px;
+    z-index: 23;
+  }
+  .flex.col-6 {
+    display: flex;
+    justify-content: end;
+}
+/* CU-end */
+.CU-new{
+    font-size: 40px;
+    font-weight: 700;
+}
+.CU-end-from1{
+    margin-top: 35px;
+    margin-left: 20px;
+    width: 100%;
+}
+.CU-end-dropdow{
+    color: #000000;
+  text-align: left;
+  font-family: "Rubik-Bold", sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  position: relative;
+  width: 470px;
+  height: 19px;
+  text-decoration: none;
+}
+.icondropdow{
+    color: cornflowerblue;
+    font-size: 24px;
+    background-color: yellow;
+    border-radius: 20px;
+}
+.CU-end-informa {
+    margin-top: 20px;
+}
+.card.card-body.content {
+    text-align: justify;
+  }
+  .CU-end {
+    margin-bottom: 60px;
+    padding: 0 320px;
+}

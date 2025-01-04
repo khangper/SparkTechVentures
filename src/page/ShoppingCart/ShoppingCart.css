@@ -1,0 +1,129 @@
+.shopping-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 140px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cart {
+    width: 60%;
+  }
+  
+  .cart-items {
+    margin-top: 20px;
+  }
+.SH-flex{
+    display: flex;
+}
+svg.SH-icon.bi.bi-reply {
+    color: #ffb400;
+    margin-top: -10px;
+    margin-right: 10px;
+}
+
+svg.SH-icon.bi.bi-reply:hover{
+    color: #d0cfcf;
+}
+  .SH-line-2 {
+    margin-bottom: 20px;
+    margin-top: 20.5px;
+    border-style: solid;
+    border-color: #d0cfcf;
+    border-width: 1.5px 0 0 0;
+    height: 0px;
+    position: relative;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(1, 1);
+  }
+  .SH-line-1 {
+    margin-top: -1px;
+    margin-bottom: 30px;
+    border-style: solid;
+    border-color: #d4fe1c;
+    border-width: 2px 0 0 0;
+    height: 0px;
+    position: relative;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(1, 1);
+}
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+}
+
+.cart-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .item-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .item-details {
+    flex: 1;
+    margin-left: 10px;
+  }
+  
+  .item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .quantity-selector {
+    margin-right: 70px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .summary {
+    width: 30%;
+    background-color: #ffa500;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .summary h2 {
+    margin-bottom: 20px;
+  }
+  
+  .summary-details {
+    margin-bottom: 20px;
+  }
+  
+  .summary-details p {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .checkout-btn {
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  p.SP-price {
+    margin-top: 15px;
+}
+  

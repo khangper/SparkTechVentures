@@ -1,0 +1,75 @@
+.LG-container {
+    margin-bottom: 200px;
+}
+.LG-ra1 {
+    justify-content: space-around;
+    display: flex;
+    width: 100%;
+    position: absolute;
+    height: 526px;
+    background: rgba(30, 30, 30, 0.85);
+}
+
+.LG-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 28px;
+    position: relative;
+    width: 894.517px;
+    /* margin: 110px 0 0 208.921px; */
+    z-index: 2;
+}
+
+.LG-ra2 {
+    justify-content: space-around;
+    display: flex;
+    margin-top: 110px;    
+}
+.LG-frame-14 {
+    width: 180%;
+    padding: 13px 18px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+.LG-input {
+    margin-right: 80px;
+    margin-right: 80px;
+
+}
+.LG-forgot {
+    margin-left: 18px;
+    color: white;
+}
+.LG-button {
+    margin-top: 51px;
+    margin-left: 70px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 4px;
+    padding: 31px 91px 31px 91px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 210px;
+    height: 27px;
+    position: relative;
+}
+  .LG-free-quote {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Rubik-SemiBold", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    position: relative;
+  }
+  
