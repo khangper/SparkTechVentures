@@ -1,0 +1,37 @@
+.HH_BlogBlog.mt-80 {
+    margin-top: 80px;
+}
+.BB-straightening-repairing-iron {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    color: #666666;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    letter-spacing: 0.6px;
+}
+.BB-handheld-hydraulic-iron {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    color: #2a2a2a;
+    font-family: Open Sans, var(--default-font-family);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 27px;
+}
+.may-9-2014-category {
+    color: #c9c9c9;
+    text-align: left;
+    font-family: "OpenSans-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 27px;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+    position: relative;
+    height: 25px;
+  }
