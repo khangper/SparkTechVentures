@@ -6,7 +6,7 @@
 }
 .CU-rectangle {
     position: absolute;
-    width: 1203.096px;
+    width: 100%;
     height: 526px;
     top: 0;
     left: 0;
@@ -139,7 +139,7 @@
   }
   .CU-rectangle-5 {
     position: absolute;
-    width: 525.904px;
+    width: 100%;
     height: 526px;
     top: 0;
     left: 1203.096px;
