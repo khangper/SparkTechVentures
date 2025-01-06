@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Login.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,9 +9,27 @@ export default function Login({ onLogin }) {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleEnterKey = (event) => {
+      if (event.key === 'Enter') {
+        handleSubmit(event);
+      }
+    };
+
+    window.addEventListener('keydown', handleEnterKey);
+    return () => {
+      window.removeEventListener('keydown', handleEnterKey);
+    };
+  }, [email, password]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    if (!email || !password) {
+      alert('Please fill in both email and password fields.');
+      return;
+    }
+  
     // Check for admin login
     if (email === 'admin@gmail.com' && password === '123') {
       onLogin(email, password);
@@ -32,7 +50,7 @@ export default function Login({ onLogin }) {
       }
     }
   };
-
+  
   return (
     <div className='LG-container'>
       <div className='Signup-header'>

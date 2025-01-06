@@ -15,6 +15,7 @@ import Member from './page/Member/Member.jsx';
 import ShoppingCart from './page/ShoppingCart/ShoppingCart.jsx';
 import CheckoutPage from './page/CheckoutPage/CheckoutPage.jsx';
 import AllProduct from './page/AllProduct/AllProduct.jsx';
+import ViewDetail from './page/ViewDetail/ViewDetail.jsx';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,6 +50,7 @@ function App() {
         <Route path="/question" element={<Question />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/ShoppingCart" element={<ShoppingCart />} />
+        <Route path="/ViewDetail" element={<ViewDetail />} />
         <Route path="/CheckoutPage" element={<CheckoutPage />} />
         <Route path="/admin" element={isLoggedIn && isAdmin ? <Admin /> : <Navigate to="/login" />} />
         <Route path="/member" element={isLoggedIn && !isAdmin ? <Member /> : <Navigate to="/login" />} />

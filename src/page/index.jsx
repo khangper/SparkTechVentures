@@ -10,22 +10,28 @@ import startbreadown3 from '../assets/images/rating-3.png'
 import startbreadown2 from '../assets/images/rating-2.png'
 import startbreadown1 from '../assets/images/rating-1.png'
 
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 export default function Main() {
-  const location = useLocation(); const queryParams = new URLSearchParams(location.search); const name = queryParams.get('name'); const price = queryParams.get('price');
-  const img = queryParams.get('img');
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
-  console.log('Received data:', location.state);
+  const name = decodeURIComponent(queryParams.get('name'));
+  const price = queryParams.get('price');
+  const img = decodeURIComponent(queryParams.get('img'));
   return (
 
 <div>
   <div className='breadcrumb-container'>
   <div className='breadcrumb'>
-  <span>Home</span>
-  <span>View All</span>
-  <span>Excavator</span>
+  <Link to='/'><span herf='/'>Home </span></Link><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+  <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+</svg>
+  <Link to='/AllProduct'><span>View all</span></Link><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+  <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+</svg>
+   <span> Excavator</span>
 </div>
 <div className='search-bar'>
   <input type='text' placeholder='Search...' />
@@ -39,7 +45,7 @@ export default function Main() {
 <div className='left-image-container'>
    {/* Ảnh lớn chính */}
    <div className='main-image'>
-    <img  src={img} alt="Excavator main view" />
+   <img src={img} alt="Excavator main view" />
   </div>
   
   {/* Thumbnails */}

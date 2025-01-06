@@ -1,12 +1,12 @@
 .AU-main-container {
     position: relative;
-    width: 1732px;
+    width: 100%;
     height: 627px;
     margin: 0 auto;
   }
   .AU-rectangle {
     position: absolute;
-    width: 1732px;
+    width: 100%;
     height: 625px;
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@
   }
   .AU-rectangle-1 {
     position: absolute;
-    width: 1732px;
+    width: 100%;
     height: 625px;
     top: 2px;
     left: 0;

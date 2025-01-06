@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import bigstock from '../../assets/images/bigstock.png';
 import bookmar from '../../assets/images/Bookmark.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PriceFilter from '../HomePage/PriceFilter/PriceFilter';
+import api from '../../Context/api';
 
 function AllProduct() {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -11,19 +12,19 @@ function AllProduct() {
   const [searchTerm, setSearchTerm] = useState('');
   const [minPrice, setMinPrice] = useState(4); // Giá tối thiểu từ PriceFilter
   const [maxPrice, setMaxPrice] = useState(800); // Giá tối đa từ PriceFilter
-
-  const items = [ 
-    { id: 1, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
-    { id: 2, name: 'Leander 320D', price: 500, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Komatsu' },
-    { id: 3, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
-    { id: 4, name: 'Caterpillar 320D', price: 500, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
-    { id: 5, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Lifting Equipment', brand: 'Komatsu' },
-    { id: 6, name: 'Caterpillar 320D', price: 500, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
-    { id: 7, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
-    { id: 8, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Lifting Equipment', brand: 'Komatsu' },
-    { id: 9, name: 'Caterpillar 320D', price: 500, imgSrc: bigstock, category: 'Lifting Equipment', brand: 'Komatsu' },
-    { id: 10, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Lifting Equipment', brand: 'Komatsu' },
-  ];
+  const [items, setItems] = useState([]);
+  // const items = [ 
+  //   { id: 1, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
+  //   { id: 2, name: 'Leander 320D', price: 500, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Komatsu' },
+  //   { id: 3, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
+  //   { id: 4, name: 'Caterpillar 320D', price: 500, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
+  //   { id: 5, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Lifting Equipment', brand: 'Komatsu' },
+  //   { id: 6, name: 'Caterpillar 320D', price: 500, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
+  //   { id: 7, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Caterpillar' },
+  //   { id: 8, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Lifting Equipment', brand: 'Komatsu' },
+  //   { id: 9, name: 'Caterpillar 320D', price: 500, imgSrc: bigstock, category: 'Lifting Equipment', brand: 'Komatsu' },
+  //   { id: 10, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock, category: 'Lifting Equipment', brand: 'Komatsu' },
+  // ];
 
   const searchResults = items.filter(item => {
     const matchesSearchTerm = item.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -32,11 +33,29 @@ function AllProduct() {
     const matchesPrice = item.price >= minPrice && item.price <= maxPrice; // Lọc theo giá
     return matchesSearchTerm && matchesCategory && matchesBrand && matchesPrice;
   });
-
+  const imageMap = {
+    bigstock: bigstock,
+    // Thêm các hình ảnh khác nếu có
+  };
   const handlePriceChange = (min, max) => {
     setMinPrice(min);
     setMaxPrice(max);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+     
+      try {
+        const response = await api.get('/ProductSpark'); // Gọi GET tới baseURL
+        setItems(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }finally {
+        
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -68,12 +87,20 @@ function AllProduct() {
             ) : (
               searchResults.map(item => (
                 <div key={item.id} className="HH-Picture">
-                  <Link to={`/main?name=${item.name}&price=${item.price}&img=${item.imgSrc}`}>
-                    <img
-                      className="HH-Picture-small"
-                      src={item.imgSrc}
-                      alt={`Excavator view ${item.id}`}
-                    />
+<Link
+  to={`/main?name=${encodeURIComponent(item.name)}&price=${item.price}&img=${encodeURIComponent(
+    imageMap[item.imgSrc] ? imageMap[item.imgSrc] : item.imgSrc // Ưu tiên ảnh từ imageMap, nếu không có thì dùng trực tiếp item.imgSrc
+  )}`}
+>
+  <img
+  className="HH-Picture-small"
+  src={
+    imageMap[item.imgSrc] // Kiểm tra trong imageMap trước
+      ? imageMap[item.imgSrc] // Nếu có, dùng ảnh từ imageMap
+      : item.imgSrc // Nếu không có, dùng trực tiếp item.imgSrc
+  }
+  alt={`Excavator view ${item.id}`}
+/>
                     <div className="HH-P-container">
                       <div className="HH-P-price">
                         <div className="textt">{item.name}</div>

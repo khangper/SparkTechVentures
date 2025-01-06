@@ -63,6 +63,9 @@
     height: 27px;
     position: relative;
 }
+.LG-button:hover{
+    background-color: #ffb400;
+}
   .LG-free-quote {
     color: #ffffff;
     text-align: left;
