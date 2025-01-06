@@ -95,6 +95,9 @@ const ShoppingCart = () => {
                 <p className="SP-price">${item.price * item.quantity}</p>
                 <button className="delete-btn">🗑</button>
               </div>
+              <Link to="/ViewDetail" state={{ item }}>
+                  <button className="VD-view-detail-btn">View Detail</button>
+                </Link>
             </div>
           ))}
         </div>

@@ -1,7 +1,7 @@
 .AU-main-container {
     position: relative;
     width: 100%;
-    height: 625px;
+    height: 627px;
     margin: 0 auto;
   }
   .AU-rectangle {
@@ -15,7 +15,7 @@
   }
   .AU-rectangle-1 {
     position: absolute;
-    width:100%;
+    width: 100%;
     height: 625px;
     top: 2px;
     left: 0;
@@ -32,8 +32,6 @@
     align-items: flex-start;
     flex-wrap: nowrap;
     gap: 26px;
-    /* position: absolute; */
-    /* width: 825.106px; */
     height: 426px;
     top: 112px;
     left: 209.283px;

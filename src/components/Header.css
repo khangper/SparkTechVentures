@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding:  0 20px;
   border-bottom: 2px solid #000;
 }
 
@@ -14,13 +14,32 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 20px;
 }
 
 .nav a {
   text-decoration: none;
   color: #000;
   font-weight: 500;
+  padding: 10px 20px;
+}
+
+.nav a:hover { 
+  cursor: pointer; 
+  background-color: #ffa500;
+  color: #fff; 
+}
+
+.bnt-logout:hover {
+  cursor: pointer; 
+  background-color: #ffa500;
+  color: #fff; 
+}
+.bnt-logout {
+  text-decoration: none;
+  color: #888;
+  font-weight: 500;
+  padding: 10px 20px; /* Điều chỉnh padding để phù hợp */
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .HD-cart-icon {
@@ -32,11 +51,19 @@
 
 .auth-links {
   display: flex;
-  gap: 10px;
+  /* gap: 10px; */
 }
 
 .auth-links a {
   text-decoration: none;
   color: #888;
   font-weight: 500;
-} 
+  padding: 10px 20px; /* Điều chỉnh padding để phù hợp */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.auth-links a:hover {
+  cursor: pointer; 
+  background-color: #ffa500;
+  color: #fff; 
+}
