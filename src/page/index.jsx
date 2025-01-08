@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 import bigstock from '../assets/images/bigstock.png';
 import smalltock1 from '../assets/images/smallstock1.png'
@@ -10,16 +10,30 @@ import startbreadown3 from '../assets/images/rating-3.png'
 import startbreadown2 from '../assets/images/rating-2.png'
 import startbreadown1 from '../assets/images/rating-1.png'
 
-import { Link, useLocation } from 'react-router-dom';
-
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { fetchProductData } from '../Context/api';
 
 export default function Main() {
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  const [data, setData] = useState(null);
+  const imageMap = {
+    bigstock: bigstock,
+  
+  };
 
-  const name = decodeURIComponent(queryParams.get('name'));
-  const price = queryParams.get('price');
-  const img = decodeURIComponent(queryParams.get('img'));
+
+  useEffect(() => {
+    if (id) {
+      fetchProductData(id)
+        .then(data => setData(data))
+        .catch(error => console.error('Error fetching data:', error))
+
+    }
+  }, [id]);
+
+
   return (
 
 <div>
@@ -45,9 +59,11 @@ export default function Main() {
 <div className='left-image-container'>
    {/* Ảnh lớn chính */}
    <div className='main-image'>
-   <img src={img} alt="Excavator main view" />
+   {data ? (
+   <img src={imageMap[data.imgSrc] ? imageMap[data.imgSrc] : data.imgSrc} alt="Excavator main view" />
+  ) : ( <p>Loading...</p> )}
   </div>
-  
+
   {/* Thumbnails */}
   <div className='thumbnail-container'>
     <div className='thumbnail'>
@@ -67,8 +83,9 @@ export default function Main() {
   <div className='price-status'>
   <button className='price-btn'>
     <span className='currency'>$</span>
-    {name && price && (
-    <span className='price'>{price}/Day</span>  )}
+    {data ? (
+    <span className='price'>{data.price}/Day</span> 
+  ) : ( <p>Loading...</p> )}
   </button>
   <button className='status-btn'>
     <span className='status-label'>Status:</span>
@@ -90,10 +107,11 @@ export default function Main() {
 </div>
 
 <div className='product-info'>
-{name && price && (
+{data ? (
   <span className='product-title'>
-   {name}
-  </span>)}
+   {data.name}
+  </span>
+  ) : ( <p>Loading...</p> )}
   <div className='product-image' />
   <div className='rating'>
     <div className='rating-stars'>

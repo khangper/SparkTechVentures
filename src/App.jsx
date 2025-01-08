@@ -34,28 +34,30 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
+    window.location.href = '/'; // Chuyển hướng về trang Home
   };
-
+  
   return (
     <Router>
       <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/AllProduct" element={<AllProduct />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/about" element={<AboutUS />} />
-        <Route path="/contact" element={<ContactUS />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/question" element={<Question />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/ShoppingCart" element={<ShoppingCart />} />
-        <Route path="/ViewDetail" element={<ViewDetail />} />
-        <Route path="/CheckoutPage" element={<CheckoutPage />} />
-        <Route path="/admin" element={isLoggedIn && isAdmin ? <Admin /> : <Navigate to="/login" />} />
-        <Route path="/member" element={isLoggedIn && !isAdmin ? <Member /> : <Navigate to="/login" />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+  <Route path="/" element={<HomePage />} />
+  <Route path="/AllProduct" element={<AllProduct />} />
+  <Route path="/main" element={<Main />} />
+  <Route path="/about" element={<AboutUS />} />
+  <Route path="/contact" element={<ContactUS />} />
+  <Route path="/login" element={<Login onLogin={handleLogin} />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="/question" element={<Question />} />
+  <Route path="/blog" element={<Blog />} />
+  <Route path="/ShoppingCart" element={isLoggedIn ? <ShoppingCart /> : <Navigate to="/login" />} />
+  <Route path="/CheckoutPage" element={isLoggedIn ? <CheckoutPage /> : <Navigate to="/login" />} />
+  <Route path="/ViewDetail" element={<ViewDetail />} />
+  <Route path="/admin" element={isLoggedIn && isAdmin ? <Admin /> : <Navigate to="/login" />} />
+  <Route path="/member" element={isLoggedIn && !isAdmin ? <Member /> : <Navigate to="/login" />} />
+  <Route path="*" element={<Navigate to="/" />} />
+</Routes>
+
       <Footer />
     </Router>
   );

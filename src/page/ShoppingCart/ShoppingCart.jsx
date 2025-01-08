@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const ShoppingCart = () => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
-  const mockApiUrl = "https://6778ac1c482f42b62e8f5327.mockapi.io/cartItems"; // Thay bằng URL MockAPI của bạn
+  const mockApiUrl = "https://6778ac1c482f42b62e8f5327.mockapi.io/cartItems"; 
 
   // Lấy dữ liệu từ MockAPI
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Links } from 'react-router-dom'; 
+import { Link, Links, useNavigate } from 'react-router-dom'; 
 import './HomPage.css';
 import bigstock from '../../assets/images/bigstock.png'
 import bigstock2 from '../../assets/images/bigstock2.png'
@@ -18,6 +18,7 @@ export default function HomePage() {
   const [maxPrice, setMaxPrice] = useState(800);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   // const items = [ 
   //   { id: 1, name: 'Caterpillar 320D', price: 200, imgSrc: bigstock,category: 'Heavy Machinery', brand: 'Caterpillar' }, 
   //   { id: 2, name: 'Leander 320D', price: 500, imgSrc: bigstock, category: 'Heavy Machinery', brand: 'Komatsu' }, 
@@ -117,20 +118,15 @@ export default function HomePage() {
             ) : (
               displayedItems.map(item => (
                 <div key={item.id} className="HH-Picture">
-<Link
-  to={`/main?name=${encodeURIComponent(item.name)}&price=${item.price}&img=${encodeURIComponent(
-    imageMap[item.imgSrc] ? imageMap[item.imgSrc] : item.imgSrc // Ưu tiên ảnh từ imageMap, nếu không có thì dùng trực tiếp item.imgSrc
-  )}`}
->
+
+<Link to={`/main?id=${item.id}`}>
   <img
-  className="HH-Picture-small"
-  src={
-    imageMap[item.imgSrc] // Kiểm tra trong imageMap trước
-      ? imageMap[item.imgSrc] // Nếu có, dùng ảnh từ imageMap
-      : item.imgSrc // Nếu không có, dùng trực tiếp item.imgSrc
-  }
-  alt={`Excavator view ${item.id}`}
-/>
+    className="HH-Picture-small"
+    src={imageMap[item.imgSrc] ? imageMap[item.imgSrc] : item.imgSrc}
+    alt={`Excavator view ${item.id}`}
+  />
+
+
   <div className="HH-P-container">
     <div className="HH-P-price">
       <div className="textt">{item.name}</div>
