@@ -87,11 +87,7 @@ function AllProduct() {
             ) : (
               searchResults.map(item => (
                 <div key={item.id} className="HH-Picture">
-<Link
-  to={`/main?name=${encodeURIComponent(item.name)}&price=${item.price}&img=${encodeURIComponent(
-    imageMap[item.imgSrc] ? imageMap[item.imgSrc] : item.imgSrc // Ưu tiên ảnh từ imageMap, nếu không có thì dùng trực tiếp item.imgSrc
-  )}`}
->
+<Link to={`/main?id=${item.id}`}>
   <img
   className="HH-Picture-small"
   src={

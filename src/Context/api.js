@@ -6,3 +6,13 @@ const api = axios.create({
 });
 
 export default api;
+
+export const fetchProductData = async (id) => {
+  try {
+    const response = await api.get(`/ProductSpark/${id}`); // Fetch specific product data
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
