@@ -16,30 +16,33 @@ import ShoppingCart from './page/ShoppingCart/ShoppingCart.jsx';
 import CheckoutPage from './page/CheckoutPage/CheckoutPage.jsx';
 import AllProduct from './page/AllProduct/AllProduct.jsx';
 import ViewDetail from './page/ViewDetail/ViewDetail.jsx';
+import StaffPage from './page/StaffPage/StaffPage.jsx';
+import LessorPage from './page/LessorPage/LessorPage.jsx';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [userRole, setUserRole] = useState('');
 
-  const handleLogin = (email, password) => {
-    if (email === 'admin@gmail.com' && password === '123') {
-      setIsAdmin(true);
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(true);
-      setIsAdmin(false);
-    }
+  // Hàm này sẽ được gọi khi người dùng đăng nhập thành công
+  const handleLogin = (email, password, role) => {
+    setIsLoggedIn(true);
+    setUserRole(role);
   };
 
+  // Hàm logout
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setIsAdmin(false);
-    window.location.href = '/'; // Chuyển hướng về trang Home
+    setUserRole('');
+    // Tùy chọn chuyển hướng về home
+    window.location.href = '/';
   };
-  
   return (
     <Router>
-      <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        userRole={userRole}
+        onLogout={handleLogout}
+      />
       <Routes>
   <Route path="/" element={<HomePage />} />
   <Route path="/AllProduct" element={<AllProduct />} />
@@ -50,11 +53,68 @@ function App() {
   <Route path="/signup" element={<Signup />} />
   <Route path="/question" element={<Question />} />
   <Route path="/blog" element={<Blog />} />
-  <Route path="/ShoppingCart" element={isLoggedIn ? <ShoppingCart /> : <Navigate to="/login" />} />
-  <Route path="/CheckoutPage" element={isLoggedIn ? <CheckoutPage /> : <Navigate to="/login" />} />
-  <Route path="/ViewDetail" element={<ViewDetail />} />
-  <Route path="/admin" element={isLoggedIn && isAdmin ? <Admin /> : <Navigate to="/login" />} />
-  <Route path="/member" element={isLoggedIn && !isAdmin ? <Member /> : <Navigate to="/login" />} />
+  <Route path="/ViewDetail" element={<ViewDetail />} /> 
+  <Route path="/CheckoutPage" element={<CheckoutPage />} />  
+
+   {/* Chỉ cho MEMBER */}
+   <Route
+          path="/member"
+          element={
+            isLoggedIn && userRole === 'CUSTOMER' ? (
+              <Member />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        {/* Giỏ hàng: chỉ cho MEMBER */}
+        <Route
+          path="/ShoppingCart"
+          element={
+            isLoggedIn && userRole === 'CUSTOMER' ? (
+              <ShoppingCart />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        {/* Admin */}
+        <Route
+          path="/admin"
+          element={
+            isLoggedIn && userRole === 'ADMIN' ? (
+              <Admin />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        {/* Staff */}
+        <Route
+          path="/staff"
+          element={
+            isLoggedIn && userRole === 'STAFF' ? (
+              <StaffPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+         {/* LESSOR */}
+         <Route
+          path="/lessor"
+          element={
+            isLoggedIn && userRole === 'LESSOR' ? (
+              <LessorPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
   <Route path="*" element={<Navigate to="/" />} />
 </Routes>
 
@@ -64,3 +124,6 @@ function App() {
 }
 
 export default App;
+
+
+

@@ -10,29 +10,42 @@ import startbreadown3 from '../assets/images/rating-3.png'
 import startbreadown2 from '../assets/images/rating-2.png'
 import startbreadown1 from '../assets/images/rating-1.png'
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { fetchProductData } from '../Context/api';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import api from '../Context/api';
+
 
 export default function Main() {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const id = params.get('id');
-  const [data, setData] = useState(null);
-  const imageMap = {
-    bigstock: bigstock,
-  
-  };
-
+  const [searchParams] = useSearchParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const productId = searchParams.get("id"); // Lấy ID từ query string
 
   useEffect(() => {
-    if (id) {
-      fetchProductData(id)
-        .then(data => setData(data))
-        .catch(error => console.error('Error fetching data:', error))
+    const fetchProduct = async () => {
+      try {
+        const response = await api.get(`/product/${productId}`);
+        if (response.data.isSuccess) {
+          setProduct(response.data.data);
+        } else {
+          console.error("Error: ", response.data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    }
-  }, [id]);
+    fetchProduct();
+  }, [productId]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found.</div>;
+  }
 
   return (
 
@@ -45,11 +58,11 @@ export default function Main() {
   <Link to='/AllProduct'><span>View all</span></Link><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
   <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
 </svg>
-   <span> Excavator</span>
+   <span>Detail</span>
 </div>
-<div className='search-bar'>
+{/* <div className='search-bar'>
   <input type='text' placeholder='Search...' />
-</div>
+</div> */}
   </div>
 
 
@@ -59,9 +72,11 @@ export default function Main() {
 <div className='left-image-container'>
    {/* Ảnh lớn chính */}
    <div className='main-image'>
-   {data ? (
-   <img src={imageMap[data.imgSrc] ? imageMap[data.imgSrc] : data.imgSrc} alt="Excavator main view" />
-  ) : ( <p>Loading...</p> )}
+   <img
+  className="HH-Picture-small"
+  src={product.defaultImage || "http://localhost:5083/images/default-image.jpg"}
+  alt={product.name || "Product image"}
+/>
   </div>
 
   {/* Thumbnails */}
@@ -83,13 +98,13 @@ export default function Main() {
   <div className='price-status'>
   <button className='price-btn'>
     <span className='currency'>$</span>
-    {data ? (
-    <span className='price'>{data.price}/Day</span> 
-  ) : ( <p>Loading...</p> )}
+    
+    <span className='price'>{product.price}/Day</span> 
+
   </button>
   <button className='status-btn'>
-    <span className='status-label'>Status:</span>
-    <span className='status-value'>Good</span>
+    <span className='status-label'>Stock:</span>
+    <span className='status-value'>{product.stock}</span>
   </button>
 </div>
 
@@ -107,11 +122,11 @@ export default function Main() {
 </div>
 
 <div className='product-info'>
-{data ? (
+
   <span className='product-title'>
-   {data.name}
+  {product.name}
   </span>
-  ) : ( <p>Loading...</p> )}
+
   <div className='product-image' />
   <div className='rating'>
     <div className='rating-stars'>
@@ -122,10 +137,9 @@ export default function Main() {
     <span className='rating-count'>(3,345)</span>
   </div>
 </div>
-
 <div className='vendor'>
   <span className='vendor-prefix'>by</span>
-  <span className='vendor-name'> Sparktech ventures</span>
+  <span className='vendor-name'> {product.storeName}</span>
 </div>
 <div className='CM-container'>
   <div className='CM-header-row'>
@@ -151,40 +165,38 @@ export default function Main() {
 </div>
 </div>
 
-
-
 </div>
 
-
-<div className='Description'>
-
-  <div className="excavator-description">
-    <h2 className="description-title">Description</h2>
-    
-      <p>
-        The excavator is a specialized construction machine designed for tasks
-        like digging, lifting, material transportation, and leveling. Its
-        ability to operate efficiently on various terrains makes it the perfect
-        choice for large-scale construction projects, mining, and infrastructure
-        works. Equipped with a powerful engine, a high-capacity bucket, and a
-        comfortable cabin, this excavator ensures high performance and saves
-        time.
-      </p>
-    
-    <h3>Key Features:</h3>
-    <ul>
-      <li>Durable, high-performance engine.</li>
-      <li>Large-capacity bucket for increased productivity.</li>
-      <li>User-friendly design with easy controls.</li>
-      <li>Capable of working on rugged terrains with ease.</li>
-    </ul>
+<div class="ViewD-product-description">
+  <h2 class="ViewD-title">Description</h2>
+  <p class="ViewD-description-text">
+    {product.description}
+    <p>Category: {product.categoryName}</p>
+    <p>Brand: {product.brandName}</p>
+  </p>
+  <div class="ViewD-technical-specifications">
+    <h3>Technical specifications:</h3>
+    <table class="ViewD-specifications-table">
+      <tr>
+        <th>Weight</th>
+        <td>{product.weight}</td>
+      </tr>
+      <tr>
+        <th>Dimensions</th>
+        <td>{product.dimensions}</td>
+      </tr>
+      <tr>
+        <th>Fuel Type</th>
+        <td>{product.fuelType}</td>
+      </tr>
+    </table>
   </div>
-
 </div>
+
 
 {/* Feedback */}
 
-<div className='main-container-FB'>
+{/* <div className='main-container-FB'>
 
 
 <div className='left-image-container'>
@@ -301,7 +313,7 @@ export default function Main() {
 
 
 
-</div>
+</div> */}
 
 
 </div>
@@ -313,3 +325,6 @@ export default function Main() {
 
   );
 }
+
+
+
