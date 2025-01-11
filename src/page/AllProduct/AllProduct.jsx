@@ -270,13 +270,14 @@ function AllProduct() {
   src={item.imgSrc || "http://localhost:5083/images/default-image.jpg"}
   alt={item.name || "Product image"}
 />
+</Link>
                     <div className="HH-P-container">
                       <div className="HH-P-price">
                         <div className="textt">{item.name}</div>
                         <div className="textt">${item.price}</div>
                       </div>
                     </div>
-                  </Link>
+
                 </div>
               ))
             )}

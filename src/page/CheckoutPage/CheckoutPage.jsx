@@ -1,91 +1,247 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { format, differenceInDays, isBefore } from "date-fns";
 import "./CheckoutPage.css";
-import { useLocation } from "react-router-dom";
 
 const CheckoutPage = () => {
-    const location = useLocation();
-  const { totalPrice = 0, shippingCost = 0 } = location.state || {};
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Lấy dữ liệu từ ShoppingCart
+  const { totalPrice = 0, shippingCost = 0, cartItems = [] } = location.state || {};
+
+  // State cho form
+  const [recipientName, setRecipientName] = useState("Nguyen Van A");
+  const [recipientPhone, setRecipientPhone] = useState("0390099123");
+  const [address, setAddress] = useState("A50, 50th street, 00700 District 9");
+  const [paymentMethod, setPaymentMethod] = useState("CREDIT"); // "CREDIT" hoặc "CASH"
+
+  // State cho ngày thuê và ngày trả
+  const [startDate, setStartDate] = useState(""); // Ngày thuê
+  const [endDate, setEndDate] = useState(""); // Ngày trả
+  const [totalDays, setTotalDays] = useState(0); // Số ngày thuê
+  const [totalAmount, setTotalAmount] = useState(0); // Tổng số tiền
+
+  // Hàm xử lý thay đổi ngày thuê
+  const handleStartDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setStartDate(selectedDate);
+
+    // Nếu đã có ngày trả thì tính toán lại
+    if (endDate && isBefore(new Date(selectedDate), new Date(endDate))) {
+      const days = differenceInDays(new Date(endDate), new Date(selectedDate));
+      setTotalDays(days);
+      setTotalAmount(days * totalPrice); // Số ngày * giá thuê mỗi ngày
+    } else {
+      setTotalDays(0);
+      setTotalAmount(0);
+    }
+  };
+
+  // Hàm xử lý thay đổi ngày trả
+  const handleEndDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setEndDate(selectedDate);
+
+    // Nếu đã có ngày thuê thì tính toán
+    if (startDate && isBefore(new Date(startDate), new Date(selectedDate))) {
+      const days = differenceInDays(new Date(selectedDate), new Date(startDate));
+      setTotalDays(days);
+      setTotalAmount(days * totalPrice); // Số ngày * giá thuê mỗi ngày
+    } else {
+      alert("End date must be after start date.");
+      setTotalDays(0);
+      setTotalAmount(0);
+    }
+  };
+
+  // Khi bấm Complete
+  const handleComplete = async () => {
+    try {
+      // 1. Kiểm tra token
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        alert("Please log in before checkout.");
+        navigate("/login");
+        return;
+      }
+
+      // 2. Lấy accountId, role
+      const accountId = localStorage.getItem("accountId");
+      const role = localStorage.getItem("role");
+      if (!accountId || !role) {
+        alert("Cannot find account information. Please log in again.");
+        navigate("/login");
+        return;
+      }
+
+      // 3. Xác định staffId / customerId
+      let staffId = 0;
+      let customerId = 0;
+      if (role === "STAFF") {
+        staffId = parseInt(accountId, 10);
+      } else if (role === "CUSTOMER") {
+        customerId = parseInt(accountId, 10);
+      }
+
+      // 4. Kiểm tra logic ngày
+      if (!startDate || !endDate) {
+        alert("Please select both start and end dates.");
+        return;
+      }
+      if (!isBefore(new Date(startDate), new Date(endDate))) {
+        alert("Start date must be before end date.");
+        return;
+      }
+      if (totalDays === 0) {
+        alert("Rental period must be at least 1 day.");
+        return;
+      }
+
+      // 5. Gọi API tạo order
+      const orderResponse = await axios.post(
+        "http://localhost:5083/api/order",
+        {
+          staffId,
+          customerId,
+          totalPrice: totalAmount, // Tổng tiền đã tính toán
+          paymentMethod,
+          purchaseMethod: "ONLINE",
+          recipientName,
+          recipientPhone,
+          address,
+          dateOfReceipt: startDate, // Ngày thuê
+          dateOfReturn: endDate, // Ngày trả
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // 6. Kiểm tra kết quả tạo order
+      if (!orderResponse.data.isSuccess) {
+        alert(orderResponse.data.message || "Failed to create order.");
+        return;
+      }
+
+      const newOrderId = orderResponse.data.data.id; // Lấy orderId từ backend
+
+      // 7. Gọi API tạo transaction
+      const transactionResponse = await axios.post(
+        "http://localhost:5083/api/transaction",
+        {
+          orderId: newOrderId,
+          accountId: parseInt(accountId, 10),
+          paymentMethod: paymentMethod === "CASH" ? "CASH" : "TRANSFER",
+          totalPrice: totalAmount,
+          status: "PENDING", // Hoặc "PAID" tuỳ logic
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // 8. Kiểm tra kết quả tạo transaction
+      if (!transactionResponse.data.isSuccess) {
+        alert(transactionResponse.data.message || "Failed to create transaction.");
+        return;
+      }
+
+      alert("Order & Transaction created successfully!");
+      navigate("/transaction");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error occurred. Check console for details.");
+    }
+  };
 
   return (
     <div className="checkout-container">
-      <h1 className="checkout-title">Payment</h1>
-
+      <h1 className="checkout-title">Checkout</h1>
       <div className="checkout-content">
-        {/* Left Section */}
+        {/* Thông tin nhận hàng, paymentMethod... */}
         <div className="checkout-left">
           <div className="CK-section">
-            <h2>My information</h2>
-            <p>Email</p>
-            <p>abcxyz@gmail.com</p>
-            <button className="edit-btn">✎</button>
+            <h2>Shipping Information</h2>
+            <label>Recipient Name</label>
+            <input
+              type="text"
+              value={recipientName}
+              onChange={(e) => setRecipientName(e.target.value)}
+            />
+            <label>Phone Number</label>
+            <input
+              type="text"
+              value={recipientPhone}
+              onChange={(e) => setRecipientPhone(e.target.value)}
+            />
+            <label>Address</label>
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
           </div>
 
           <div className="CK-section">
-            <h2>Billing address</h2>
-            <p>Nguyen Van A</p>
-            <p>A50, 50th street</p>
-            <p>00700 District 9</p>
-            <button className="edit-btn">✎</button>
-          </div>
-
-          <div className="CK-section">
-            <h2>Delivery</h2>
-            <p>Nguyen Van A</p>
-            <p>0390099123</p>
-            <p>Standard delivery</p>
-            <p>$50 / 3-7 business days (Hanoi, Ho Chi Minh city: 3-4 business days)</p>
-            <p>Nguyen Van A</p>
-            <p>A50, 50th street</p>
-            <p>00700 District 9</p>
-            <p>Vietnam</p>
-            <button className="edit-btn">✎</button>
-          </div>
-
-          <div className="CK-section">
-            <h2>Pay</h2>
-            <p>What payment method would you like to use?</p>
-            <div className="payment-method">
-              <label>
-                <input type="radio" name="payment-method" defaultChecked /> Card payment
-              </label>
-              <div className="card-icons">
-                <img className="CK-icon" src="https://static-00.iconduck.com/assets.00/visa-icon-1024x656-u9fqgerf.png" alt="Visa" />
-                <img className="CK-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" alt="Mastercard" />
-              </div>
-            </div>
-
-            <form className="card-payment-form">
-              <label>Name *</label>
-              <input type="text" placeholder="Name" required />
-
-              <label>Surname *</label>
-              <input type="text" placeholder="Surname" required />
-
-              <label>Card number *</label>
-              <input type="text" placeholder="1234 5678 9012 3456" required />
-
-              <label>Expiration date *</label>
-              <input type="text" placeholder="MM/YY" required />
-
-              <label>CVV/CVC *</label>
-              <input type="text" placeholder="123" required />
-            </form>
-
+            <h2>Payment Method</h2>
             <label>
-              <input type="radio" name="payment-method" /> Cash on Delivery (COD)
+              <input
+                type="radio"
+                name="payment-method"
+                checked={paymentMethod === "CREDIT"}
+                onChange={() => setPaymentMethod("CREDIT")}
+              />
+              Credit Card
             </label>
+            <label>
+              <input
+                type="radio"
+                name="payment-method"
+                checked={paymentMethod === "CASH"}
+                onChange={() => setPaymentMethod("CASH")}
+              />
+              Cash on Delivery (COD)
+            </label>
+          </div>
+
+          <div className="CK-section">
+            <h2>Rental Dates</h2>
+            <label>Start Date</label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={handleStartDateChange}
+            />
+            <label>End Date</label>
+            <input
+              type="date"
+              value={endDate}
+              onChange={handleEndDateChange}
+            />
+            <p>Total Days: {totalDays}</p>
+            <p>Total Amount: ${totalAmount.toFixed(2)}</p>
           </div>
         </div>
 
-        {/* Right Section */}
+        {/* Tóm tắt đơn hàng */}
         <div className="checkout-right">
-        <div className="order-summary">
+          <div className="order-summary">
             <h2>Order Summary</h2>
-            <p>Order value: <span>${totalPrice - shippingCost}</span></p>
-            <p>Delivery fee: <span>${shippingCost}</span></p>
-            <div className="total-line"></div>
-            <p>Total: <span>${totalPrice}</span></p>
-            <button className="complete-btn">Complete</button>
+            <ul>
+              {cartItems.map((item) => (
+                <li key={item.id}>
+                  {item.name} - ${item.price} x {item.quantity}
+                </li>
+              ))}
+            </ul>
+            <p>Shipping Cost: ${shippingCost}</p>
+            <p>Total Price:${totalAmount.toFixed(2)}</p>
+
+            <button className="complete-btn" onClick={handleComplete}>
+              Complete
+            </button>
           </div>
         </div>
       </div>

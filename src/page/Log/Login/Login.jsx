@@ -5,67 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login({ onLogin }) {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [errorMessage, setErrorMessage] = useState('');
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const handleEnterKey = (event) => {
-  //     if (event.key === 'Enter') {
-  //       handleSubmit(event);
-  //     }
-  //   };
-
-  //   window.addEventListener('keydown', handleEnterKey);
-  //   return () => {
-  //     window.removeEventListener('keydown', handleEnterKey);
-  //   };
-  // }, [email, password]);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!email || !password) {
-  //     setErrorMessage('Please fill in both email and password fields.');
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await axios.post('http://localhost:5083/api/auth/login', {
-  //       username: email,
-  //       password,
-  //     });
-
-  //     if (response.data.isSuccess) {
-  //       const { role } = response.data.data;
-  //       onLogin(email, password);
-
-  //       if (role === 'ADMIN') {
-  //         navigate('/admin');
-  //       } else if (role === 'STAFF') {
-  //         navigate('/staff');
-  //       } else {
-  //         navigate('/member');
-  //       }
-  //     } else {
-  //       setErrorMessage(response.data.message || 'Invalid login credentials');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error during login:', error);
-
-  //     if (error.response) {
-  //       // Server responded with a status other than 2xx
-  //       setErrorMessage(`Error: ${error.response.data.message || 'Login failed'}`);
-  //     } else if (error.request) {
-  //       // No response received
-  //       setErrorMessage('Error: No response from server. Please try again later.');
-  //     } else {
-  //       // Other errors
-  //       setErrorMessage('Error: Unable to process the request. Please try again.');
-  //     }
-  //   }
-  // };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -89,7 +28,7 @@ export default function Login({ onLogin }) {
 
       if (response.data.isSuccess) {
         // Giải nén dữ liệu trả về
-        const { role, accessToken, refreshToken } = response.data.data;
+        const { id,role, accessToken, refreshToken } = response.data.data;
 
         // In token ra console (để kiểm tra)
         console.log('AccessToken:', accessToken);
@@ -98,6 +37,8 @@ export default function Login({ onLogin }) {
         // Lưu token vào localStorage (nếu cần)
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem("accountId", id);
+        localStorage.setItem("role", role);
 
         // Gọi hàm onLogin (được truyền từ App.js) để cập nhật state toàn cục
         onLogin(email, password, role);

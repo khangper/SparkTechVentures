@@ -18,6 +18,9 @@ import AllProduct from './page/AllProduct/AllProduct.jsx';
 import ViewDetail from './page/ViewDetail/ViewDetail.jsx';
 import StaffPage from './page/StaffPage/StaffPage.jsx';
 import LessorPage from './page/LessorPage/LessorPage.jsx';
+import TransactionHistory from './page/TransactionHistoryPage/TransactionHistory.jsx';
+import OrderDetailsPage from './page/OrderDetailsPage/OrderDetailsPage.jsx';
+import OrderListPage from './page/OrderListPage/OrderListPage.jsx';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,6 +58,16 @@ function App() {
   <Route path="/blog" element={<Blog />} />
   <Route path="/ViewDetail" element={<ViewDetail />} /> 
   <Route path="/CheckoutPage" element={<CheckoutPage />} />  
+  <Route path="/transaction" element={<TransactionHistory />} />
+  <Route path="/order/:orderId" element={<OrderDetailsPage />} />
+  <Route
+          path="/orders"
+          element={
+            
+              <OrderListPage />
+        
+          }
+        />
 
    {/* Chỉ cho MEMBER */}
    <Route

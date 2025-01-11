@@ -4,40 +4,78 @@ import bigstock from '../assets/images/bigstock.png';
 import smalltock1 from '../assets/images/smallstock1.png'
 import smalltock2 from '../assets/images/smallstock2.png'
 import smalltock3 from '../assets/images/smallstock3.png'
-import startbreadown5 from '../assets/images/rating-5.png'
-import startbreadown4 from '../assets/images/rating-4.png'
-import startbreadown3 from '../assets/images/rating-3.png'
-import startbreadown2 from '../assets/images/rating-2.png'
-import startbreadown1 from '../assets/images/rating-1.png'
-
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../Context/api';
 
 
 export default function Main() {
   const [searchParams] = useSearchParams();
+  const productId = searchParams.get('id'); // Lấy ID sản phẩm từ query
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const productId = searchParams.get("id"); // Lấy ID từ query string
+  const navigate = useNavigate();
 
+  // Giả sử bạn đang có logic để lấy thông tin product
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await api.get(`/product/${productId}`);
         if (response.data.isSuccess) {
           setProduct(response.data.data);
-        } else {
-          console.error("Error: ", response.data.message);
         }
       } catch (error) {
-        console.error("Error fetching product:", error);
+        console.error("Error: ", error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchProduct();
   }, [productId]);
+
+  const handleAddToCart = async () => {
+    // Lấy token đã lưu khi login
+    const token = localStorage.getItem('accessToken');
+
+    if (!token) {
+      alert('Please log in to add items to your cart.');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      // Giả sử bạn đang để tạm orderId = 1 để test
+      // Trong thực tế, bạn nên lấy orderId từ đơn hàng hiện tại của user
+      const orderId = 1; 
+
+      // Gọi API post order item
+      const response = await api.post(
+        '/orderitem',
+        {
+          orderId: orderId,
+          productId: Number(productId),
+          quantity: 1,
+          price: product.price
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      // Kiểm tra response trả về
+      if (response.data.isSuccess) {
+        alert(`Order Item created successfully (ID: ${response.data.data.id})`);
+        // Bạn có thể điều hướng đến trang xem giỏ hàng / order item nếu muốn
+        // navigate('/orderitem');
+      } else {
+        alert(response.data.message || 'Failed to add product to cart.');
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      alert('Error adding product to cart. Please check the console for more details.');
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,7 +84,6 @@ export default function Main() {
   if (!product) {
     return <div>Product not found.</div>;
   }
-
   return (
 
 <div>
@@ -110,7 +147,7 @@ export default function Main() {
 
 <div className='cart-section'>
   <button className='add-cart-btn'>
-    <span className='cart-text'>Add to Cart</span>
+    <span className='cart-text' onClick={handleAddToCart}>Add to Cart</span>
   </button>
   <div className='cart-icon-wrapper'>
     <div className='cart-icon' />
@@ -171,8 +208,12 @@ export default function Main() {
   <h2 class="ViewD-title">Description</h2>
   <p class="ViewD-description-text">
     {product.description}
-    <p>Category: {product.categoryName}</p>
-    <p>Brand: {product.brandName}</p>
+    <p>Category <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+  <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+</svg>: {product.categoryName}</p>
+    <p>Brand <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
+  <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
+</svg>: {product.brandName}</p>
   </p>
   <div class="ViewD-technical-specifications">
     <h3>Technical specifications:</h3>
@@ -192,6 +233,11 @@ export default function Main() {
     </table>
   </div>
 </div>
+</div>
+
+  );
+}
+
 
 
 {/* Feedback */}
@@ -314,17 +360,3 @@ export default function Main() {
 
 
 </div> */}
-
-
-</div>
-
- 
-
-
-
-
-  );
-}
-
-
-
