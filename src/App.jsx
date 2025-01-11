@@ -32,13 +32,19 @@ function App() {
     setUserRole(role);
   };
 
+  
+
   // Hàm logout
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUserRole('');
-    // Tùy chọn chuyển hướng về home
-    window.location.href = '/';
-  };
+const handleLogout = () => {
+  localStorage.removeItem('accessToken'); 
+  sessionStorage.clear(); 
+
+  setIsLoggedIn(false); 
+  setUserRole(''); 
+
+  window.location.href = '/';
+};
+
   return (
     <Router>
       <Header
@@ -56,18 +62,13 @@ function App() {
   <Route path="/signup" element={<Signup />} />
   <Route path="/question" element={<Question />} />
   <Route path="/blog" element={<Blog />} />
-  <Route path="/ViewDetail" element={<ViewDetail />} /> 
-  <Route path="/CheckoutPage" element={<CheckoutPage />} />  
-  <Route path="/transaction" element={<TransactionHistory />} />
-  <Route path="/order/:orderId" element={<OrderDetailsPage />} />
-  <Route
-          path="/orders"
-          element={
-            
-              <OrderListPage />
-        
-          }
-        />
+
+
+  <Route path="/ViewDetail"element={isLoggedIn && userRole === 'CUSTOMER' ? (<ViewDetail />) : (<Navigate to="/login" />)} /> 
+  <Route path="/CheckoutPage" element={isLoggedIn && userRole === 'CUSTOMER' ? (<CheckoutPage />) : (<Navigate to="/login" />)} />  
+  <Route path="/transaction" element={isLoggedIn && userRole === 'CUSTOMER' ? (<TransactionHistory />) : (<Navigate to="/login" />)} />
+  <Route path="/order/:orderId" element={isLoggedIn && userRole === 'CUSTOMER' ? (<OrderDetailsPage />) : (<Navigate to="/login" />)} />
+  <Route path="/orders" element={isLoggedIn && userRole === 'CUSTOMER' ? (<OrderListPage />) : (<Navigate to="/login" />)}/>
 
    {/* Chỉ cho MEMBER */}
    <Route

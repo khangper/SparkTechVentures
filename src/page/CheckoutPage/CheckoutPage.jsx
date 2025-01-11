@@ -12,9 +12,9 @@ const CheckoutPage = () => {
   const { totalPrice = 0, shippingCost = 0, cartItems = [] } = location.state || {};
 
   // State cho form
-  const [recipientName, setRecipientName] = useState("Nguyen Van A");
-  const [recipientPhone, setRecipientPhone] = useState("0390099123");
-  const [address, setAddress] = useState("A50, 50th street, 00700 District 9");
+  const [recipientName, setRecipientName] = useState("");
+  const [recipientPhone, setRecipientPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("CREDIT"); // "CREDIT" hoặc "CASH"
 
   // State cho ngày thuê và ngày trả
@@ -164,28 +164,36 @@ const CheckoutPage = () => {
         <div className="checkout-left">
           <div className="CK-section">
             <h2>Shipping Information</h2>
-            <label>Recipient Name</label>
+            <label>Recipient Name:</label>
             <input
+            placeholder="Your Name"
               type="text"
+               class="form-control"
               value={recipientName}
               onChange={(e) => setRecipientName(e.target.value)}
             />
-            <label>Phone Number</label>
+            <label>Conect:</label>
+            <div className="input-group mb-3" >
             <input
-              type="text"
+             placeholder="Phone Number"
+              type="text"  class="form-control"
               value={recipientPhone}
               onChange={(e) => setRecipientPhone(e.target.value)}
             />
-            <label>Address</label>
+          
             <input
-              type="text"
-              value={address}
+            placeholder="Address"
+              type="text"  class="form-control"
+              value={address} 
               onChange={(e) => setAddress(e.target.value)}
             />
+            </div>
+            
           </div>
 
           <div className="CK-section">
             <h2>Payment Method</h2>
+            <div className="Ck-flexflex">
             <label>
               <input
                 type="radio"
@@ -204,10 +212,12 @@ const CheckoutPage = () => {
               />
               Cash on Delivery (COD)
             </label>
+            </div>
+
           </div>
 
           <div className="CK-section">
-            <h2>Rental Dates</h2>
+            {/* <h2>Rental Dates</h2>
             <label>Start Date</label>
             <input
               type="date"
@@ -221,7 +231,25 @@ const CheckoutPage = () => {
               onChange={handleEndDateChange}
             />
             <p>Total Days: {totalDays}</p>
-            <p>Total Amount: ${totalAmount.toFixed(2)}</p>
+            <p>Total Amount: ${totalAmount.toFixed(2)}</p> */}
+
+<div class="rental-section">
+  <h2>Rental Dates</h2>
+  <label>Start Date</label>
+  <input
+    type="date"
+    value={startDate}
+    onChange={handleStartDateChange}
+  />
+  <label>End Date</label>
+  <input
+    type="date"
+    value={endDate}
+    onChange={handleEndDateChange}
+  />
+  <p>Total Days: {totalDays}</p>
+  <p>Total Amount: ${totalAmount.toFixed(2)}</p>
+</div>
           </div>
         </div>
 
@@ -232,7 +260,7 @@ const CheckoutPage = () => {
             <ul>
               {cartItems.map((item) => (
                 <li key={item.id}>
-                  {item.name} - ${item.price} x {item.quantity}
+                  {item.productName} - ${item.price} x {item.quantity}
                 </li>
               ))}
             </ul>
