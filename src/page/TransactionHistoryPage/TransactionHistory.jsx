@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import api from '../../Context/api';
 
 const TransactionHistory = () => {
   const [transactions, setTransactions] = useState([]);
@@ -15,7 +16,7 @@ const TransactionHistory = () => {
 
       try {
         // Gọi API transaction
-        const response = await axios.get("http://localhost:5083/api/transaction", {
+        const response = await api.get("/transaction", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

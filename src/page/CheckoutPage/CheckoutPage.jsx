@@ -57,17 +57,132 @@ const CheckoutPage = () => {
   };
 
   // Khi bấm Complete
+
+  // const handleComplete = async () => {
+  //   try {
+  //     // 1. Kiểm tra token
+  //     const token = localStorage.getItem("accessToken");
+  //     if (!token) {
+  //       alert("Please log in before checkout.");
+  //       navigate("/login");
+  //       return;
+  //     }
+  
+  //     // 2. Lấy accountId, role
+  //     const accountId = localStorage.getItem("accountId");
+  //     const role = localStorage.getItem("role");
+  //     if (!accountId || !role) {
+  //       alert("Cannot find account information. Please log in again.");
+  //       navigate("/login");
+  //       return;
+  //     }
+  
+  //     // 3. Xác định staffId / customerId
+  //     let staffId = 0;
+  //     let customerId = 0;
+  //     if (role === "STAFF") {
+  //       staffId = parseInt(accountId, 10);
+  //     } else if (role === "CUSTOMER") {
+  //       customerId = parseInt(accountId, 10);
+  //     }
+  
+  //     // 4. Kiểm tra logic ngày
+  //     if (!startDate || !endDate) {
+  //       alert("Please select both start and end dates.");
+  //       return;
+  //     }
+  //     if (!isBefore(new Date(startDate), new Date(endDate))) {
+  //       alert("Start date must be before end date.");
+  //       return;
+  //     }
+  //     if (totalDays === 0) {
+  //       alert("Rental period must be at least 1 day.");
+  //       return;
+  //     }
+  
+  //     // 5. Gọi API tạo order
+  //     const orderResponse = await axios.post(
+  //       "http://localhost:5083/api/order",
+  //       {
+  //         staffId,
+  //         customerId,
+  //         totalPrice: totalAmount,
+  //         paymentMethod,
+  //         purchaseMethod: "ONLINE",
+  //         recipientName,
+  //         recipientPhone,
+  //         address,
+  //         dateOfReceipt: startDate,
+  //         dateOfReturn: endDate,
+  //       },
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  
+  //     // 6. Kiểm tra kết quả tạo order
+  //     if (!orderResponse.data.isSuccess) {
+  //       alert(orderResponse.data.message || "Failed to create order.");
+  //       return;
+  //     }
+  
+  //     const newOrderId = orderResponse.data.data.id; // Lấy orderId từ backend
+  
+  //     // 7. Gọi API tạo transaction
+  //     const transactionResponse = await axios.post(
+  //       "http://localhost:5083/api/transaction",
+  //       {
+  //         orderId: newOrderId,
+  //         accountId: parseInt(accountId, 10),
+  //         paymentMethod: paymentMethod === "CASH" ? "CASH" : "TRANSFER",
+  //         totalPrice: totalAmount,
+  //         status: "PENDING", // Hoặc "PAID" tuỳ logic
+  //       },
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  
+  //     // 8. Kiểm tra kết quả tạo transaction
+  //     if (!transactionResponse.data.isSuccess) {
+  //       alert(transactionResponse.data.message || "Failed to create transaction.");
+  //       return;
+  //     }
+  
+  //     // 9. Lấy danh sách orderItem và xóa từng cái
+  //     const orderItemsResponse = await axios.get("http://localhost:5083/api/orderitem", {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  
+  //     if (orderItemsResponse.data.isSuccess) {
+  //       const orderItems = orderItemsResponse.data.data;
+  
+  //       // Xóa từng orderItem
+  //       for (const item of orderItems) {
+  //         await axios.delete(`http://localhost:5083/api/orderitem/${item.id}`, {
+  //           headers: { Authorization: `Bearer ${token}` },
+  //         });
+  //       }
+  
+  //       alert("Order, Transaction, and Order Items cleared successfully!");
+  //       navigate("/transaction");
+  //     } else {
+  //       alert(orderItemsResponse.data.message || "Failed to fetch order items.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("Error occurred. Check console for details.");
+  //   }
+  // };
   const handleComplete = async () => {
     try {
-      // 1. Kiểm tra token
       const token = localStorage.getItem("accessToken");
       if (!token) {
         alert("Please log in before checkout.");
         navigate("/login");
         return;
       }
-
-      // 2. Lấy accountId, role
+  
       const accountId = localStorage.getItem("accountId");
       const role = localStorage.getItem("role");
       if (!accountId || !role) {
@@ -75,8 +190,7 @@ const CheckoutPage = () => {
         navigate("/login");
         return;
       }
-
-      // 3. Xác định staffId / customerId
+  
       let staffId = 0;
       let customerId = 0;
       if (role === "STAFF") {
@@ -84,8 +198,7 @@ const CheckoutPage = () => {
       } else if (role === "CUSTOMER") {
         customerId = parseInt(accountId, 10);
       }
-
-      // 4. Kiểm tra logic ngày
+  
       if (!startDate || !endDate) {
         alert("Please select both start and end dates.");
         return;
@@ -98,36 +211,35 @@ const CheckoutPage = () => {
         alert("Rental period must be at least 1 day.");
         return;
       }
-
-      // 5. Gọi API tạo order
+  
+      // Create order
       const orderResponse = await axios.post(
         "http://localhost:5083/api/order",
         {
           staffId,
           customerId,
-          totalPrice: totalAmount, // Tổng tiền đã tính toán
+          totalPrice: totalAmount,
           paymentMethod,
           purchaseMethod: "ONLINE",
           recipientName,
           recipientPhone,
           address,
-          dateOfReceipt: startDate, // Ngày thuê
-          dateOfReturn: endDate, // Ngày trả
+          dateOfReceipt: startDate,
+          dateOfReturn: endDate,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      // 6. Kiểm tra kết quả tạo order
+  
       if (!orderResponse.data.isSuccess) {
         alert(orderResponse.data.message || "Failed to create order.");
         return;
       }
-
-      const newOrderId = orderResponse.data.data.id; // Lấy orderId từ backend
-
-      // 7. Gọi API tạo transaction
+  
+      const newOrderId = orderResponse.data.data.id;
+  
+      // Create transaction
       const transactionResponse = await axios.post(
         "http://localhost:5083/api/transaction",
         {
@@ -135,26 +247,55 @@ const CheckoutPage = () => {
           accountId: parseInt(accountId, 10),
           paymentMethod: paymentMethod === "CASH" ? "CASH" : "TRANSFER",
           totalPrice: totalAmount,
-          status: "PENDING", // Hoặc "PAID" tuỳ logic
+          status: "PENDING",
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      // 8. Kiểm tra kết quả tạo transaction
+  
       if (!transactionResponse.data.isSuccess) {
         alert(transactionResponse.data.message || "Failed to create transaction.");
         return;
       }
-
-      alert("Order & Transaction created successfully!");
-      navigate("/transaction");
+  
+      // Delete all order items
+      const orderItemsResponse = await axios.get("http://localhost:5083/api/orderitem", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      if (orderItemsResponse.data.isSuccess) {
+        const orderItems = orderItemsResponse.data.data;
+  
+        for (const item of orderItems) {
+          await axios.delete(`http://localhost:5083/api/orderitem/${item.id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+        }
+      } else {
+        alert(orderItemsResponse.data.message || "Failed to fetch order items.");
+      }
+  
+      // Navigate to ThanksPage
+      navigate("/thanks", {
+        state: {
+          date: new Date().toLocaleDateString(),
+          recipientName,
+          recipientEmail: localStorage.getItem("email") || "N/A",
+          paymentMethod,
+          supplier: "SparkTech Ventures",
+          address,
+          product: cartItems.map((item) => item.productName).join(", "),
+          totalAmount: totalAmount.toFixed(2),
+        },
+      });
     } catch (error) {
       console.error("Error:", error);
       alert("Error occurred. Check console for details.");
     }
   };
+  
+  
 
   return (
     <div className="checkout-container">
@@ -217,21 +358,6 @@ const CheckoutPage = () => {
           </div>
 
           <div className="CK-section">
-            {/* <h2>Rental Dates</h2>
-            <label>Start Date</label>
-            <input
-              type="date"
-              value={startDate}
-              onChange={handleStartDateChange}
-            />
-            <label>End Date</label>
-            <input
-              type="date"
-              value={endDate}
-              onChange={handleEndDateChange}
-            />
-            <p>Total Days: {totalDays}</p>
-            <p>Total Amount: ${totalAmount.toFixed(2)}</p> */}
 
 <div class="rental-section">
   <h2>Rental Dates</h2>

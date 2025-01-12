@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
+import api from '../../../Context/api';
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -21,7 +22,7 @@ export default function Login({ onLogin }) {
 
     try {
       // Gọi API đăng nhập
-      const response = await axios.post('http://localhost:5083/api/auth/login', {
+      const response = await api.post('auth/login', {
         username: email,
         password: password,
       });

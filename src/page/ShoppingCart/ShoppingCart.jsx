@@ -133,6 +133,7 @@ import "./ShoppingCart.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 const ShoppingCart = () => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();

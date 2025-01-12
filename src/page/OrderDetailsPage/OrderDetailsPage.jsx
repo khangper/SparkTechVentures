@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import api from '../../Context/api';
 
 const OrderDetailsPage = () => {
   const { orderId } = useParams(); // Lấy `orderId` từ URL
@@ -17,8 +18,8 @@ const OrderDetailsPage = () => {
       }
 
       try {
-        const response = await axios.get(
-          `http://localhost:5083/api/order/${orderId}`,
+        const response = await api.get(
+          `/order/${orderId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

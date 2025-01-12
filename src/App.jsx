@@ -21,6 +21,7 @@ import LessorPage from './page/LessorPage/LessorPage.jsx';
 import TransactionHistory from './page/TransactionHistoryPage/TransactionHistory.jsx';
 import OrderDetailsPage from './page/OrderDetailsPage/OrderDetailsPage.jsx';
 import OrderListPage from './page/OrderListPage/OrderListPage.jsx';
+import ThanksPage from './page/ThanksPage/ThanksPage.jsx';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -62,6 +63,8 @@ const handleLogout = () => {
   <Route path="/signup" element={<Signup />} />
   <Route path="/question" element={<Question />} />
   <Route path="/blog" element={<Blog />} />
+  <Route path="/thanks" element={<ThanksPage />} />
+
 
 
   <Route path="/ViewDetail"element={isLoggedIn && userRole === 'CUSTOMER' ? (<ViewDetail />) : (<Navigate to="/login" />)} /> 
