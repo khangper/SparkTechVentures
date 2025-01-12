@@ -9,6 +9,10 @@
   --text-color: #2c2c2c;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Reset & Common Styles */
 .product-container {
   width: 645px;
