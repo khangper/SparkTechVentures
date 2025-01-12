@@ -33,7 +33,7 @@ function Blog() {
   <span className="BB-handheld-hydraulic-iron">
   Vestibulum Nisl Felis
               </span>
-              <div class="may-9-2014-category">May 9, 2014 | Category</div>
+              <div className="may-9-2014-category">May 9, 2014 | Category</div>
               <span className="BB-straightening-repairing-iron">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
               </span>
@@ -46,7 +46,7 @@ function Blog() {
   <span className="BB-handheld-hydraulic-iron">
   Vestibulum Nisl Felis
               </span>
-              <div class="may-9-2014-category">May 9, 2014 | Category</div>
+              <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
@@ -60,7 +60,7 @@ function Blog() {
   <span className="BB-handheld-hydraulic-iron">
   Proin Eu Augue Efficitur
               </span>
-              <div class="may-9-2014-category">May 9, 2014 | Category</div>
+              <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
@@ -82,7 +82,7 @@ function Blog() {
   <span className="BB-handheld-hydraulic-iron">
   Vestibulum Nisl Felis
               </span>
-              <div class="may-9-2014-category">May 9, 2014 | Category</div>
+              <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
@@ -95,7 +95,7 @@ function Blog() {
   <span className="BB-handheld-hydraulic-iron">
   Donec Sit Amet Nibh
               </span>
-              <div class="may-9-2014-category">May 9, 2014 | Category</div>
+              <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
@@ -109,7 +109,7 @@ function Blog() {
   <span className="BB-handheld-hydraulic-iron">
   Vestibulum Nisl Felis
               </span>
-              <div class="may-9-2014-category">May 9, 2014 | Category</div>
+              <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 

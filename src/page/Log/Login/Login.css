@@ -75,4 +75,6 @@
     font-weight: 600;
     position: relative;
   }
-  
+  .error-message {
+    color: red;
+}
