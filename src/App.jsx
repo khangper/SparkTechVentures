@@ -22,6 +22,7 @@ import TransactionHistory from './page/TransactionHistoryPage/TransactionHistory
 import OrderDetailsPage from './page/OrderDetailsPage/OrderDetailsPage.jsx';
 import OrderListPage from './page/OrderListPage/OrderListPage.jsx';
 import ThanksPage from './page/ThanksPage/ThanksPage.jsx';
+import PaymentPage from './page/PaymentPage/PaymentPage.jsx';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -69,6 +70,7 @@ const handleLogout = () => {
 
   <Route path="/ViewDetail"element={isLoggedIn && userRole === 'CUSTOMER' ? (<ViewDetail />) : (<Navigate to="/login" />)} /> 
   <Route path="/CheckoutPage" element={isLoggedIn && userRole === 'CUSTOMER' ? (<CheckoutPage />) : (<Navigate to="/login" />)} />  
+  <Route path="/PaymentPage" element={isLoggedIn && userRole === 'CUSTOMER' ? (<PaymentPage />) : (<Navigate to="/login" />)} />  
   <Route path="/transaction" element={isLoggedIn && userRole === 'CUSTOMER' ? (<TransactionHistory />) : (<Navigate to="/login" />)} />
   <Route path="/order/:orderId" element={isLoggedIn && userRole === 'CUSTOMER' ? (<OrderDetailsPage />) : (<Navigate to="/login" />)} />
   <Route path="/orders" element={isLoggedIn && userRole === 'CUSTOMER' ? (<OrderListPage />) : (<Navigate to="/login" />)}/>

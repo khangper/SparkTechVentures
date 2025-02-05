@@ -32,94 +32,86 @@ export default function Main() {
     fetchProduct();
   }, [productId]);
 
+  
   // const handleAddToCart = async () => {
-  //   // Lấy token đã lưu khi login
   //   const token = localStorage.getItem('accessToken');
+  
+  //   if (token) {
+  //     console.log('Token exists:', token);
+  //   } else {
+  //     console.log('Token does not exist or user is not logged in.');
+  //   }
 
   //   if (!token) {
   //     alert('Please log in to add items to your cart.');
   //     navigate('/login');
   //     return;
   //   }
-
+  
   //   try {
-  //     // Giả sử bạn đang để tạm orderId = 1 để test
-  //     // Trong thực tế, bạn nên lấy orderId từ đơn hàng hiện tại của user
-  //     const orderId = 1; 
-
-  //     // Gọi API post order item
+  //     // Lấy `orderId` từ hệ thống (nếu cần)
+  //     const orderId = 1; // Có thể thay thế bằng logic lấy `orderId` thực tế
+  
   //     const response = await api.post(
   //       '/orderitem',
   //       {
   //         orderId: orderId,
   //         productId: Number(productId),
   //         quantity: 1,
-  //         price: product.price
+  //         price: product.price,
   //       },
   //       {
   //         headers: {
-  //           Authorization: `Bearer ${token}`
-  //         }
+  //           Authorization: `Bearer ${token}`,
+  //         },
   //       }
   //     );
-
-  //     // Kiểm tra response trả về
+  
   //     if (response.data.isSuccess) {
-  //       alert(`Order Item created successfully (ID: ${response.data.data.id})`);
-  //       // Bạn có thể điều hướng đến trang xem giỏ hàng / order item nếu muốn
-  //       // navigate('/orderitem');
+  //       alert(`Product added to cart successfully (ID: ${response.data.data.id})`);
   //     } else {
   //       alert(response.data.message || 'Failed to add product to cart.');
   //     }
   //   } catch (error) {
   //     console.error('Error adding to cart:', error);
-  //     alert('Error adding product to cart. Please check the console for more details.');
+  //     alert('An error occurred while adding the product to the cart. Please try again later.');
   //   }
   // };
-  const handleAddToCart = async () => {
-    const token = localStorage.getItem('accessToken');
-  
-    if (token) {
-      console.log('Token exists:', token);
-    } else {
-      console.log('Token does not exist or user is not logged in.');
-    }
 
-    if (!token) {
-      alert('Please log in to add items to your cart.');
-      navigate('/login');
-      return;
+  const handleAddToCart = () => {
+     // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
+     const token = localStorage.getItem("accessToken");
+     if (!token) {
+       alert("Please log in to add items to your cart.");
+       navigate("/login");
+       return;
+     }
+    // Lấy giỏ hàng hiện tại từ sessionStorage, nếu chưa có thì khởi tạo mảng rỗng
+    const existingCart = sessionStorage.getItem("cartItems");
+    let cartItems = existingCart ? JSON.parse(existingCart) : [];
+  
+    // Kiểm tra xem sản phẩm đã có trong giỏ hay chưa (dựa vào productId)
+    const productIndex = cartItems.findIndex(item => item.productId === product.id);
+    if (productIndex >= 0) {
+      // Nếu đã có, tăng số lượng lên 1
+      cartItems[productIndex].quantity += 1;
+    } else {
+      // Nếu chưa có, thêm sản phẩm mới với số lượng 1
+      cartItems.push({
+        productId: product.id,
+        productName: product.name,
+        price: product.price,
+        quantity: 1,
+        defaultImage: product.defaultImage, // hoặc các thông tin cần thiết khác
+        // Bạn có thể lưu thêm các thuộc tính như categoryName, brandName, ... nếu cần
+      });
     }
   
-    try {
-      // Lấy `orderId` từ hệ thống (nếu cần)
-      const orderId = 1; // Có thể thay thế bằng logic lấy `orderId` thực tế
-  
-      const response = await api.post(
-        '/orderitem',
-        {
-          orderId: orderId,
-          productId: Number(productId),
-          quantity: 1,
-          price: product.price,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-  
-      if (response.data.isSuccess) {
-        alert(`Product added to cart successfully (ID: ${response.data.data.id})`);
-      } else {
-        alert(response.data.message || 'Failed to add product to cart.');
-      }
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      alert('An error occurred while adding the product to the cart. Please try again later.');
-    }
+    // Lưu lại giỏ hàng mới vào sessionStorage
+    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+    alert("Product added to cart!");
   };
+  
   
   if (loading) {
     return <div>Loading...</div>;
