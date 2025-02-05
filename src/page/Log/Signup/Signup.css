@@ -86,6 +86,7 @@ select.SU-first-name {
     display: flex;
     justify-content: center;
     margin-top: 65px;
+    margin-bottom: 65px;
 }
 
 .SsU-button {
@@ -111,4 +112,7 @@ select.SU-first-name {
     font-weight: 600;
     position: relative;
   }
-  
+  button.btn.HD-fix {
+    font-size: larger;
+    font-weight: 600;
+}
