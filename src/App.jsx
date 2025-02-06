@@ -27,6 +27,7 @@ import TransactionHistory from "./page/TransactionHistoryPage/TransactionHistory
 import OrderDetailsPage from "./page/OrderDetailsPage/OrderDetailsPage.jsx";
 import OrderListPage from "./page/OrderListPage/OrderListPage.jsx";
 import ThanksPage from "./page/ThanksPage/ThanksPage.jsx";
+import Compare from "./page/Compare.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -67,6 +68,7 @@ function App() {
         <Route path="/question" element={<Question />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/thanks" element={<ThanksPage />} />
+        <Route path="/compare/:id" element={<Compare/>}/>
 
         <Route
           path="/ViewDetail"
