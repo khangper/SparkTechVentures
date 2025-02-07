@@ -23,6 +23,8 @@ import OrderDetailsPage from './page/OrderDetailsPage/OrderDetailsPage.jsx';
 import OrderListPage from './page/OrderListPage/OrderListPage.jsx';
 import ThanksPage from './page/ThanksPage/ThanksPage.jsx';
 import PaymentPage from './page/PaymentPage/PaymentPage.jsx';
+import PaymentPageSuccess from './page/Payemnet/PaymentPageSuccess/PaymentPageSuccess.jsx';
+import PaymentPageCancel from './page/Payemnet/PaymentPageCancel/PaymentPageCancel.jsx';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -65,7 +67,8 @@ const handleLogout = () => {
   <Route path="/question" element={<Question />} />
   <Route path="/blog" element={<Blog />} />
   <Route path="/thanks" element={<ThanksPage />} />
-
+  <Route path="/paysuccess" element={<PaymentPageSuccess />} />
+  <Route path="/paycancel" element={<PaymentPageCancel />} />
 
 
   <Route path="/ViewDetail"element={isLoggedIn && userRole === 'CUSTOMER' ? (<ViewDetail />) : (<Navigate to="/login" />)} /> 

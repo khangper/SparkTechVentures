@@ -32,51 +32,6 @@ export default function Main() {
     fetchProduct();
   }, [productId]);
 
-  
-  // const handleAddToCart = async () => {
-  //   const token = localStorage.getItem('accessToken');
-  
-  //   if (token) {
-  //     console.log('Token exists:', token);
-  //   } else {
-  //     console.log('Token does not exist or user is not logged in.');
-  //   }
-
-  //   if (!token) {
-  //     alert('Please log in to add items to your cart.');
-  //     navigate('/login');
-  //     return;
-  //   }
-  
-  //   try {
-  //     // Lấy `orderId` từ hệ thống (nếu cần)
-  //     const orderId = 1; // Có thể thay thế bằng logic lấy `orderId` thực tế
-  
-  //     const response = await api.post(
-  //       '/orderitem',
-  //       {
-  //         orderId: orderId,
-  //         productId: Number(productId),
-  //         quantity: 1,
-  //         price: product.price,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  
-  //     if (response.data.isSuccess) {
-  //       alert(`Product added to cart successfully (ID: ${response.data.data.id})`);
-  //     } else {
-  //       alert(response.data.message || 'Failed to add product to cart.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error adding to cart:', error);
-  //     alert('An error occurred while adding the product to the cart. Please try again later.');
-  //   }
-  // };
 
   const handleAddToCart = () => {
      // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
