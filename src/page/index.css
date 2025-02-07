@@ -253,10 +253,10 @@ button {
 .main-container-compare {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  gap: 20px;
+  justify-content: center;
   padding: 0px 186px;
-  flex-wrap: wrap;
+
+  gap: 20px;
 }
 
 .left-image-container {

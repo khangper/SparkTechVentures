@@ -226,7 +226,7 @@ export default function Compare() {
           </div>
         </div>
 
-        <ArrowRightLeft size={90} className="mb-[370px]"/>
+        <ArrowRightLeft size={90} />
 
         {mode === "selected" && productSecond ? (
           <div className="left-image-container">
@@ -307,7 +307,7 @@ export default function Compare() {
           </div>
         ) : (
           <div
-            className="bg-pink-300 p-20 border rounded-3xl cursor-pointer mb-[370px]"
+            className="bg-pink-300 p-20 border rounded-3xl cursor-pointer"
             onClick={handleRedirectToHomePage}
           >
             <div className="bg-black text-gray-300 p-6 border-8 border-white ">
