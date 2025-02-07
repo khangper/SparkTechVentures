@@ -23,6 +23,8 @@ import OrderDetailsPage from './page/OrderDetailsPage/OrderDetailsPage.jsx';
 import OrderListPage from './page/OrderListPage/OrderListPage.jsx';
 import ThanksPage from './page/ThanksPage/ThanksPage.jsx';
 import PaymentPage from './page/PaymentPage/PaymentPage.jsx';
+import PaymentPageSuccess from './page/Payemnet/PaymentPageSuccess/PaymentPageSuccess.jsx';
+import PaymentPageCancel from './page/Payemnet/PaymentPageCancel/PaymentPageCancel.jsx';
 import Compare from "./page/Compare.jsx";
 
 function App() {
@@ -54,6 +56,18 @@ function App() {
         onLogout={handleLogout}
       />
       <Routes>
+  <Route path="/" element={<HomePage />} />
+  <Route path="/AllProduct" element={<AllProduct />} />
+  <Route path="/main" element={<Main />} />
+  <Route path="/about" element={<AboutUS />} />
+  <Route path="/contact" element={<ContactUS />} />
+  <Route path="/login" element={<Login onLogin={handleLogin} />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="/question" element={<Question />} />
+  <Route path="/blog" element={<Blog />} />
+  <Route path="/thanks" element={<ThanksPage />} />
+  <Route path="/paysuccess" element={<PaymentPageSuccess />} />
+  <Route path="/paycancel" element={<PaymentPageCancel />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/AllProduct" element={<AllProduct />} />
         <Route path="/main" element={<Main />} />
