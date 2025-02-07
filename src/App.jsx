@@ -1,32 +1,28 @@
-import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
-import Header from "./components/Header.jsx";
-import Main from "./page/index.jsx";
-import Footer from "./components/Footer/Footer.jsx";
-import HomePage from "./page/HomePage/HomePage.jsx";
-import AboutUS from "./page/AboutUS/AboutUS.jsx";
-import ContactUS from "./page/ContactUS/ContactUS.jsx";
-import Login from "./page/Log/Login/Login.jsx";
-import Signup from "./page/Log/Signup/Signup.jsx";
-import Question from "./page/Question/Question.jsx";
-import Blog from "./page/Blog/Blog.jsx";
-import Admin from "./page/AdminPage/Admin.jsx";
-import Member from "./page/Member/Member.jsx";
-import ShoppingCart from "./page/ShoppingCart/ShoppingCart.jsx";
-import CheckoutPage from "./page/CheckoutPage/CheckoutPage.jsx";
-import AllProduct from "./page/AllProduct/AllProduct.jsx";
-import ViewDetail from "./page/ViewDetail/ViewDetail.jsx";
-import StaffPage from "./page/StaffPage/StaffPage.jsx";
-import { LessorPage } from "./page/LessorPage/LessorPage.jsx";
-import TransactionHistory from "./page/TransactionHistoryPage/TransactionHistory.jsx";
-import OrderDetailsPage from "./page/OrderDetailsPage/OrderDetailsPage.jsx";
-import OrderListPage from "./page/OrderListPage/OrderListPage.jsx";
-import ThanksPage from "./page/ThanksPage/ThanksPage.jsx";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Header from './components/Header.jsx';
+import Main from './page/index.jsx';
+import Footer from './components/Footer/Footer.jsx';
+import HomePage from './page/HomePage/HomePage.jsx';
+import AboutUS from './page/AboutUS/AboutUS.jsx';
+import ContactUS from './page/ContactUS/ContactUS.jsx';
+import Login from './page/Log/Login/Login.jsx';
+import Signup from './page/Log/Signup/Signup.jsx';
+import Question from './page/Question/Question.jsx';
+import Blog from './page/Blog/Blog.jsx';
+import Admin from './page/AdminPage/Admin.jsx';
+import Member from './page/Member/Member.jsx';
+import ShoppingCart from './page/ShoppingCart/ShoppingCart.jsx';
+import CheckoutPage from './page/CheckoutPage/CheckoutPage.jsx';
+import AllProduct from './page/AllProduct/AllProduct.jsx';
+import ViewDetail from './page/ViewDetail/ViewDetail.jsx';
+import StaffPage from './page/StaffPage/StaffPage.jsx';
+import {LessorPage} from './page/LessorPage/LessorPage.jsx';
+import TransactionHistory from './page/TransactionHistoryPage/TransactionHistory.jsx';
+import OrderDetailsPage from './page/OrderDetailsPage/OrderDetailsPage.jsx';
+import OrderListPage from './page/OrderListPage/OrderListPage.jsx';
+import ThanksPage from './page/ThanksPage/ThanksPage.jsx';
+import PaymentPage from './page/PaymentPage/PaymentPage.jsx';
 import Compare from "./page/Compare.jsx";
 
 function App() {
@@ -121,8 +117,16 @@ function App() {
           }
         />
 
-        {/* Chỉ cho MEMBER */}
-        <Route
+
+  <Route path="/ViewDetail"element={isLoggedIn && userRole === 'CUSTOMER' ? (<ViewDetail />) : (<Navigate to="/login" />)} /> 
+  <Route path="/CheckoutPage" element={isLoggedIn && userRole === 'CUSTOMER' ? (<CheckoutPage />) : (<Navigate to="/login" />)} />  
+  <Route path="/PaymentPage" element={isLoggedIn && userRole === 'CUSTOMER' ? (<PaymentPage />) : (<Navigate to="/login" />)} />  
+  <Route path="/transaction" element={isLoggedIn && userRole === 'CUSTOMER' ? (<TransactionHistory />) : (<Navigate to="/login" />)} />
+  <Route path="/order/:orderId" element={isLoggedIn && userRole === 'CUSTOMER' ? (<OrderDetailsPage />) : (<Navigate to="/login" />)} />
+  <Route path="/orders" element={isLoggedIn && userRole === 'CUSTOMER' ? (<OrderListPage />) : (<Navigate to="/login" />)}/>
+
+   {/* Chỉ cho MEMBER */}
+   <Route
           path="/member"
           element={
             isLoggedIn && userRole === "CUSTOMER" ? (
