@@ -50,7 +50,7 @@
     z-index: 3;
   }
   
-  .FT-contact-vector {
+  /* .FT-contact-vector {
     position: relative;
     width: 57.6px;
     height: 5px;
@@ -58,7 +58,7 @@
     background: url(../assets/images/569772d6-b372-4665-822a-5d60ab3f3064.png) no-repeat center;
     background-size: 100% 100%;
     z-index: 4;
-  }
+  } */
   
   .FT-contact-inputs {
     display: flex;
@@ -215,7 +215,7 @@
     overflow: hidden;
   }
   
-  .FT-image-pic {
+  /* .FT-image-pic {
     position: relative;
     width: 11px;
     height: 20px;
@@ -223,7 +223,7 @@
     background: url(../assets/images/2184421d-6bfa-475f-a2c4-3cf3bc75e90f.png) no-repeat center;
     background-size: 100% 100%;
     z-index: 17;
-  }
+  } */
   
   .FT-contact-details {
     display: flex;
@@ -257,18 +257,18 @@
     z-index: 26;
   }
   
-  .FT-icon-location {
+  /* .FT-icon-location {
     background-image: url('../assets/images/location-icon.png');
-  }
+  } */
   
-  .FT-icon-phone {
+  /* .FT-icon-phone {
     background-image: url('../assets/images/phone-icon.png');
   }
   
   .FT-icon-email {
     background-image: url('../assets/images/email-icon.png');
   }
-  
+   */
   .FT-social-media {
     display: flex;
     justify-content: center;

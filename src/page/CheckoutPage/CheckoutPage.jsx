@@ -24,126 +24,62 @@ const CheckoutPage = () => {
   const [endDate, setEndDate] = useState(""); // Ngày trả
   const [totalDays, setTotalDays] = useState(0);
   const [totalAmount, setTotalAmount] = useState(initialTotalPrice);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Xử lý chọn ngày thuê
-  const handleStartDateChange = (e) => {
-    const selectedDate = e.target.value;
-    setStartDate(selectedDate);
+// Xử lý chọn ngày thuê
+const handleStartDateChange = (e) => {
+  const selectedDate = new Date(e.target.value);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset giờ phút giây để so sánh chính xác
 
-    if (endDate && isBefore(new Date(selectedDate), new Date(endDate))) {
-      const days = differenceInDays(new Date(endDate), new Date(selectedDate));
-      setTotalDays(days);
-      setTotalAmount(days * initialTotalPrice);
-    } else {
-      setTotalDays(0);
-      setTotalAmount(0);
-    }
-  };
+  if (selectedDate < today) {
+    setStartDate("");
+    setTotalDays(0);
+    setTotalAmount(0);
+    setErrorMessage("Start date cannot be in the past.");
+    return;
+  }
 
-  // Xử lý chọn ngày trả
-  const handleEndDateChange = (e) => {
-    const selectedDate = e.target.value;
-    setEndDate(selectedDate);
+  setStartDate(e.target.value);
+  setErrorMessage("");
 
-    if (startDate && isBefore(new Date(startDate), new Date(selectedDate))) {
-      const days = differenceInDays(new Date(selectedDate), new Date(startDate));
-      setTotalDays(days);
-      setTotalAmount(days * initialTotalPrice);
-    } else {
-      alert("End date must be after start date.");
-      setTotalDays(0);
-      setTotalAmount(0);
-    }
-  };
+  if (endDate && selectedDate < new Date(endDate)) {
+    const days = differenceInDays(new Date(endDate), selectedDate);
+    setTotalDays(days);
+    setTotalAmount(days * initialTotalPrice);
+  }
+};
+
+// Xử lý chọn ngày trả
+const handleEndDateChange = (e) => {
+  const selectedDate = new Date(e.target.value);
+
+  if (!startDate) {
+    setEndDate("");
+    setTotalDays(0);
+    setTotalAmount(0);
+    setErrorMessage("Please select a start date first.");
+    return;
+  }
+
+  if (selectedDate <= new Date(startDate)) {
+    setEndDate("");
+    setTotalDays(0);
+    setTotalAmount(0);
+    setErrorMessage("End date must be after the start date.");
+    return;
+  }
+
+  setEndDate(e.target.value);
+  setErrorMessage("");
+
+  const days = differenceInDays(selectedDate, new Date(startDate));
+  setTotalDays(days);
+  setTotalAmount(days * initialTotalPrice);
+};
+
 
   // Xử lý hoàn tất đơn hàng
-  // const handleComplete = async () => {
-  //   try {
-  //     const token = localStorage.getItem("accessToken");
-  //     if (!token) {
-  //       alert("Please log in before checkout.");
-  //       navigate("/login");
-  //       return;
-  //     }
-
-  //     const accountId = localStorage.getItem("accountId");
-  //     const role = localStorage.getItem("role");
-  //     if (!accountId || !role) {
-  //       alert("Cannot find account information. Please log in again.");
-  //       navigate("/login");
-  //       return;
-  //     }
-
-  //     let customerId = role === "CUSTOMER" ? parseInt(accountId, 10) : 0;
-
-  //     if (!startDate || !endDate) {
-  //       alert("Please select both start and end dates.");
-  //       return;
-  //     }
-  //     if (!isBefore(new Date(startDate), new Date(endDate))) {
-  //       alert("Start date must be before end date.");
-  //       return;
-  //     }
-  //     if (totalDays === 0) {
-  //       alert("Rental period must be at least 1 day.");
-  //       return;
-  //     }
-
-  //     // Chuẩn bị payload để gửi lên API
-  //     const payload = {
-  //       order: {
-  //         paymentMethod,
-  //         purchaseMethod: 0, // 0: ONLINE
-  //         recipientName,
-  //         recipientPhone,
-  //         address,
-  //         dateOfReceipt: startDate,
-  //         dateOfReturn: endDate,
-  //         customerId,
-  //       },
-  //       orderItems: cartItems.map((item) => ({
-  //         productId: item.productId,
-  //         quantity: item.quantity,
-  //       })),
-  //     };
-
-  //     // Gửi request tạo đơn hàng
-  //     const orderResponse = await axios.post(
-  //       "http://localhost:5083/api/order/with-items",
-  //       payload,
-  //       {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       }
-  //     );
-
-  //     if (!orderResponse.data.isSuccess) {
-  //       alert(orderResponse.data.message || "Failed to create order.");
-  //       return;
-  //     }
-
-  //     // Nếu thanh toán bằng PAYOS, điều hướng đến trang thanh toán
-  //     if (paymentMethod === 2 && orderResponse.data.data.order.payOsUrl) {
-  //       window.location.href = orderResponse.data.data.order.payOsUrl;
-  //       return;
-  //     }
-
-  //     // Điều hướng đến trang cảm ơn
-  //     navigate("/thanks", {
-  //       state: {
-  //         date: new Date().toLocaleDateString(),
-  //         recipientName,
-  //         recipientEmail: localStorage.getItem("email") || "N/A",
-  //         paymentMethod,
-  //         address,
-  //         product: cartItems.map((item) => item.productName).join(", "),
-  //         totalAmount: totalAmount.toFixed(2),
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     alert("Error occurred. Check console for details.");
-  //   }
-  // };
   const handleComplete = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -230,6 +166,9 @@ const CheckoutPage = () => {
       alert("Error occurred. Check console for details.");
     }
   };
+
+
+  
   
 
   return (
@@ -248,20 +187,27 @@ const CheckoutPage = () => {
               onChange={(e) => setRecipientName(e.target.value)}
             />
             <label>Contact:</label>
-            <div className="input-group mb-3">
-              <input
-                type="text"
-                className="form-control"
-                value={recipientPhone}
-                onChange={(e) => setRecipientPhone(e.target.value)}
-              />
-              <input
-                type="text"
-                className="form-control"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </div>
+            <div className="CC-input-group">
+  <div className="CC-input-wrapper">
+    <div>Số điện thoại:</div>
+    <input
+      type="text"
+      className="form-control"
+      value={recipientPhone}
+      onChange={(e) => setRecipientPhone(e.target.value)}
+    />
+  </div>
+  <div className="CC-input-wrapper">
+    <div>Địa chỉ:</div>
+    <input
+      type="text"
+      className="form-control"
+      value={address}
+      onChange={(e) => setAddress(e.target.value)}
+    />
+  </div>
+</div>
+
           </div>
 
           {/* Phương thức thanh toán */}
@@ -288,7 +234,7 @@ const CheckoutPage = () => {
           </div>
 
           {/* Ngày thuê và ngày trả */}
-          <div className="CK-section">
+          {/* <div className="CK-section">
             <h2>Rental Dates</h2>
             <label>Start Date</label>
             <input type="date" value={startDate} onChange={handleStartDateChange} />
@@ -296,7 +242,25 @@ const CheckoutPage = () => {
             <input type="date" value={endDate} onChange={handleEndDateChange} />
             <p>Total Days: {totalDays}</p>
             <p>Total Amount: ${totalAmount.toFixed(2)}</p>
-          </div>
+          </div> */}
+          {/* Ngày thuê và ngày trả */}
+<div className="CK-section">
+  <h2>Rental Dates</h2>
+  <div className="date-picker-group">
+    <div>
+      <label>Start Date</label>
+      <input type="date" value={startDate} onChange={handleStartDateChange} />
+    </div>
+    <div>
+      <label>End Date</label>
+      <input type="date" value={endDate} onChange={handleEndDateChange} />
+    </div>
+  </div>
+  {errorMessage && <p className="error-message">{errorMessage}</p>}
+  <p><strong>Total Days:</strong> {totalDays}</p>
+  <p><strong>Total Amount:</strong> ${totalAmount.toFixed(2)}</p>
+</div>
+
         </div>
 
         {/* Tóm tắt đơn hàng */}

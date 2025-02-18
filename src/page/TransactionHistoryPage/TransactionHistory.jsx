@@ -56,7 +56,7 @@ const TransactionHistory = () => {
             <div key={tx.id} className="TransactionPage-card col-md-6 mb-3">
               <div className="card shadow-sm p-3 border-0 rounded hover-effect">
                 <div className="card-body">
-                  <h5 className="card-title text-primary">Transaction ID: {tx.id}</h5>
+                  <h5 className="TransactionPage-titlelitte">Transaction ID: {tx.id}</h5>
                   <p className="mb-1"><strong>Order ID:</strong> {tx.orderId}</p>
                   <p className="mb-1"><strong>Payment Method:</strong> {tx.paymentMethod}</p>
                   <p className="mb-1"><strong>Total Price:</strong> {tx.totalPrice} VND</p>

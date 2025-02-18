@@ -50,7 +50,7 @@ export default function Login({ onLogin }) {
         } else if (role === 'STAFF') {
           navigate('/staff');
         } else if (role === 'CUSTOMER') {
-          navigate('/member');
+          navigate('/');
         } else if (role === 'LESSOR') {
           navigate('/lessor');
         }

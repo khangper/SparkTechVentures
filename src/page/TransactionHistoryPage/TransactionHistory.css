@@ -8,10 +8,13 @@
   
   .TransactionPage-title {
     font-weight: bold;
-    color: #007bff;
+    color: #ffa500;
   }
   
   .TransactionPage-container {
     max-width: 900px;
     margin: auto;
   }
+  h5.TransactionPage-titlelitte {
+    color: green;
+}
