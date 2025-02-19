@@ -143,12 +143,15 @@ const handleEndDateChange = (e) => {
         return;
       }
   
+      // Lấy orderId từ phản hồi API và lưu vào localStorage
+      const orderId = orderResponse.data.data.order.id;
+      localStorage.setItem("orderId", orderId);
+  
       // Nếu dùng PayOS, điều hướng đến URL thanh toán
       if (paymentMethod === 2 && orderResponse.data.data.order.payOsUrl) {
         window.location.href = orderResponse.data.data.order.payOsUrl;
         return;
       }
-  
       // Nếu không dùng PayOS, điều hướng luôn đến trang cảm ơn
       navigate("/thanks", {
         state: {

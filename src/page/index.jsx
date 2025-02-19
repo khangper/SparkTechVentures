@@ -38,67 +38,62 @@ export default function Main() {
   }, [productId]);
 
   
-  // const handleAddToCart = async () => {
-  //   const token = localStorage.getItem('accessToken');
   
-  //   if (token) {
-  //     console.log('Token exists:', token);
+
+  // const handleAddToCart = () => {
+  //    // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
+  //    const token = localStorage.getItem("accessToken");
+  //    if (!token) {
+  //      alert("Please log in to add items to your cart.");
+  //      navigate("/login");
+  //      return;
+  //    }
+  //   // Lấy giỏ hàng hiện tại từ sessionStorage, nếu chưa có thì khởi tạo mảng rỗng
+  //   const existingCart = sessionStorage.getItem("cartItems");
+  //   let cartItems = existingCart ? JSON.parse(existingCart) : [];
+  
+  //   // Kiểm tra xem sản phẩm đã có trong giỏ hay chưa (dựa vào productId)
+  //   const productIndex = cartItems.findIndex(item => item.productId === product.id);
+  //   if (productIndex >= 0) {
+  //     // Nếu đã có, tăng số lượng lên 1
+  //     cartItems[productIndex].quantity += 1;
   //   } else {
-  //     console.log('Token does not exist or user is not logged in.');
-  //   }
-
-  //   if (!token) {
-  //     alert('Please log in to add items to your cart.');
-  //     navigate('/login');
-  //     return;
+  //     // Nếu chưa có, thêm sản phẩm mới với số lượng 1
+  //     cartItems.push({
+  //       productId: product.id,
+  //       productName: product.name,
+  //       price: product.price,
+  //       quantity: 1,
+  //       defaultImage: product.defaultImage, // hoặc các thông tin cần thiết khác
+  //       // Bạn có thể lưu thêm các thuộc tính như categoryName, brandName, ... nếu cần
+  //     });
   //   }
   
-  //   try {
-  //     // Giả sử bạn đang để tạm orderId = 1 để test
-  //     // Trong thực tế, bạn nên lấy orderId từ đơn hàng hiện tại của user
-  //     const orderId = 1;
-
-  //     // Gọi API post order item
-  //     // Lấy `orderId` từ hệ thống (nếu cần)
-  //     const orderId = 1; // Có thể thay thế bằng logic lấy `orderId` thực tế
-  
-  //     const response = await api.post(
-  //       '/orderitem',
-  //       {
-  //         orderId: orderId,
-  //         productId: Number(productId),
-  //         quantity: 1,
-  //         price: product.price,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  
-  //     if (response.data.isSuccess) {
-  //       alert(`Product added to cart successfully (ID: ${response.data.data.id})`);
-  //     } else {
-  //       alert(response.data.message || 'Failed to add product to cart.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error adding to cart:', error);
-  //     alert('An error occurred while adding the product to the cart. Please try again later.');
-  //   }
+  //   // Lưu lại giỏ hàng mới vào sessionStorage
+  //   sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+  //   alert("Product added to cart!");
   // };
-
   const handleAddToCart = () => {
-     // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
-     const token = localStorage.getItem("accessToken");
-     if (!token) {
-       alert("Please log in to add items to your cart.");
-       navigate("/login");
-       return;
-     }
+    // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      alert("Please log in to add items to your cart.");
+      navigate("/login");
+      return;
+    }
+  
     // Lấy giỏ hàng hiện tại từ sessionStorage, nếu chưa có thì khởi tạo mảng rỗng
     const existingCart = sessionStorage.getItem("cartItems");
     let cartItems = existingCart ? JSON.parse(existingCart) : [];
+  
+    // Kiểm tra xem giỏ hàng hiện tại có sản phẩm nào không
+    if (cartItems.length > 0) {
+      const existingStore = cartItems[0].storeId; // Giả định tất cả sản phẩm trong giỏ cùng một store
+      if (existingStore !== product.storeId) {
+        alert("You can only order products from the same store.");
+        return;
+      }
+    }
   
     // Kiểm tra xem sản phẩm đã có trong giỏ hay chưa (dựa vào productId)
     const productIndex = cartItems.findIndex(item => item.productId === product.id);
@@ -112,8 +107,8 @@ export default function Main() {
         productName: product.name,
         price: product.price,
         quantity: 1,
-        defaultImage: product.defaultImage, // hoặc các thông tin cần thiết khác
-        // Bạn có thể lưu thêm các thuộc tính như categoryName, brandName, ... nếu cần
+        defaultImage: product.defaultImage,
+        storeId: product.storeId, // Lưu storeId để kiểm tra sau này
       });
     }
   
