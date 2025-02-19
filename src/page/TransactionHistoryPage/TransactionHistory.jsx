@@ -60,7 +60,7 @@ const TransactionHistory = () => {
                   <p className="mb-1"><strong>Order ID:</strong> {tx.orderId}</p>
                   <p className="mb-1"><strong>Payment Method:</strong> {tx.paymentMethod}</p>
                   <p className="mb-1"><strong>Total Price:</strong> {tx.totalPrice} VND</p>
-                  <p className="mb-1"><strong>Status:</strong> <span className={`badge ${tx.status === 'Completed' ? 'bg-success' : 'bg-danger'}`}>{tx.status}</span></p>
+                  <p className="mb-1"><strong>Status:</strong> <span className={`badge ${tx.status === 'COMPLETED' ? 'bg-success' : 'bg-danger'}`}>{tx.status}</span></p>
                   <p className="mb-0"><strong>Created At:</strong> {new Date(tx.createdAt).toLocaleString()}</p>
                 </div>
               </div>
