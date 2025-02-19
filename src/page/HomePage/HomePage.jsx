@@ -25,7 +25,7 @@ export default function HomePage() {
   const location = useLocation();
   const mode = location.state?.mode;
   const productId = location.state?.productId;
-  console.log(location);
+  // console.log(location);
 
   const navigate = useNavigate();
 
