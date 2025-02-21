@@ -90,6 +90,8 @@ export default function Main() {
 
   const handleAddToCart = () => {
      // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
+    
+     
      const token = localStorage.getItem("accessToken");
      if (!token) {
        alert("Please log in to add items to your cart.");

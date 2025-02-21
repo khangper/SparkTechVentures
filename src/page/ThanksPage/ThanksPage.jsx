@@ -140,11 +140,10 @@ function ThanksPage() {
             <div className="thank-you-for-your-payment">
               Thank you for your payment.
             </div>
-            <Link to="/">
-              <div className="TK-rectangle-257">
-                <div className="TK-text">Back to Home</div>
-              </div>
-            </Link>
+            <Link to="/" className="TK-rectangle-257">
+  <div className="TK-text">Back to Home</div>
+</Link>
+
           </div>
         </div>
       </div>
