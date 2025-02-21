@@ -246,7 +246,7 @@ button {
   display: flex;
   justify-content: center;
   gap: 20px;
-  padding: 0px 186px;
+  /* padding: 0px 186px; */
   flex-wrap: wrap;
 }
 
@@ -902,4 +902,8 @@ button {
   gap: 63px;
   padding: 10px 240px;
   flex-wrap: wrap;
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(188, 188, 188) transparent;
 }

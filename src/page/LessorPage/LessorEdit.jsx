@@ -4,6 +4,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { ImageUp, ChevronDown, Plus, Minus } from "lucide-react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const fuelOptions = [
   { label: "Gasoline", value: 1 },
@@ -12,7 +13,7 @@ const fuelOptions = [
   { label: "Propane", value: 4 },
 ];
 
-export default function LessorPage() {
+export default function LessorEdit() {
   const [currentStep, setCurrentStep] = useState(1);
   const steps = ["Basic", "Media", "Price", "Publish"];
   const [description, setDescription] = useState("");
@@ -20,7 +21,7 @@ export default function LessorPage() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [store, setStore] = useState([]);
+
   const [stories, setStories] = useState([]);
   const [brand, setBrand] = useState("");
   const [brands, setBrands] = useState([]);
@@ -29,11 +30,7 @@ export default function LessorPage() {
   const [stock, setStock] = useState(0);
   const [weight, setWeight] = useState(0);
   const [fuel, setFuel] = useState(0);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleFormStatusChange = (dirty, isValid) => {
-    setFormStatus({ dirty, isValid });
-  };
+  const { id } = useParams();
 
   const handleDescriptionChange = (value) => {
     setDescription(value);
@@ -106,18 +103,18 @@ export default function LessorPage() {
     fetchStore();
   }, []);
 
-  const addProduct = async (productData) => {
-    const API_URL = "http://localhost:5083/api/product";
+  const editProduct = async (productData) => {
+    const API_URL = `http://localhost:5083/api/product/${id}`;
     const token = localStorage.getItem("accessToken");
 
     try {
-      const response = await axios.post(API_URL, productData, {
+      const response = await axios.put(API_URL, productData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Product added successfully:", response.data);
+
       alert("Product added successfully!");
     } catch (error) {
       console.error("Error adding product:", error.response?.data || error);
@@ -139,7 +136,7 @@ export default function LessorPage() {
       fuelType: fuel,
     };
 
-    await addProduct(productData);
+    await editProduct(productData);
   };
 
   const renderStepContent = (step) => {
@@ -283,14 +280,14 @@ export default function LessorPage() {
                   </div>
                 </div>
 
-                <div>
+                <div className="w-full">
                   <label
                     htmlFor="weight"
                     className="block text-sm/6 font-medium text-gray-900 "
                   >
                     Weight
                   </label>
-                  <div className="flex items-center gap-5">
+                  <div className="flex items-center gap-5 justify-center">
                     <button
                       className="flex items-center justify-center w-10 h-10 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full shadow-md transition-all duration-200 ease-in-out focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
                       onClick={() => handleChange(setWeight, "decrease")}
@@ -318,7 +315,7 @@ export default function LessorPage() {
                   </div>
                 </div>
 
-                <div>
+                <div className="w-full">
                   <label
                     htmlFor="fuel"
                     className="block text-sm font-medium text-gray-900"
@@ -342,7 +339,13 @@ export default function LessorPage() {
                     ))}
                   </select>
                 </div>
-                <div>
+                <div className="w-full">
+                  <label
+                    htmlFor="dimensions"
+                    className="block text-sm font-medium text-gray-900"
+                  >
+                    Dimensions
+                  </label>
                   <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-yellow-500 p-2">
                     <input
                       id="dimensions"

@@ -1,76 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Login.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
-import api from '../../../Context/api';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../../Context/api";
+import "./Login.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useDispatch } from "react-redux";
+import { login } from "../../../redux/slices/authSlice";
 
-export default function Login({ onLogin }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Kiểm tra input
     if (!email || !password) {
-      setErrorMessage('Please fill in both email and password fields.');
+      setErrorMessage("Please enter both email and password.");
       return;
     }
 
     try {
-      // Gọi API đăng nhập
-      const response = await api.post('auth/login', {
+      const response = await api.post("auth/login", {
         username: email,
         password: password,
       });
 
       if (response.data.isSuccess) {
-        // Giải nén dữ liệu trả về
-        const { id,role, accessToken, refreshToken } = response.data.data;
-
-        // In token ra console (để kiểm tra)
-        console.log('AccessToken:', accessToken);
-        console.log('RefreshToken:', refreshToken);
-
-        // Lưu token vào localStorage (nếu cần)
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem("accountId", id);
-        localStorage.setItem("role", role);
-
-        // Gọi hàm onLogin (được truyền từ App.js) để cập nhật state toàn cục
-        onLogin(email, password, role);
-
-        // Điều hướng tuỳ theo role
-        if (role === 'ADMIN') {
-          navigate('/admin');
-        } else if (role === 'STAFF') {
-          navigate('/staff');
-        } else if (role === 'CUSTOMER') {
-          navigate('/');
-        } else if (role === 'LESSOR') {
-          navigate('/lessor');
-        }
-         else {
-          alert('Unknown role!');
+        const { id, role, accessToken, refreshToken, username, email} = response.data.data;
+        dispatch(login({ token: accessToken, role, accountId: id, username, email}));
+        switch (role) {
+          case "ADMIN":
+            navigate("/admin");
+            break;
+          case "STAFF":
+            navigate("/staff");
+            break;
+          case "CUSTOMER":
+            navigate("/");
+            break;
+          case "LESSOR":
+            navigate("/lessor");
+            break;
+          default:
+            alert("Unknown role!");
         }
       } else {
-        // Server trả về isSuccess = false
-        setErrorMessage(response.data.message || 'Invalid login credentials');
+        setErrorMessage(response.data.message || "Invalid login credentials.");
       }
     } catch (error) {
-      console.error('Login error:', error);
-      // Bắt lỗi từ server
-      if (error.response) {
-        setErrorMessage(error.response.data.message || 'Login failed. Please try again.');
-      } else {
-        setErrorMessage('Unable to reach the server. Please try again later.');
-      }
+      console.error("Login error:", error);
+      setErrorMessage(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
     }
   };
+
   return (
     <div className="LG-container">
       <div className="Signup-header">
@@ -86,7 +72,7 @@ export default function Login({ onLogin }) {
                 </div>
                 <div className="CU-frame-4">
                   <span className="CU-lorem-ipsum">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis egestas pellentesque libero dolor in diam consequat ut.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   </span>
                   <button className="CU-button" onClick={handleSubmit}>
                     <span className="CU-send-message">Login</span>
@@ -114,7 +100,9 @@ export default function Login({ onLogin }) {
                   />
                 </div>
                 <div className="LG-forgot">Forgot Password?</div>
-                {errorMessage && <div className="error-message">{errorMessage}</div>}
+                {errorMessage && (
+                  <div className="error-message">{errorMessage}</div>
+                )}
                 <div className="LG-button" onClick={handleSubmit}>
                   <div className="LG-free-quote">Enter</div>
                 </div>
@@ -126,6 +114,3 @@ export default function Login({ onLogin }) {
     </div>
   );
 }
-
-
-
