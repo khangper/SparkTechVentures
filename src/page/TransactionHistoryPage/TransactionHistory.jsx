@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import api from "../../Context/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./TransactionHistory.css";
+import { useSelector } from "react-redux";
 
 const TransactionHistory = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("accessToken");
-  const accountId = localStorage.getItem("accountId");
+  const accountId = useSelector((state) => state.auth.accountId);
+console.log(accountId);
 
   useEffect(() => {
     const fetchTransactions = async () => {

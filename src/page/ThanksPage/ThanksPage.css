@@ -1,6 +1,8 @@
 .ThankContainer {
     background-color: darkgray;
     padding: 220px 95px;
+
+    text-decoration: none
 }
 
 .TK-frame-311 {
@@ -106,15 +108,19 @@
   .TK-rectangle-257 {
     background: #ffb400;
     border-radius: 24.5px;
-    width: 186px;
-    height: 49px;
-    padding: 8px;
-    margin-top: 50px;
+    display: inline-block; 
+    padding: 10px 20px;
+    text-decoration: none; 
+    color: white;
+    font-weight: 900;
+    text-align: center;
 }
+
 
   .TK-text {
     color: white;
     font-weight: 900;
     text-align: center;
     justify-content: normal;
+    text-decoration: none;
 }
