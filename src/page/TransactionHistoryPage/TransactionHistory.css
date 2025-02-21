@@ -1,0 +1,20 @@
+.TransactionPage-card .hover-effect {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .TransactionPage-card .hover-effect:hover {
+    transform: scale(1.05);
+  }
+  
+  .TransactionPage-title {
+    font-weight: bold;
+    color: #ffa500;
+  }
+  
+  .TransactionPage-container {
+    max-width: 900px;
+    margin: auto;
+  }
+  h5.TransactionPage-titlelitte {
+    color: green;
+}

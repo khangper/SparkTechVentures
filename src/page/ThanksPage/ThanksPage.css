@@ -1,0 +1,126 @@
+.ThankContainer {
+    background-color: darkgray;
+    padding: 220px 95px;
+
+    text-decoration: none
+}
+
+.TK-frame-311 {
+  width: 575px;
+  height: 821px;
+  left: 0px;
+  top: 0px;
+}
+.TK-rectangle-258 {
+  background: #ffffff;
+  width: 575px;
+  height: 750px;
+  left: 50%;
+  bottom: 71px;
+}
+
+.TK-rectangle-259 {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 180, 0, 1) 0%,
+      rgba(232, 143, 14, 1) 100%
+    );
+    width: 575px;
+    height: 81px;
+    left: 0px;
+    top: 0px;
+  }
+  .TK-receiptify {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+    left: 381px;
+    top: 18px;
+    text-align: right;
+    padding: 14px 27px;
+}
+
+.TK-date {
+    color: #000000;
+    text-align: left;
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    left: calc(50% - 249.5px);
+    top: 165px;
+    /* width: 51px; */
+  }
+
+  .TK-_26-october-2024 {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    left: 320px;
+    width: 200px;
+    top: 165px;
+    padding: 8px 0px 0px 0px;
+  }
+
+  .TK-flex {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 0px 30px;
+}
+.TK-total-span {
+    color: #000000;
+    font-family: "Poppins-SemiBold", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  .TK-_250 {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    left: 457px;
+    top: 681px;
+  }
+
+  .TK-vector {
+    padding: 0px -93px;
+    background-color: black;
+    height: 2px;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.thank-you-for-your-payment {
+    color: #ffb400;
+    text-align: left;
+    font-family: "Poppins-SemiBold", sans-serif;
+    font-size: 96px;
+    font-weight: 600;
+   
+  }
+
+  .TK-rectangle-257 {
+    background: #ffb400;
+    border-radius: 24.5px;
+    display: inline-block; 
+    padding: 10px 20px;
+    text-decoration: none; 
+    color: white;
+    font-weight: 900;
+    text-align: center;
+}
+
+
+  .TK-text {
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    justify-content: normal;
+    text-decoration: none;
+}

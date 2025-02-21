@@ -68,10 +68,25 @@
     border: 1px solid #ccc;
     padding: 5px 5px 5px 5px;
 }
+
+select.SU-first-name {
+  width: 80%;
+  color: var(--construction-gray, #666666);
+  text-align: left;
+  font-family: var(--construction-text-font-family, "OpenSans-Regular", sans-serif);
+  font-size: var(--construction-text-font-size, 15px);
+  line-height: var(--construction-text-line-height, 27px);
+  letter-spacing: var(--construction-text-letter-spacing, 0.04em);
+  font-weight: var(--construction-text-font-weight, 400);
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 5px 5px 5px 5px;
+}
 .SU-Button {
     display: flex;
     justify-content: center;
     margin-top: 65px;
+    margin-bottom: 65px;
 }
 
 .SsU-button {
@@ -97,4 +112,7 @@
     font-weight: 600;
     position: relative;
   }
-  
+  button.btn.HD-fix {
+    font-size: larger;
+    font-weight: 600;
+}
