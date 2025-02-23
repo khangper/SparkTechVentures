@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { isBefore, differenceInDays } from "date-fns";
 import "./CheckoutPage.css";
+import api from "../../Context/api";
 
 const CheckoutPage = () => {
   const location = useLocation();
@@ -130,8 +131,8 @@ const handleEndDateChange = (e) => {
         })),
       };
   
-      const orderResponse = await axios.post(
-        "http://localhost:5083/api/order/with-items",
+      const orderResponse = await api.post(
+        "/order/with-items",
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },

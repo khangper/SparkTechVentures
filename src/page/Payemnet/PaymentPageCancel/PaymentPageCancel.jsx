@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import paymentsuccessicon from '../../../assets/images/payment/iconcancel.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import api from '../../../Context/api';
 
 function PaymentPageSuccess() {
   const [orderStatus, setOrderStatus] = useState(null);
@@ -26,7 +27,7 @@ function PaymentPageSuccess() {
         }
 
         // Gọi API cập nhật trạng thái thanh toán với Bearer Token
-        const response = await axios.get(`http://localhost:5083/api/payos?orderCode=${storedOrderId}`, {
+        const response = await api.get(`/payos?orderCode=${storedOrderId}`, {
           headers: {
             Authorization: `Bearer ${token}`, // Thêm Authorization Token
             "Content-Type": "application/json",

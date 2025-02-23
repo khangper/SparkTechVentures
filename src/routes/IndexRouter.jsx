@@ -35,6 +35,7 @@ import LessorStore from "../page/LessorPage/LessorStore.jsx";
 import LessorProduct from "../page/LessorPage/LessorProduct.jsx";
 import LessorProductDetail from "../page/LessorPage/LessorProductDetail.jsx";
 import LessorEdit from "../page/LessorPage/LessorEdit.jsx";
+import RegistrationSuccess from "../page/RegistrationSuccess/RegistrationSuccess.jsx";
 
 export const indexRouter = createBrowserRouter([
   //   { path: "/login", element: <Login /> },
@@ -60,6 +61,7 @@ export const indexRouter = createBrowserRouter([
       //   { path: "/all-product", element: <AllProduct /> },
       { path: "/main", element: <Main /> },
       { path: "/about", element: <AboutUS /> },
+      { path: "/successregis", element: <RegistrationSuccess /> },
       { path: "/contact", element: <ContactUS /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
