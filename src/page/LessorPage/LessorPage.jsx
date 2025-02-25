@@ -4,12 +4,15 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { ImageUp, ChevronDown, Plus, Minus } from "lucide-react";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import api from "../../Context/api";
 
 const fuelOptions = [
-  { label: "Gasoline", value: 1 },
-  { label: "Diesel", value: 2 },
-  { label: "Natural Gas", value: 3 },
-  { label: "Propane", value: 4 },
+  { label: "Gasoline", value: 0 },
+  { label: "Diesel", value: 1 },
+  { label: "Natural Gas", value: 2 },
+  { label: "Propane", value: 3 },
 ];
 
 export default function LessorPage() {
@@ -25,14 +28,21 @@ export default function LessorPage() {
   const [brand, setBrand] = useState("");
   const [brands, setBrands] = useState([]);
   const [dimensions, setDimensions] = useState("");
-
   const [stock, setStock] = useState(0);
   const [weight, setWeight] = useState(0);
   const [fuel, setFuel] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleFormStatusChange = (dirty, isValid) => {
-    setFormStatus({ dirty, isValid });
+  const [image, setImage] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const navigate = useNavigate();
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
   };
 
   const handleDescriptionChange = (value) => {
@@ -47,29 +57,31 @@ export default function LessorPage() {
 
   const handleFuel = (value) => {
     setFuel(value);
-    console.log(value);
   };
 
   const handleCategory = (id) => {
     setCategory(id);
-    console.log(id);
-  };
-
-  const handleStore = (id) => {
-    setStore(id);
-    console.log(id);
   };
 
   const handleBrand = (id) => {
     setBrand(id);
-    console.log(id);
   };
+
+  const getCategoryName = (categoryId) => {
+    const category = categories.find((cat) => cat.id === Number(categoryId));
+    return category?.name || "Unknown";
+  };
+
+  const getBrandName = (brandId) => {
+    const brand = brands.find((cat) => cat.id === Number(brandId));
+    return brand?.name;
+  };
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5083/api/category");
+        const response = await api.get("category");
         setCategories(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -81,9 +93,8 @@ export default function LessorPage() {
   useEffect(() => {
     const fetchBrand = async () => {
       try {
-        const response = await axios.get("http://localhost:5083/api/brand");
+        const response = await api.get("brand");
         setBrands(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -95,9 +106,8 @@ export default function LessorPage() {
   useEffect(() => {
     const fetchStore = async () => {
       try {
-        const response = await axios.get("http://localhost:5083/api/store");
+        const response = await api.get("store");
         setStories(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -107,39 +117,34 @@ export default function LessorPage() {
   }, []);
 
   const addProduct = async (productData) => {
-    const API_URL = "http://localhost:5083/api/product";
-    const token = localStorage.getItem("accessToken");
-
     try {
-      const response = await axios.post(API_URL, productData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("Product added successfully:", response.data);
-      alert("Product added successfully!");
+      const response = await api.post(`product`, productData);
+      toast.success("Product has been added successfully! 🎉");
+      setTimeout(() => {
+        navigate("/lessor");
+      }, 1500);
     } catch (error) {
-      console.error("Error adding product:", error.response?.data || error);
-      alert("Failed to add product. Please check authentication.");
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to add the product. Please try again!"
+      );
     }
   };
 
   const handleSubmit = async () => {
-    const productData = {
-      categoryId: category,
-      brandId: brand,
-      name: name,
-      description: description,
-      defaultImage: "https://example.com/default-image.jpg",
-      price: parseFloat(price) || 0,
-      stock: stock,
-      weight: weight,
-      dimensions: dimensions,
-      fuelType: fuel,
-    };
+    const formData = new FormData();
+    formData.append("categoryId", category);
+    formData.append("brandId", brand);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("file", image);
+    formData.append("price", parseFloat(price) || 0);
+    formData.append("stock", stock);
+    formData.append("weight", weight);
+    formData.append("dimensions", dimensions);
+    formData.append("fuelType", fuel);
 
-    await addProduct(productData);
+    await addProduct(formData);
   };
 
   const renderStepContent = (step) => {
@@ -210,7 +215,7 @@ export default function LessorPage() {
                   className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
                 >
                   <option value="" disabled>
-                    Select a store
+                    Select a brand
                   </option>
                   {brands.map((br) => (
                     <option key={br.id} value={br.id}>
@@ -264,7 +269,6 @@ export default function LessorPage() {
                             /[^0-9]/g,
                             ""
                           );
-                          console.log(numericValue, "i7777");
 
                           setStock(
                             numericValue === "" ? "" : Number(numericValue)
@@ -283,14 +287,14 @@ export default function LessorPage() {
                   </div>
                 </div>
 
-                <div>
+                <div className="w-full">
                   <label
                     htmlFor="weight"
                     className="block text-sm/6 font-medium text-gray-900 "
                   >
-                    Weight
+                    Weight (kg)
                   </label>
-                  <div className="flex items-center gap-5">
+                  <div className="flex items-center gap-5 justify-center">
                     <button
                       className="flex items-center justify-center w-10 h-10 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full shadow-md transition-all duration-200 ease-in-out focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
                       onClick={() => handleChange(setWeight, "decrease")}
@@ -318,7 +322,7 @@ export default function LessorPage() {
                   </div>
                 </div>
 
-                <div>
+                <div className="w-full">
                   <label
                     htmlFor="fuel"
                     className="block text-sm font-medium text-gray-900"
@@ -342,7 +346,13 @@ export default function LessorPage() {
                     ))}
                   </select>
                 </div>
-                <div>
+                <div className="w-full">
+                  <label
+                    htmlFor="dimensions"
+                    className="block text-sm font-medium text-gray-900"
+                  >
+                    Dimensions
+                  </label>
                   <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-yellow-500 p-2">
                     <input
                       id="dimensions"
@@ -362,7 +372,7 @@ export default function LessorPage() {
       case 2:
         return (
           <>
-            <div className="border-2 border-yellow-500 rounded-lg mt-20 p-5">
+            <div className="border-2 border-yellow-500 rounded-lg mt-20 p-5 ">
               <label
                 htmlFor="Media"
                 className="block text-sm font-medium text-gray-900 "
@@ -380,18 +390,25 @@ export default function LessorPage() {
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={(e) => console.log(e.target.files[0])}
+                    onChange={handleFileChange}
                   />
 
-                  <div className="text-6xl text-gray-500  hover:text-gray-700">
-                    <ImageUp />
-                  </div>
-                  <span
-                    className="text-lg font-medium text-gray-700 cursor-pointer hover:text-gray-900"
-                    onClick={() => document.getElementById("fileInput").click()}
-                  >
-                    Upload Image
-                  </span>
+                  {imagePreview ? (
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center p-10 space-y-4">
+                      <div className="text-6xl text-gray-500 hover:text-gray-700">
+                        <ImageUp />
+                      </div>
+                      <span className="text-lg font-medium text-gray-700 cursor-pointer hover:text-gray-900">
+                        Upload Image
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -410,7 +427,7 @@ export default function LessorPage() {
               <div className="mt-2">
                 <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-yellow-600 p-1">
                   <div className="shrink-0 select-none text-lg text-gray-500 sm:text-base">
-                    $
+                    VND
                   </div>
                   <input
                     id="price"
@@ -429,7 +446,7 @@ export default function LessorPage() {
                       aria-label="Currency"
                       className="col-start-1 row-start-1 w-full appearance-none rounded-md py-2 pl-3 pr-7 text-lg text-gray-500 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-base"
                     >
-                      <option>USD</option>
+                      <option>VND</option>
                     </select>
                     <ChevronDown
                       aria-hidden="true"
@@ -458,27 +475,29 @@ export default function LessorPage() {
 
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Category:{" "}
+                    Category:{getCategoryName(category)}
                   </p>
-                  <p className="text-base text-gray-900"></p>
-                </div>
-
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Brand: </p>
                   <p className="text-base text-gray-900"></p>
                 </div>
 
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Description:
+                    Brand: {getBrandName(brand)}
                   </p>
-                  <div className="text-base text-gray-900">
-                    <div dangerouslySetInnerHTML={{ __html: description }} />
-                  </div>
+                  <p className="text-base text-gray-900"></p>
+                </div>
+
+                <div className="flex space-x-1">
+                  <p className="text-sm font-medium text-gray-600">
+                    Description: {description.replace(/<\/?[^>]+(>|$)/g, "")}
+                  </p>
+                  <div className="text-sm text-gray-900"></div>
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Price:</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Price (VND): {price}
+                  </p>
                   <p className="text-base text-gray-900"></p>
                 </div>
               </div>

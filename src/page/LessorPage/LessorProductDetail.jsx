@@ -27,7 +27,6 @@ export default function LessorProductDetail() {
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
       <div className="grid grid-cols-2 gap-6 max-w-[80vw] bg-white p-6 rounded-lg shadow-lg">
-  
         <img
           src={product.defaultImage}
           alt={product.name}
@@ -49,7 +48,9 @@ export default function LessorProductDetail() {
 
           <div className="">
             <h3 className="text-lg font-medium">Description</h3>
-            <p className="text-gray-700">{product.description}</p>
+            <p className="text-gray-700">
+              {product.description.replace(/<\/?[^>]+(>|$)/g, "")}
+            </p>
           </div>
 
           <div className="space-y-2 text-gray-800 flex flex-col">
@@ -67,7 +68,6 @@ export default function LessorProductDetail() {
           </div>
         </div>
       </div>
-   
     </div>
   );
 }

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-
-  createBrowserRouter,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import Main from "../page/index";
 import HomePage from "../page/HomePage/HomePage.jsx";
@@ -19,7 +16,7 @@ import CheckoutPage from "../page/CheckoutPage/CheckoutPage.jsx";
 import AllProduct from "../page/AllProduct/AllProduct.jsx";
 import ViewDetail from "../page/ViewDetail/ViewDetail.jsx";
 import StaffPage from "../page/StaffPage/StaffPage.jsx";
-import  LessorPage  from "../page/LessorPage/LessorPage.jsx";
+import LessorPage from "../page/LessorPage/LessorPage.jsx";
 import TransactionHistory from "../page/TransactionHistoryPage/TransactionHistory.jsx";
 import OrderDetailsPage from "../page/OrderDetailsPage/OrderDetailsPage.jsx";
 import OrderListPage from "../page/OrderListPage/OrderListPage.jsx";
@@ -35,7 +32,11 @@ import LessorStore from "../page/LessorPage/LessorStore.jsx";
 import LessorProduct from "../page/LessorPage/LessorProduct.jsx";
 import LessorProductDetail from "../page/LessorPage/LessorProductDetail.jsx";
 import LessorEdit from "../page/LessorPage/LessorEdit.jsx";
-import RegistrationSuccess from "../page/RegistrationSuccess/RegistrationSuccess.jsx";
+import StaffLayout from "../layout/StaffLayout.jsx";
+import SuccessVerify from "../page/Log/SuccessVerify/SuccessVerify.jsx";
+import LessorHome from "../page/LessorPage/LessorHome.jsx";
+import LessorOrder from "../page/LessorPage/LessorOrder.jsx";
+import Profile from "../page/Profile/Profile.jsx";
 
 export const indexRouter = createBrowserRouter([
   //   { path: "/login", element: <Login /> },
@@ -58,8 +59,10 @@ export const indexRouter = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      //   { path: "/all-product", element: <AllProduct /> },
+
       { path: "/main", element: <Main /> },
+      { path: "/verify-success", element: <SuccessVerify /> },
+
       { path: "/about", element: <AboutUS /> },
       { path: "/successregis", element: <RegistrationSuccess /> },
       { path: "/contact", element: <ContactUS /> },
@@ -103,18 +106,28 @@ export const indexRouter = createBrowserRouter([
     ),
     errorElement: <Error />,
     children: [
-      { index: true, element: <LessorProduct/> },
+      { index: true, element: <LessorHome /> },
+
+      { path: "products", element: <LessorProduct /> },
       { path: "product/:id", element: <LessorProductDetail /> },
       { path: "product/:id/edit", element: <LessorEdit /> },
       // { path: "by-store", element: <LessorStore /> },
       { path: "add-product", element: <LessorPage /> },
       { path: "add-by-store", element: <LessorStore /> },
+      { path: "all-orders", element: <LessorOrder /> },
+      { path: "profile", element: <Profile /> },
 
 
-
-
-
- 
     ],
+  },
+  {
+    path: "/staff",
+    element: (
+      <RequireAuth allowedRoles={["STAFF"]}>
+        <StaffLayout />
+      </RequireAuth>
+    ),
+    errorElement: <Error />,
+    children: [{ index: true, element: <StaffPage /> }],
   },
 ]);

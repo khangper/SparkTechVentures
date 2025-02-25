@@ -13,7 +13,7 @@ import {
 import api from "../Context/api";
 import { GitCompareArrows } from "lucide-react";
 
-export default function Main() {
+export default function Index() {
   const [searchParams] = useSearchParams();
   const productId = searchParams.get("id"); // Lấy ID sản phẩm từ query
   const [product, setProduct] = useState(null);
@@ -38,42 +38,63 @@ export default function Main() {
   }, [productId]);
 
   
+  // const handleAddToCart = async () => {
+  //   const token = localStorage.getItem('accessToken');
   
-
-  // const handleAddToCart = () => {
-  //    // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
-  //    const token = localStorage.getItem("accessToken");
-  //    if (!token) {
-  //      alert("Please log in to add items to your cart.");
-  //      navigate("/login");
-  //      return;
-  //    }
-  //   // Lấy giỏ hàng hiện tại từ sessionStorage, nếu chưa có thì khởi tạo mảng rỗng
-  //   const existingCart = sessionStorage.getItem("cartItems");
-  //   let cartItems = existingCart ? JSON.parse(existingCart) : [];
-  
-  //   // Kiểm tra xem sản phẩm đã có trong giỏ hay chưa (dựa vào productId)
-  //   const productIndex = cartItems.findIndex(item => item.productId === product.id);
-  //   if (productIndex >= 0) {
-  //     // Nếu đã có, tăng số lượng lên 1
-  //     cartItems[productIndex].quantity += 1;
+  //   if (token) {
+  //     console.log('Token exists:', token);
   //   } else {
-  //     // Nếu chưa có, thêm sản phẩm mới với số lượng 1
-  //     cartItems.push({
-  //       productId: product.id,
-  //       productName: product.name,
-  //       price: product.price,
-  //       quantity: 1,
-  //       defaultImage: product.defaultImage, // hoặc các thông tin cần thiết khác
-  //       // Bạn có thể lưu thêm các thuộc tính như categoryName, brandName, ... nếu cần
-  //     });
+  //     console.log('Token does not exist or user is not logged in.');
+  //   }
+
+  //   if (!token) {
+  //     alert('Please log in to add items to your cart.');
+  //     navigate('/login');
+  //     return;
   //   }
   
-  //   // Lưu lại giỏ hàng mới vào sessionStorage
-  //   sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-  //   alert("Product added to cart!");
+  //   try {
+  //     // Giả sử bạn đang để tạm orderId = 1 để test
+  //     // Trong thực tế, bạn nên lấy orderId từ đơn hàng hiện tại của user
+  //     const orderId = 1;
+
+  //     // Gọi API post order item
+  //     // Lấy `orderId` từ hệ thống (nếu cần)
+  //     const orderId = 1; // Có thể thay thế bằng logic lấy `orderId` thực tế
+  
+  //     const response = await api.post(
+  //       '/orderitem',
+  //       {
+  //         orderId: orderId,
+  //         productId: Number(productId),
+  //         quantity: 1,
+  //         price: product.price,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  
+  //     if (response.data.isSuccess) {
+  //       alert(`Product added to cart successfully (ID: ${response.data.data.id})`);
+  //     } else {
+  //       alert(response.data.message || 'Failed to add product to cart.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error adding to cart:', error);
+  //     alert('An error occurred while adding the product to the cart. Please try again later.');
+  //   }
   // };
+
   const handleAddToCart = () => {
+    // Kiểm tra xem sản phẩm còn hàng hay không
+    if (product.stock === 0) {
+      alert("This product is out of stock and cannot be added to the cart.");
+      return;
+    }
+  
     // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -98,7 +119,11 @@ export default function Main() {
     // Kiểm tra xem sản phẩm đã có trong giỏ hay chưa (dựa vào productId)
     const productIndex = cartItems.findIndex(item => item.productId === product.id);
     if (productIndex >= 0) {
-      // Nếu đã có, tăng số lượng lên 1
+      // Nếu đã có, kiểm tra xem còn đủ hàng không trước khi tăng số lượng
+      if (cartItems[productIndex].quantity + 1 > product.stock) {
+        alert("Not enough stock available.");
+        return;
+      }
       cartItems[productIndex].quantity += 1;
     } else {
       // Nếu chưa có, thêm sản phẩm mới với số lượng 1
