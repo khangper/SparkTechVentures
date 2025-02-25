@@ -7,7 +7,7 @@ export default function LessorLayout() {
   return (
     <div className="flex h-screen">
       <LessorSidebar className="" />
-      <main className="w-full h-full overflow-auto">
+      <main className="w-full h-full overflow-auto bg-slate-100">
         <Outlet />
       </main>
     </div>

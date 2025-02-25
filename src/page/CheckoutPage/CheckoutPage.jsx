@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { isBefore, differenceInDays } from "date-fns";
 import "./CheckoutPage.css";
+import api from "../../Context/api";
 
 const CheckoutPage = () => {
   const location = useLocation();
@@ -80,6 +81,96 @@ const handleEndDateChange = (e) => {
 
 
   // Xử lý hoàn tất đơn hàng
+  // const handleComplete = async () => {
+  //   try {
+  //     const token = localStorage.getItem("accessToken");
+  //     if (!token) {
+  //       alert("Please log in before checkout.");
+  //       navigate("/login");
+  //       return;
+  //     }
+  
+  //     const accountId = localStorage.getItem("accountId");
+  //     const role = localStorage.getItem("role");
+  //     if (!accountId || !role) {
+  //       alert("Cannot find account information. Please log in again.");
+  //       navigate("/login");
+  //       return;
+  //     }
+  
+  //     let customerId = role === "CUSTOMER" ? parseInt(accountId, 10) : 0;
+  
+  //     if (!startDate || !endDate) {
+  //       alert("Please select both start and end dates.");
+  //       return;
+  //     }
+  //     if (!isBefore(new Date(startDate), new Date(endDate))) {
+  //       alert("Start date must be before end date.");
+  //       return;
+  //     }
+  //     if (totalDays === 0) {
+  //       alert("Rental period must be at least 1 day.");
+  //       return;
+  //     }
+  
+  //     const payload = {
+  //       order: {
+  //         paymentMethod,
+  //         purchaseMethod: 0,
+  //         recipientName,
+  //         recipientPhone,
+  //         address,
+  //         dateOfReceipt: startDate,
+  //         dateOfReturn: endDate,
+  //         customerId,
+  //         returnUrl: "http://localhost:5173/paysuccess", 
+  //       },
+  //       orderItems: cartItems.map((item) => ({
+  //         productId: item.productId,
+  //         quantity: item.quantity,
+  //       })),
+  //     };
+  
+  //     const orderResponse = await axios.post(
+  //       "http://localhost:5083/api/order/with-items",
+  //       payload,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  
+  //     if (!orderResponse.data.isSuccess) {
+  //       alert(orderResponse.data.message || "Failed to create order.");
+  //       return;
+  //     }
+  
+  //     // Lấy orderId từ phản hồi API và lưu vào localStorage
+  //     const orderId = orderResponse.data.data.order.id;
+  //     localStorage.setItem("orderId", orderId);
+  
+  //     // Nếu dùng PayOS, điều hướng đến URL thanh toán
+  //     if (paymentMethod === 2 && orderResponse.data.data.order.payOsUrl) {
+  //       window.location.href = orderResponse.data.data.order.payOsUrl;
+  //       return;
+  //     }
+  //     // Nếu không dùng PayOS, điều hướng luôn đến trang cảm ơn
+  //     navigate("/thanks", {
+  //       state: {
+  //         date: new Date().toLocaleDateString(),
+  //         recipientName,
+  //         recipientEmail: localStorage.getItem("email") || "N/A",
+  //         paymentMethod,
+  //         address,
+  //         product: cartItems.map((item) => item.productName).join(", "),
+  //         totalAmount: totalAmount.toFixed(2),
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("Error occurred. Check console for details.");
+  //   }
+  // };
+
   const handleComplete = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -122,7 +213,7 @@ const handleEndDateChange = (e) => {
           dateOfReceipt: startDate,
           dateOfReturn: endDate,
           customerId,
-          returnUrl: "http://localhost:5173/paysuccess", 
+          returnUrl: "http://localhost:5173/paysuccess",
         },
         orderItems: cartItems.map((item) => ({
           productId: item.productId,
@@ -130,12 +221,12 @@ const handleEndDateChange = (e) => {
         })),
       };
   
-      const orderResponse = await axios.post(
-        "http://localhost:5083/api/order/with-items",
+      const orderResponse = await api.post(
+        "order/with-items",
         payload,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        // {
+        //   headers: { Authorization: `Bearer ${token}` },
+        // }
       );
   
       if (!orderResponse.data.isSuccess) {
@@ -143,13 +234,19 @@ const handleEndDateChange = (e) => {
         return;
       }
   
-      // Nếu dùng PayOS, điều hướng đến URL thanh toán
+      // ✅ Lấy orderId từ phản hồi API và lưu vào localStorage
+      const orderId = orderResponse.data.data.order.id;
+      console.log("Lưu orderId vào localStorage:", orderId);
+      localStorage.setItem("orderId", orderId);
+  
+      // ✅ Điều hướng đến trang thanh toán hoặc trang cảm ơn
       if (paymentMethod === 2 && orderResponse.data.data.order.payOsUrl) {
+        // Thanh toán qua PayOS
         window.location.href = orderResponse.data.data.order.payOsUrl;
         return;
       }
   
-      // Nếu không dùng PayOS, điều hướng luôn đến trang cảm ơn
+      // Nếu không dùng PayOS, chuyển hướng đến trang cảm ơn
       navigate("/thanks", {
         state: {
           date: new Date().toLocaleDateString(),
@@ -166,8 +263,7 @@ const handleEndDateChange = (e) => {
       alert("Error occurred. Check console for details.");
     }
   };
-
-
+  
   
   
 
@@ -213,12 +309,13 @@ const handleEndDateChange = (e) => {
           {/* Phương thức thanh toán */}
           <div className="CK-section">
             <h2>Payment Method</h2>
-            <label>
+            <label className="mr-5">
               <input
                 type="radio"
                 name="payment-method"
                 checked={paymentMethod === 0}
                 onChange={() => setPaymentMethod(0)}
+
               />
               Cash on Delivery (COD)
             </label>

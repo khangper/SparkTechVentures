@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Search, Plus } from "lucide-react";
 import loadingAnimation from "../../assets/loading.json";
 import Lottie from "lottie-react";
+import api from "../../Context/api";
 export default function LessorProduct() {
   const [userInfo, setUserInfo] = useState(null);
   const [products, setProducts] = useState([]);
@@ -19,11 +20,9 @@ export default function LessorProduct() {
     const fetchUserInfo = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          "http://localhost:5083/api/auth/user-infor",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+        const response = await api.get(
+          "auth/user-infor",
+        
         );
         setUserInfo(response.data.data);
       } catch (error) {
@@ -42,8 +41,8 @@ export default function LessorProduct() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:5083/api/product/by-store/${userInfo.storeId}`
+        const response = await api.get(
+          `product/by-store/${userInfo.storeId}`
         );
         setProducts(response.data.data);
       } catch (error) {
@@ -90,7 +89,10 @@ export default function LessorProduct() {
               />
             </div>
 
-            <Link to={`/lessor/add-product`} className="no-underline text-white">
+            <Link
+              to={`/lessor/add-product`}
+              className="no-underline text-white"
+            >
               <button
                 // onClick={() => navigate("/lessor/add-product")}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
@@ -119,9 +121,17 @@ export default function LessorProduct() {
                     {product.name}
                   </h3>
                   <p
-                    className="text-gray-600 text-sm mt-1 line-clamp-2"
-                    dangerouslySetInnerHTML={{ __html: product.description }}
-                  />
+                    className="text-sm text-gray-900 min-h-[40px]"
+                    style={{
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 2, 
+                      overflow: "hidden",
+                    }}
+                  >
+                    {product.description.replace(/<\/?[^>]+(>|$)/g, "")}
+                  </p>
+
                   <div className="mt-4 flex justify-between items-center">
                     <span className="text-xl font-bold text-blue-500">
                       ${product.price.toLocaleString()}

@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import api from "../../Context/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./TransactionHistory.css";
-import { useSelector } from "react-redux";
 
 const TransactionHistory = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("accessToken");
-  const accountId = useSelector((state) => state.auth.accountId);
-console.log(accountId);
+  const accountId = localStorage.getItem("accountId");
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -62,7 +60,7 @@ console.log(accountId);
                   <p className="mb-1"><strong>Order ID:</strong> {tx.orderId}</p>
                   <p className="mb-1"><strong>Payment Method:</strong> {tx.paymentMethod}</p>
                   <p className="mb-1"><strong>Total Price:</strong> {tx.totalPrice} VND</p>
-                  <p className="mb-1"><strong>Status:</strong> <span className={`badge ${tx.status === 'Completed' ? 'bg-success' : 'bg-danger'}`}>{tx.status}</span></p>
+                  <p className="mb-1"><strong>Status:</strong> <span className={`badge ${tx.status === 'COMPLETED' ? 'bg-success' : 'bg-danger'}`}>{tx.status}</span></p>
                   <p className="mb-0"><strong>Created At:</strong> {new Date(tx.createdAt).toLocaleString()}</p>
                 </div>
               </div>
@@ -75,4 +73,3 @@ console.log(accountId);
 };
 
 export default TransactionHistory;
-

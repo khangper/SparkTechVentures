@@ -13,7 +13,7 @@ import {
 import api from "../../Context/api";
 import { motion } from "framer-motion";
 
-function StaffPage() {
+export default function LessorOrder() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -122,72 +122,8 @@ function StaffPage() {
       transition: { duration: 0.5, ease: "easeOut" },
     },
   };
-
   return (
     <div className="bg-gray-50 min-h-screen pb-12">
-      <div className="bg-white shadow-sm mb-8">
-        <div className="container mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
-          <p className="text-gray-500">
-            Manage your orders and view statistics
-          </p>
-        </div>
-      </div>
-
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          visible: {
-            transition: { staggerChildren: 0.2 },
-          },
-        }}
-      >
-        <motion.div
-          className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow"
-          variants={cardVariants}
-        >
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold opacity-80">TOTAL REVENUE</h3>
-            <CircleDollarSign className="h-8 w-8 opacity-80" />
-          </div>
-          <div className="text-3xl font-bold">
-            {formatCurrency(totalRevenue)}
-          </div>
-          <div className="mt-2 text-blue-100">From {totalOrders} orders</div>
-        </motion.div>
-
-        <motion.div
-          className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow"
-          variants={cardVariants}
-        >
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold opacity-80">TOTAL ORDERS</h3>
-            <ShoppingCart className="h-8 w-8 opacity-80" />
-          </div>
-          <div className="text-3xl font-bold">{totalOrders}</div>
-          <div className="mt-2 text-purple-100">Last 30 days</div>
-        </motion.div>
-
-        <motion.div
-          className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow"
-          variants={cardVariants}
-        >
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold opacity-80">
-              COMPLETED ORDERS
-            </h3>
-            <Users className="h-8 w-8 opacity-80" />
-          </div>
-          <div className="text-3xl font-bold">{completedOrders}</div>
-          <div className="mt-2 text-green-100">
-            {((completedOrders / totalOrders) * 100).toFixed(1)}% completion
-            rate
-          </div>
-        </motion.div>
-      </motion.div>
-
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-xl shadow-sm p-6 table-container">
           <div className="flex justify-between items-center mb-6">
@@ -368,7 +304,6 @@ function StaffPage() {
             </table>
           </div>
 
-    
           {filteredOrders.length > ordersPerPage && (
             <div className="flex justify-center mt-6">
               <nav className="inline-flex rounded-md shadow">
@@ -465,5 +400,3 @@ function StaffPage() {
     </div>
   );
 }
-
-export default StaffPage;
