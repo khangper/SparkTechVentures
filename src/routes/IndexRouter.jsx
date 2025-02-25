@@ -37,6 +37,7 @@ import SuccessVerify from "../page/Log/SuccessVerify/SuccessVerify.jsx";
 import LessorHome from "../page/LessorPage/LessorHome.jsx";
 import LessorOrder from "../page/LessorPage/LessorOrder.jsx";
 import Profile from "../page/Profile/Profile.jsx";
+import FailVerify from "../page/Log/FailVerify/FailVerify.jsx";
 
 export const indexRouter = createBrowserRouter([
   //   { path: "/login", element: <Login /> },
@@ -62,6 +63,8 @@ export const indexRouter = createBrowserRouter([
 
       { path: "/main", element: <Main /> },
       { path: "/verify-success", element: <SuccessVerify /> },
+      { path: "/verify-fail", element: <FailVerify /> },
+
 
       { path: "/about", element: <AboutUS /> },
       { path: "/contact", element: <ContactUS /> },
