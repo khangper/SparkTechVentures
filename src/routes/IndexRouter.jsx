@@ -64,8 +64,7 @@ export const indexRouter = createBrowserRouter([
       { path: "/main", element: <Main /> },
       { path: "/verify-success", element: <SuccessVerify /> },
       { path: "/verify-fail", element: <FailVerify /> },
-
-
+      { path: "/all-product", element: <AllProduct /> },
       { path: "/about", element: <AboutUS /> },
       { path: "/contact", element: <ContactUS /> },
       { path: "/login", element: <Login /> },
