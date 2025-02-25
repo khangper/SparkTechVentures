@@ -10,15 +10,13 @@ import {
   Store,
   ChevronDown,
   LogOut,
-  ListOrdered,
-  UserPen,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { persistor } from "../../redux/store";
 import { logout } from "../../redux/slices/authSlice";
 
-const Sidebar = () => {
+const StaffSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
   const [openDropdowns, setOpenDropdowns] = useState([]);
@@ -26,7 +24,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const handleLogout = () => {
     dispatch(logout());
     persistor.purge();
@@ -47,19 +45,19 @@ const Sidebar = () => {
       icon: Package,
       label: "Products",
       submenu: [
-        { id: "product-list", label: "Product List", path: "/lessor/products" },
+        { id: "product-list", label: "Product List", path: "/products" },
         { id: "product-categories", label: "Categories", path: "/categories" },
         { id: "product-inventory", label: "Inventory", path: "/inventory" },
       ],
     },
     {
-      id: "listordered",
-      icon: ListOrdered,
-      label: "Orders",
+      id: "stores",
+      icon: Store,
+      label: "Stores",
       submenu: [
         // { id: "store-list", label: "Store List", path: "/stores" },
         // { id: "store-analytics", label: "Analytics", path: "/store-analytics" },
-        { id: "all-store", label: "All order", path: "/lessor/all-orders" },
+        { id: "add-store", label: "Add Store", path: "/lessor/add-by-store" },
       ],
     },
     { id: "users", icon: Users, label: "Users", path: "/users" },
@@ -188,16 +186,6 @@ const Sidebar = () => {
                     <LogOut className="w-3 h-3 mr-2" />
                     Log out
                   </button>
-                  <button
-                    onClick={() => {
-                      navigate(`/lessor/profile`);
-                      setIsOpen(false);
-                    }}
-                    className="flex items-center w-full p-1 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    <UserPen className="w-3 h-3 mr-2" />
-                    Profile
-                  </button>
                 </div>
               )}
             </div>
@@ -208,4 +196,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default StaffSidebar;

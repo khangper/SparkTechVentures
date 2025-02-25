@@ -23,6 +23,8 @@ const authSlice = createSlice({
       state.accountId = action.payload.accountId;
       state.username = action.payload.username;
       state.email = action.payload.email;
+      state.picture = action.payload.picture;
+
     },
     logout: (state) => {
       localStorage.clear();

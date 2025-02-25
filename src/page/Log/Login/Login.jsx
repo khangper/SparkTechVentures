@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../Context/api";
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../redux/slices/authSlice";
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -28,8 +29,25 @@ export default function Login() {
       });
 
       if (response.data.isSuccess) {
-        const { id, role, accessToken, refreshToken, username, email} = response.data.data;
-        dispatch(login({ token: accessToken, role, accountId: id, username, email}));
+        const { id, role, accessToken, username, email } = response.data.data;
+        
+        localStorage.setItem("accessToken", accessToken);
+
+        const userInfoResponse = await api.get("auth/user-infor");
+
+        const picture = userInfoResponse.data.data.picture || "";
+
+        dispatch(
+          login({
+            token: accessToken,
+            role,
+            accountId: id,
+            username,
+            email,
+            picture,
+          })
+        );
+
         switch (role) {
           case "ADMIN":
             navigate("/admin");
