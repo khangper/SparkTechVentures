@@ -434,7 +434,7 @@ export default function HomePage() {
                     </ul>
                   </nav>
                 </div>
-                <Link to="/all-product" className="col-4 ml-80px ">
+                <Link to="/all-product" className="HomePage-text5 col-4 ml-80px ">
                   View all
                 </Link>
               </div>
