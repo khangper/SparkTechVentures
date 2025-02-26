@@ -53,7 +53,6 @@ const Sidebar = () => {
           label: "Categories",
           path: "/lessor/categories",
         },
-       
       ],
     },
     {
@@ -98,8 +97,8 @@ const Sidebar = () => {
         <div className="flex items-center p-4 border-b border-gray-800">
           <Menu size={24} className="flex-shrink-0" />
           {!isCollapsed && (
-            <span className="ml-2 font-semibold text-xl whitespace-nowrap">
-              Logo
+            <span className="ml-2 font-extrabold text-lg whitespace-nowrap font-sans tracking-wide">
+              Sparktech Ventures
             </span>
           )}
         </div>
