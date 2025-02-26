@@ -235,6 +235,7 @@ export default function Compare() {
               <span className="price">{product.price}/Day</span>
             </button>
           </div>
+          
           <div className="mb-8">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">
               Description
