@@ -50,16 +50,16 @@ const StaffSidebar = () => {
         { id: "product-inventory", label: "Inventory", path: "/inventory" },
       ],
     },
-    {
-      id: "stores",
-      icon: Store,
-      label: "Stores",
-      submenu: [
-        // { id: "store-list", label: "Store List", path: "/stores" },
-        // { id: "store-analytics", label: "Analytics", path: "/store-analytics" },
-        { id: "add-store", label: "Add Store", path: "/lessor/add-by-store" },
-      ],
-    },
+    // {
+    //   id: "stores",
+    //   icon: Store,
+    //   label: "Stores",
+    //   submenu: [
+    //     // { id: "store-list", label: "Store List", path: "/stores" },
+    //     // { id: "store-analytics", label: "Analytics", path: "/store-analytics" },
+    //     { id: "add-store", label: "Add Store", path: "/lessor/add-by-store" },
+    //   ],
+    // },
     { id: "users", icon: Users, label: "Users", path: "/users" },
     { id: "settings", icon: Settings, label: "Settings", path: "/settings" },
     { id: "help", icon: HelpCircle, label: "Help", path: "/help" },

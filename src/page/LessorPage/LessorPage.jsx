@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { ImageUp, ChevronDown, Plus, Minus } from "lucide-react";
+import {
+  ImageUp,
+  ChevronDown,
+  Plus,
+  Minus,
+  Upload,
+  X,
+  ImageIcon,
+} from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -32,17 +40,77 @@ export default function LessorPage() {
   const [weight, setWeight] = useState(0);
   const [fuel, setFuel] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [productId, setProductId] = useState(null);
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
 
   const navigate = useNavigate();
+  const [images, setImages] = useState([]);
+  const fileInputRef = useRef(null);
+
+  // const handleFileChangeMultiple = (e) => {
+  //   if (e.target.files) {
+  //     console.log(e.target.files);
+
+  //     const filesArray = Array.from(e.target.files).map((file) => ({
+  //       file,
+  //       preview: URL.createObjectURL(file),
+  //     }));
+
+  //     setImages((prevImages) => [...prevImages, ...filesArray]);
+  //   }
+  // };
+
+  const handleFileChangeMultiple = (e) => {
+    if (!e.target.files) return;
+
+    const filesArray = Array.from(e.target.files);
+    console.log(filesArray);
+
+    setImages((prevImages) => [...prevImages, ...filesArray]);
+    console.log(images);
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    console.log(file);
+
     if (file) {
       setImage(file);
       setImagePreview(URL.createObjectURL(file));
     }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+
+    if (e.dataTransfer.files) {
+      const filesArray = Array.from(e.dataTransfer.files).map((file) => ({
+        file,
+        preview: URL.createObjectURL(file),
+      }));
+
+      setImages((prevImages) => [...prevImages, ...filesArray]);
+    }
+  };
+
+  // Ngăn chặn hành vi mặc định của trình duyệt khi kéo thả
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  // Xóa một ảnh đã tải lên
+  const removeImage = (index) => {
+    setImages((prevImages) => {
+      // Giải phóng URL để tránh rò rỉ bộ nhớ
+      URL.revokeObjectURL(prevImages[index].preview);
+      return prevImages.filter((_, i) => i !== index);
+    });
+  };
+
+  // Mở hộp thoại chọn file
+  const openFileDialog = () => {
+    fileInputRef.current?.click();
   };
 
   const handleDescriptionChange = (value) => {
@@ -131,20 +199,125 @@ export default function LessorPage() {
     }
   };
 
+  // const handleSubmit = async () => {
+  //   const formData = new FormData();
+  //   formData.append("categoryId", category);
+  //   formData.append("brandId", brand);
+  //   formData.append("name", name);
+  //   formData.append("description", description);
+  //   formData.append("file", image);
+  //   formData.append("price", parseFloat(price) || 0);
+  //   formData.append("stock", stock);
+  //   formData.append("weight", weight);
+  //   formData.append("dimensions", dimensions);
+  //   formData.append("fuelType", fuel);
+
+  //   await addProduct(formData);
+  // };
+
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("categoryId", category);
     formData.append("brandId", brand);
     formData.append("name", name);
     formData.append("description", description);
-    formData.append("file", image);
+    formData.append("file", image); // Thumbnail image
     formData.append("price", parseFloat(price) || 0);
     formData.append("stock", stock);
     formData.append("weight", weight);
     formData.append("dimensions", dimensions);
     formData.append("fuelType", fuel);
 
-    await addProduct(formData);
+    try {
+      const response = await api.post("product", formData);
+
+      if (response.status === 201 || response.status === 200) {
+        const createdProductId = response.data.data.id;
+        setProductId(createdProductId);
+        toast.success("Product created successfully! 🎉");
+        console.log(createdProductId);
+
+        await uploadImages(createdProductId);
+
+        setTimeout(() => {
+          navigate("/lessor");
+        }, 1500);
+      } else {
+        throw new Error("Product creation failed");
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to create product. Try again!"
+      );
+      console.error("Error creating product:", error);
+    }
+  };
+
+  // const uploadImages = async (createdProductId) => {
+  //   if (!createdProductId) {
+  //     toast.error("Product ID not found. Please create the product first.");
+  //     return;
+  //   }
+
+  //   if (images.length === 0) {
+  //     toast.error("Please select images before uploading.");
+  //     return;
+  //   }
+
+  //   const formData = new FormData();
+  //   images.forEach((file) => formData.append("files", file));
+  //   formData.append("productId", createdProductId);
+
+  //   try {
+  //     const response = await api.post(
+  //       "productimage/upload-multiple",
+  //       formData,
+  //       {}
+  //     );
+
+  //     if (response.status === 200) {
+  //       toast.success("Images uploaded successfully!");
+  //     } else {
+  //       toast.error("Failed to upload images.");
+  //     }
+  //   } catch (error) {
+  //     toast.error("Error uploading images.");
+  //     console.error("Upload error:", error);
+  //   }
+  // };
+  const uploadImages = async (productId) => {
+    if (!productId) {
+      toast.error("Product ID không tồn tại. Hãy tạo sản phẩm trước!");
+      return;
+    }
+
+    if (images.length === 0) {
+      toast.error("Vui lòng chọn ảnh trước khi tải lên.");
+      return;
+    }
+
+    const formData = new FormData();
+    images.forEach((file) => formData.append("files", file)); // ✅ Append file đúng cách
+    formData.append("productId", productId);
+
+    try {
+      const response = await api.post(
+        `productimage/upload-multiple?productId=${productId}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Ảnh đã được tải lên thành công!");
+      } else {
+        toast.error("Tải ảnh thất bại.");
+      }
+    } catch (error) {
+      toast.error("Lỗi khi tải ảnh.");
+      console.error("Upload error:", error);
+    }
   };
 
   const renderStepContent = (step) => {
@@ -377,11 +550,11 @@ export default function LessorPage() {
                 htmlFor="Media"
                 className="block text-sm font-medium text-gray-900 "
               >
-                Media
+                Default Image
               </label>
 
               <div
-                className="bg-white cursor-pointer"
+                className="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-6 text-center cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors"
                 onClick={() => document.getElementById("fileInput").click()}
               >
                 <div className="flex flex-col items-center justify-center p-10 space-y-4">
@@ -411,6 +584,76 @@ export default function LessorPage() {
                   )}
                 </div>
               </div>
+            </div>
+
+            <div className="w-full max-w-3xl mx-auto p-6">
+              {/* Vùng kéo thả */}
+              <div className="border-2 border-yellow-500 rounded-lg mt-20 p-5">
+                <h2 className="text-sm font-bold mb-6 text-gray-800">
+                  Tải lên nhiều ảnh
+                </h2>
+                <div
+                  className="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-6 text-center cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors"
+                  onClick={openFileDialog}
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                >
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleFileChangeMultiple}
+                    ref={fileInputRef}
+                  />
+
+                  <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                  <h3 className="mt-2 text-lg font-medium text-gray-700">
+                    Drag and drop images here
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">
+                    or click to select a photo from your device
+                  </p>
+                </div>
+              </div>
+              {images.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-lg font-medium text-gray-700 mb-3">
+                    Selected photo({images.length})
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    {images.map((image, index) => (
+                      <div key={index} className="relative group">
+                        <div className="aspect-square rounded-lg overflow-hidden border border-gray-200">
+                          <img
+                            src={URL.createObjectURL(image)}
+                            alt={`Ảnh ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <button
+                          onClick={() => removeImage(index)}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                          aria-label="Xóa ảnh"
+                        >
+                          <X size={16} />
+                        </button>
+                        <p className="text-xs mt-1 truncate">{image.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* {images.length > 0 && (
+                <button
+                  onClick={uploadImages}
+                  className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  <ImageIcon size={20} />
+                  Upload {images.length} images
+                </button>
+              )} */}
             </div>
           </>
         );
