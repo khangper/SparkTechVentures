@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Signup.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../../../Context/api";
 import toast from "react-hot-toast";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 export default function Signup() {
   // Các state cho input
   const [username, setUsername] = useState("");
@@ -62,10 +63,16 @@ export default function Signup() {
       );
     }
   };
-
+    useEffect(() => {
+        Aos.init({
+          duration: 600, 
+          easing: "ease-out", 
+          once: true, 
+        });
+      }, []);
   return (
-    <div className="Signup-Allcontainer">
-      <div className="Signup-header">
+    <div className="Signup-Allcontainer" data-aos="zoom-out-down">
+      <div className="Signup-header"  >
         <div className="SU-Container">
           <div className="SU-ra1">
             <div className="CU-frame">
@@ -232,8 +239,6 @@ export default function Signup() {
                     onChange={(e) => setRole(Number(e.target.value))}
                   >
                     <option value={0}>Customer</option>
-                    <option value={1}>Staff</option>
-                    <option value={2}>Lessor</option>
                   </select>
                 </div>
               </div>

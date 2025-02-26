@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import bigstock2 from '../../assets/images/bigstock2.png'
 import bigstock3 from '../../assets/images/bigstock3.png'
 import bigstock1 from '../../assets/images/bigstock1.png'
 import "./Blog.css"
+import Aos from "aos";
+import "aos/dist/aos.css";
 function Blog() {
+      useEffect(() => {
+          Aos.init({
+            duration: 600, 
+            easing: "ease-out", 
+            once: true, 
+          });
+        }, []);
   return (
-    <div className='Blog-containerall'>
+    <div className='Blog-containerall' data-aos="zoom-out-down">
               {/* header BlogBlog */}
               <div className='Signup-header'>
         <div className='QA-Container'>

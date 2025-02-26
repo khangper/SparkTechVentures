@@ -15,15 +15,20 @@ const TransactionHistory = () => {
         alert("Please log in to view transaction history.");
         return;
       }
-
+  
       setLoading(true);
       try {
         const response = await api.get(`/transaction/account/${accountId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
+  
         if (response.data.isSuccess) {
-          setTransactions(response.data.data);
+          // Sắp xếp giao dịch theo thời gian mới nhất trước
+          const sortedTransactions = response.data.data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+  
+          setTransactions(sortedTransactions);
         } else {
           alert(response.data.message || "Failed to load transactions.");
         }
@@ -34,9 +39,10 @@ const TransactionHistory = () => {
         setLoading(false);
       }
     };
-
+  
     fetchTransactions();
   }, [token, accountId]);
+  
 
   if (!token || !accountId) {
     return <div className="TransactionPage-alert alert alert-warning">Please log in to view transaction history.</div>;

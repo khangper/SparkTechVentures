@@ -14,10 +14,11 @@ function PaymentPageSuccess() {
         const storedOrderId = localStorage.getItem("orderId");
         // const orderId = `10000 + ${storedOrderId}}`
         console.log(orderId);
-        
+        const orderPay = 10000 + Number(storedOrderId);
+
         
         const token = localStorage.getItem("accessToken");
-
+        console.log(orderPay);
         console.log("Order ID từ LocalStorage:", storedOrderId);
         console.log("Token từ LocalStorage:", token);
 
@@ -26,12 +27,14 @@ function PaymentPageSuccess() {
           return;
         }
         if (!token) {
-          console.error("Không tìm thấy accessToken. Người dùng chưa đăng nhập?");
+          console.error(
+            "Không tìm thấy accessToken. Người dùng chưa đăng nhập?"
+          );
           return;
         }
 
         // Gọi API cập nhật trạng thái thanh toán với Bearer Token
-        const response = await api.get(`payos?orderCode=${storedOrderId}`, {
+        const response = await api.get(`payos?orderCode=${orderPay}`, {
           // headers: {
           //   Authorization: `Bearer ${token}`, // Thêm Authorization Token
           //   "Content-Type": "application/json",
@@ -47,7 +50,10 @@ function PaymentPageSuccess() {
         localStorage.removeItem("orderId"); // Xóa orderId sau khi lấy dữ liệu
       } catch (error) {
         if (error.response?.status === 404) {
-          console.error("Không tìm thấy đơn hàng. Kiểm tra orderCode:", orderId);
+          console.error(
+            "Không tìm thấy đơn hàng. Kiểm tra orderCode:",
+            orderId
+          );
           alert("Không tìm thấy đơn hàng. Vui lòng kiểm tra lại!");
         } else if (error.response?.status === 401) {
           console.error("Lỗi 401: Token không hợp lệ hoặc hết hạn.");
@@ -63,14 +69,18 @@ function PaymentPageSuccess() {
   }, []);
 
   return (
-    <div className='PaymentsuccessPage'>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-12 payment-flex'>
-            <div className='PaymentsuccessPage-container'>
-              <img src={paymentsuccessicon} className="PaymentsuccessPage-icon" alt="Payment Success" />
-              <div className='PaymentsuccessPage-title'>
-              Bạn đã thanh toán thất bại
+    <div className="PaymentsuccessPage">
+      <div className="container">
+        <div className="row">
+          <div className="col-12 payment-flex">
+            <div className="PaymentsuccessPage-container">
+              <img
+                src={paymentsuccessicon}
+                className="PaymentsuccessPage-icon"
+                alt="Payment Success"
+              />
+              <div className="PaymentsuccessPage-title">
+                Chúc mừng bạn đã thanh toán thành công
               </div>
               {orderId && (
                 <div className="PaymentsuccessPage-order">
@@ -82,7 +92,7 @@ function PaymentPageSuccess() {
                   Trạng thái đơn hàng: {orderStatus.status || "Không xác định"}
                 </div>
               )} */}
-              <Link to="/" style={{ textDecoration: 'none' }}>
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <div className="PaymentsuccessPage-button">
                   <div className="TK-text">Quay về trang chủ</div>
                 </div>

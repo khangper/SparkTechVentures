@@ -14,6 +14,13 @@ import api from "../Context/api";
 import { ArrowRightLeft, Plus } from "lucide-react";
 import { useParams } from "react-router-dom";
 
+const fuelOptions = [
+  { label: "Gasoline", value: 0 },
+  { label: "Diesel", value: 1 },
+  { label: "Natural Gas", value: 2 },
+  { label: "Propane", value: 3 },
+];
+
 export default function Compare() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,6 +32,8 @@ export default function Compare() {
   const mode = location.state?.mode;
   console.log(location);
   const [productSecond, setProductSecond] = useState("");
+  const [images, setImages] = useState([]);
+  const [imageSecond, setImageSecond] = useState([]);
 
   useEffect(() => {
     const apiProduct = async () => {
@@ -37,6 +46,22 @@ export default function Compare() {
         setLoading(false);
       }
     };
+    const fetchProductImage = async () => {
+      try {
+        const response = await api.get(
+          `productimage/by-product/${secondProduct}`
+        );
+        if (response.data.isSuccess) {
+          setImageSecond(response.data.data);
+          console.log(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProductImage();
     apiProduct();
   }, [secondProduct]);
 
@@ -53,6 +78,21 @@ export default function Compare() {
         setLoading(false);
       }
     };
+
+    const fetchProductImage = async () => {
+      try {
+        const response = await api.get(`productimage/by-product/${idt}`);
+        if (response.data.isSuccess) {
+          setImages(response.data.data);
+          console.log(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProductImage();
     fetchProduct();
   }, [idt]);
 
@@ -159,23 +199,32 @@ export default function Compare() {
 
           <div className="main-image">
             <img
+              src={product.defaultImage}
               className="HH-Picture-small"
-              src={`https://media.istockphoto.com/id/143918313/vi/anh/m%C3%A1y-x%C3%BAc-t%E1%BA%A1i-m%E1%BB%99t-c%C3%B4ng-tr%C6%B0%E1%BB%9Dng-x%C3%A2y-d%E1%BB%B1ng-ch%E1%BB%91ng-l%E1%BA%A1i-m%E1%BA%B7t-tr%E1%BB%9Di-l%E1%BA%B7n.jpg?s=612x612&w=0&k=20&c=n0Gw-7m3yh6bNwQGZLQ3fXvQiuGhvYcAULSxGQS78oo=`}
               alt={product.name || "Product image"}
             />
           </div>
 
-          {/* Thumbnails */}
           <div className="thumbnail-container">
-            <div className="thumbnail">
-              <img src={smalltock1} alt="Excavator view 1" />
-            </div>
-            <div className="thumbnail">
-              <img src={smalltock2} alt="Excavator view 2" />
-            </div>
-            <div className="thumbnail">
-              <img src={smalltock3} alt="Excavator view 3" />
-            </div>
+            {images && images.length > 0 ? (
+              images.map((image, index) => (
+                <div key={index} className="thumbnail">
+                  <img src={image.imageUrl} alt={`Product view ${index + 1}`} />
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="thumbnail">
+                  <img src={smalltock1} alt="Excavator view 1" />
+                </div>
+                <div className="thumbnail">
+                  <img src={smalltock2} alt="Excavator view 2" />
+                </div>
+                <div className="thumbnail">
+                  <img src={smalltock3} alt="Excavator view 3" />
+                </div>
+              </>
+            )}
           </div>
 
           <div className="price-status-compare">
@@ -190,7 +239,7 @@ export default function Compare() {
               Description
             </h2>
             <p className="text-lg text-gray-600 mb-6 max-w-[100%]">
-              {product.description}
+              {product.description.replace(/<\/?[^>]+(>|$)/g, "")}
             </p>
 
             <div className="space-y-4">
@@ -239,22 +288,34 @@ export default function Compare() {
             <div className="main-image">
               <img
                 className="HH-Picture-small"
-                src={`https://media.istockphoto.com/id/143918313/vi/anh/m%C3%A1y-x%C3%BAc-t%E1%BA%A1i-m%E1%BB%99t-c%C3%B4ng-tr%C6%B0%E1%BB%9Dng-x%C3%A2y-d%E1%BB%B1ng-ch%E1%BB%91ng-l%E1%BA%A1i-m%E1%BA%B7t-tr%E1%BB%9Di-l%E1%BA%B7n.jpg?s=612x612&w=0&k=20&c=n0Gw-7m3yh6bNwQGZLQ3fXvQiuGhvYcAULSxGQS78oo=`}
+                src={productSecond.defaultImage}
                 alt={productSecond.name || "Product image"}
               />
             </div>
 
-            {/* Thumbnails */}
             <div className="thumbnail-container">
-              <div className="thumbnail">
-                <img src={smalltock1} alt="Excavator view 1" />
-              </div>
-              <div className="thumbnail">
-                <img src={smalltock2} alt="Excavator view 2" />
-              </div>
-              <div className="thumbnail">
-                <img src={smalltock3} alt="Excavator view 3" />
-              </div>
+              {imageSecond && imageSecond.length > 0 ? (
+                imageSecond.map((image, index) => (
+                  <div key={index} className="thumbnail">
+                    <img
+                      src={image.imageUrl}
+                      alt={`Product view ${index + 1}`}
+                    />
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className="thumbnail">
+                    <img src={smalltock1} alt="Excavator view 1" />
+                  </div>
+                  <div className="thumbnail">
+                    <img src={smalltock2} alt="Excavator view 2" />
+                  </div>
+                  <div className="thumbnail">
+                    <img src={smalltock3} alt="Excavator view 3" />
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="price-status-compare">
@@ -270,7 +331,7 @@ export default function Compare() {
                 Description
               </h2>
               <p className="text-lg text-gray-600 mb-6 max-w-[100%]">
-                {productSecond.description}
+                {productSecond.description.replace(/<\/?[^>]+(>|$)/g, "")}
               </p>
 
               <div className="space-y-4">
@@ -322,36 +383,84 @@ export default function Compare() {
           </div>
         )}
       </div>
-      <div class="overflow-x-auto shadow-md sm:rounded-lg flex justify-center">
-        <table class="min-w-[90%] text-left text-sm font-light">
-          <thead class="bg-gray-100">
+      <div className="overflow-x-auto p-4 flex justify-center">
+        <table className="w-full max-w-4xl text-sm text-left text-gray-600 shadow-md sm:rounded-lg border border-gray-200">
+          <thead className="bg-blue-500 text-white text-sm uppercase">
             <tr>
-              <th scope="col" class="px-6 py-3 text-gray-700">
-                Column 1
-              </th>
-              <th scope="col" class="px-6 py-3 text-gray-700">
-                Column 2
-              </th>
-              <th scope="col" class="px-6 py-3 text-gray-700">
-                Column 3
-              </th>
+              <th className="px-6 py-3 text-center">Specification</th>
+              <th className="px-6 py-3 text-center">{product.name}</th>
+              <th className="px-6 py-3 text-center">{productSecond.name}</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr class="border-b bg-white hover:bg-gray-50">
-              <td class="px-6 py-4">Row 1, Column 1</td>
-              <td class="px-6 py-4">Row 1, Column 2</td>
-              <td class="px-6 py-4">Row 1, Column 3</td>
+            <tr className="border-b bg-gray-50 hover:bg-gray-100 transition">
+              <td className="px-6 py-4 font-semibold">Weight</td>
+              <td className="px-6 py-4 text-center">{product.weight} tons</td>
+              <td className="px-6 py-4 text-center">
+                {productSecond.weight} tons
+              </td>
             </tr>
-            <tr class="border-b bg-white hover:bg-gray-50">
-              <td class="px-6 py-4">Row 2, Column 1</td>
-              <td class="px-6 py-4">Row 2, Column 2</td>
-              <td class="px-6 py-4">Row 2, Column 3</td>
+
+            <tr className="border-b bg-white hover:bg-gray-100 transition">
+              <td className="px-6 py-4 font-semibold">Dimensions</td>
+              <td className="px-6 py-4 text-center">{product.dimensions}</td>
+              <td className="px-6 py-4 text-center">
+                {productSecond.dimensions}
+              </td>
             </tr>
-            <tr class="bg-white hover:bg-gray-50">
-              <td class="px-6 py-4">Row 3, Column 1</td>
-              <td class="px-6 py-4">Row 3, Column 2</td>
-              <td class="px-6 py-4">Row 3, Column 3</td>
+
+            <tr className="border-b bg-gray-50 hover:bg-gray-100 transition">
+              <td className="px-6 py-4 font-semibold">Fuel Type</td>
+              <td className="px-6 py-4 text-center">
+                {fuelOptions.find((option) => option.value === product.fuelType)
+                  ?.label || "Not specified"}
+              </td>
+              <td className="px-6 py-4 text-center">
+                {fuelOptions.find(
+                  (option) => option.value === productSecond.fuelType
+                )?.label || "Not specified"}
+              </td>
+            </tr>
+
+            <tr className="border-b bg-white hover:bg-gray-100 transition">
+              <td className="px-6 py-4 font-semibold">Availability</td>
+              <td className="px-6 py-4 text-center">
+                <span
+                  className={`px-3 py-1 text-xs font-medium rounded-full 
+              ${
+                product.status === "AVAILABLE"
+                  ? "bg-green-100 text-green-700"
+                  : "bg-red-100 text-red-700"
+              }`}
+                >
+                  {product.status === "AVAILABLE" ? "In stock" : "Out of stock"}
+                </span>
+              </td>
+              <td className="px-6 py-4 text-center">
+                <span
+                  className={`px-3 py-1 text-xs font-medium rounded-full 
+              ${
+                productSecond.status === "AVAILABLE"
+                  ? "bg-green-100 text-green-700"
+                  : "bg-red-100 text-red-700"
+              }`}
+                >
+                  {productSecond.status === "AVAILABLE"
+                    ? "In stock"
+                    : "Out of stock"}
+                </span>
+              </td>
+            </tr>
+
+            <tr className="border-b bg-gray-50 hover:bg-gray-100 transition">
+              <td className="px-6 py-4 font-semibold">Price</td>
+              <td className="px-6 py-4 text-center text-blue-600 font-bold">
+                ${product.price?.toLocaleString()}
+              </td>
+              <td className="px-6 py-4 text-center text-blue-600 font-bold">
+                ${productSecond.price?.toLocaleString()}
+              </td>
             </tr>
           </tbody>
         </table>

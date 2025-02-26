@@ -26,8 +26,8 @@ export default function LessorOrder() {
     const fetchOrders = async () => {
       setIsLoading(true);
       try {
-        const response = await api.get("order");
-        setOrder(response.data.data);
+        const response = await api.get("lessor/orders");
+        setOrder(response.data.data.reverse());
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {
@@ -47,12 +47,12 @@ export default function LessorOrder() {
     });
   };
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(amount / 23000);
-  };
+  // const formatCurrency = (amount) => {
+  //   return new Intl.NumberFormat("en-US", {
+  //     style: "currency",
+  //     currency: "USD",
+  //   }).format(amount / 23000);
+  // };
 
   const getStatusBadge = (status) => {
     if (status === "COMPLETED" || status === "2") {
@@ -123,9 +123,14 @@ export default function LessorOrder() {
     },
   };
   return (
-    <div className="bg-gray-50 min-h-screen pb-12">
+    <motion.div
+      className="bg-gray-50 min-h-screen pb-12 flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="container mx-auto px-4">
-        <div className="bg-white rounded-xl shadow-sm p-6 table-container">
+        <div className="bg-white rounded-xl shadow-sm p-6 ">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-800">
               Order Management
@@ -209,7 +214,7 @@ export default function LessorOrder() {
                     Recipient
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
+                    Amount (VND)
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Dates
@@ -254,7 +259,7 @@ export default function LessorOrder() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {formatCurrency(order.totalPrice)}
+                        {order.totalPrice}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <div>{formatDate(order.dateOfReceipt)}</div>
@@ -397,6 +402,6 @@ export default function LessorOrder() {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

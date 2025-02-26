@@ -10,17 +10,17 @@ const Footer = () => {
         <div className="FT-contact-vector"></div>
         <div className="FT-contact-inputs">
           <div className="FT-input-group">
-          <input type="text" className="form-control" placeholder="Name" aria-label="name" aria-describedby="basic-addon1"/>
+          <input type="text" className="FT-inputfrom" placeholder="Name" aria-label="name" aria-describedby="basic-addon1"/>
           </div>
           <div className="FT-input-group">
             {/* <input className="FT-input-field FT-email-input" type="email" placeholder="Email" /> */}
-            <input type="text" className="form-control" placeholder="Email" aria-label="name" aria-describedby="basic-addon1"/>
+            <input type="text" className="FT-inputfrom" placeholder="Email" aria-label="name" aria-describedby="basic-addon1"/>
           </div>
         </div>
         <div className="FT-message-group">
           {/* <textarea className="FT-message-field" placeholder="Message"></textarea> */}
           {/* <textarea className="form-control" placeholder="Message" id="floatingTextarea2" style="height: 100px"/> */}
-          <input type="text" className="form-control" placeholder="Message" aria-label="name" aria-describedby="basic-addon1"/>
+          <input type="text" className="FT-inputfrom" placeholder="Message" aria-label="name" aria-describedby="basic-addon1"/>
 
         </div>
         <button className="FT-send-button">
