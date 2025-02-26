@@ -28,7 +28,7 @@ export default function LessorProductDetail() {
     fetchProductDetail();
   }, [id]);
 
-  if (!product) return <div className="text-center mt-10">Loading...</div>;
+  // if (!product) return <div className="text-center mt-10">Loading...</div>;
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
