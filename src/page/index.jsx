@@ -102,7 +102,7 @@ export default function Index() {
       alert("This product is out of stock and cannot be added to the cart.");
       return;
     }
-  
+
     // Kiểm tra xem người dùng đã đăng nhập chưa bằng cách lấy token từ localStorage
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -110,11 +110,11 @@ export default function Index() {
       navigate("/login");
       return;
     }
-  
+
     // Lấy giỏ hàng hiện tại từ sessionStorage, nếu chưa có thì khởi tạo mảng rỗng
     const existingCart = sessionStorage.getItem("cartItems");
     let cartItems = existingCart ? JSON.parse(existingCart) : [];
-  
+
     // Kiểm tra xem giỏ hàng hiện tại có sản phẩm nào không
     if (cartItems.length > 0) {
       const existingStore = cartItems[0].storeId; // Giả định tất cả sản phẩm trong giỏ cùng một store
@@ -123,9 +123,11 @@ export default function Index() {
         return;
       }
     }
-  
+
     // Kiểm tra xem sản phẩm đã có trong giỏ hay chưa (dựa vào productId)
-    const productIndex = cartItems.findIndex(item => item.productId === product.id);
+    const productIndex = cartItems.findIndex(
+      (item) => item.productId === product.id
+    );
     if (productIndex >= 0) {
       // Nếu đã có, kiểm tra xem còn đủ hàng không trước khi tăng số lượng
       if (cartItems[productIndex].quantity + 1 > product.stock) {
@@ -144,13 +146,12 @@ export default function Index() {
         storeId: product.storeId, // Lưu storeId để kiểm tra sau này
       });
     }
-  
+
     // Lưu lại giỏ hàng mới vào sessionStorage
     sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
     alert("Product added to cart!");
   };
-  
-  
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -252,12 +253,19 @@ export default function Index() {
 
 
           <div className="product-info">
-            <div className="flex items-center">
-              <span className="product-title">{product.name}</span>
-              <Link to={`/compare/${productId}`}>
-                <span className="text-blue-500 text-3xl flex items-center">
-                  <GitCompareArrows size={32} className="mr-2" /> Compare
-                </span>
+            <div className="flex items-center justify-between w-full">
+              <h2 className="text-xl font-semibold text-gray-800">
+                {product.name}
+              </h2>
+
+              <Link
+                to={`/compare/${productId}`}
+                className="flex items-center bg-yellow-400 text-white gap-2 px-4 py-2 rounded-lg border border-blue-500 
+             font-semibold transition-all duration-300 ease-in-out shadow-md 
+             hover:bg-blue-500 hover:text-white hover:shadow-lg no-underline"
+              >
+                <GitCompareArrows size={20} />
+                <span className="text-xl ">Compare</span>
               </Link>
             </div>
 
@@ -362,129 +370,4 @@ export default function Index() {
       </div>
     </div>
   );
-}
-
-{
-  /* Feedback */
-}
-
-{
-  /* <div className='main-container-FB'>
-
-
-<div className='left-image-container'>
-<div className="TT-container">
-  <div className="TT-header">
-    <span className="TT-title">Rate Alem Cinema</span>
-  </div>
-  <div className="TT-sub-header">
-    <span className="TT-description">Rating and reviews are verified and are from people who use the service</span>
-  </div>
-  <div className="TT-content">
-    <div className="TT-rating-summary">
-      <div className="TT-rating-score">
-        <span className="TT-score">4.5</span>
-      </div>
-      <div className="TT-rating-stars">
-        {[...Array(4)].map((_, index) => (
-          <div className="TT-star" key={index}>
-            <div className="TT-star-icon"></div>
-          </div>
-        ))}
-        <div className="TT-star-half"></div>
-      </div>
-      <span className="TT-review-count">2,256,896</span>
-    </div>
-    <div className="TT-rating-breakdown">
-      <div className="TT-breakdown-item">
-        <span className="TT-rating-number">5</span>
-        <div className="TT-progress-bar">
-          <img 
-            src={startbreadown5} // Hình ảnh cho đánh giá 5
-            alt="Rating 5" 
-            className="TT-progress-inner" 
-          />
-        </div>
-      </div>
-      <div className="TT-breakdown-item">
-        <span className="TT-rating-number">4</span>
-        <div className="TT-progress-bar">
-          <img 
-            src={startbreadown4} // Hình ảnh cho đánh giá 4
-            alt="Rating 4" 
-            className="TT-progress-inner" 
-          />
-        </div>
-      </div>
-      <div className="TT-breakdown-item">
-        <span className="TT-rating-number">3</span>
-        <div className="TT-progress-bar">
-          <img 
-            src={startbreadown3} // Hình ảnh cho đánh giá 3
-            alt="Rating 3" 
-            className="TT-progress-inner" 
-          />
-        </div>
-      </div>
-      <div className="TT-breakdown-item">
-        <span className="TT-rating-number">2</span>
-        <div className="TT-progress-bar">
-          <img 
-            src={startbreadown2} // Hình ảnh cho đánh giá 2
-            alt="Rating 2" 
-            className="TT-progress-inner" 
-          />
-        </div>
-      </div>
-      <div className="TT-breakdown-item">
-        <span className="TT-rating-number">1</span>
-        <div className="TT-progress-bar">
-          <img 
-            src={startbreadown1} // Hình ảnh cho đánh giá 1
-            alt="Rating 1" 
-            className="TT-progress-inner" 
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>  
-</div>
-
-
-<div className='product-container'>
-<div className="FB-feedback-container">
-    <div className="FB-feedback-header">
-      <div className="FB-feedback-title">Session feedback</div>
-      <div className="FB-feedback-subtitle">Please rate your experience below</div>
-    </div>
-    <div className="FB-feedback-rating">
-      <div className="FB-rating-stars">
-        <div className="FB-star FB-full" />
-        <div className="FB-star FB-full" />
-        <div className="FB-star FB-full" />
-        <div className="FB-star FB-full" />
-        <div className="FB-star FB-half" />
-      </div>
-      <div className="FB-rating-score">4/5 stars</div>
-    </div>
-    <div className="FB-feedback-additional">
-      <div className="FB-additional-title">Additional feedback</div>
-      <div className="FB-additional-input">
-        <span className="FB-input-label">My feedback:</span>
-        <input 
-          className="FB-input-box" 
-         
-          rows="4" 
-          style={{ resize: 'none' }}
-        />
-      </div>
-    </div>
-  </div>
-  
-</div>
-
-
-
-</div> */
 }

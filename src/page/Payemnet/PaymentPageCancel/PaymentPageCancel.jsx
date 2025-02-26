@@ -12,7 +12,11 @@ function PaymentPageSuccess() {
     const fetchOrderStatus = async () => {
       try {
         const storedOrderId = localStorage.getItem("orderId");
+        // const orderId = `10000 + ${storedOrderId}}`
+        console.log(orderId);
         const orderPay = 10000 + Number(storedOrderId);
+
+        
         const token = localStorage.getItem("accessToken");
         console.log(orderPay);
         console.log("Order ID từ LocalStorage:", storedOrderId);
@@ -30,7 +34,12 @@ function PaymentPageSuccess() {
         }
 
         // Gọi API cập nhật trạng thái thanh toán với Bearer Token
-        const response = await api.get(`payos?orderCode=${orderPay}`, {});
+        const response = await api.get(`payos?orderCode=${orderPay}`, {
+          // headers: {
+          //   Authorization: `Bearer ${token}`, // Thêm Authorization Token
+          //   "Content-Type": "application/json",
+          // },
+        });
 
         console.log("API cập nhật trạng thái đơn hàng:", response.data);
 
