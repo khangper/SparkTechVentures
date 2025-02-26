@@ -94,18 +94,21 @@ export default function LessorHome() {
             value: summaries?.totalOrders,
             color: "green",
             isIncrease: true,
+            percentage: "12%",
           },
           {
             label: "Total Equipment",
             value: summaries?.totalEquipment,
             color: "green",
             isIncrease: true,
+            percentage: "28%",
           },
           {
             label: "Products on rent",
             value: 12,
             color: "red",
             isIncrease: false,
+            percentage: "7%",
           },
         ].map((item, index) => (
           <motion.div
@@ -131,7 +134,7 @@ export default function LessorHome() {
                       )}
                     </div>
                     <span className={`font-semibold text-${item.color}-600`}>
-                      15%
+                      {item.percentage}
                     </span>
                   </div>
                 </div>

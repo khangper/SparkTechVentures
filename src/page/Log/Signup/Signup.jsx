@@ -219,7 +219,7 @@ export default function Signup() {
                 </div>
 
                 {/* Picture */}
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label>Picture URL</label>
                   <input
                     type="text"
@@ -228,7 +228,7 @@ export default function Signup() {
                     onChange={(e) => setPicture(e.target.value)}
                     placeholder="Enter picture URL (optional)"
                   />
-                </div>
+                </div> */}
 
                 {/* Role */}
                 <div className="form-group">
