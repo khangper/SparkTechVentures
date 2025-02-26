@@ -330,7 +330,8 @@ export default function HomePage() {
                           <div className="HH-P-price">
                             <div className="textt"> {item.name}</div>
                             <div className="textt">
-                              Price: {item.price} VND/Day
+                           
+                              Price {item.price.toLocaleString("vi-VN")} VND/day
                             </div>
                           </div>
                         </div>
