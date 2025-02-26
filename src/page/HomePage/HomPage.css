@@ -667,13 +667,20 @@
   transform: scale(1.05);
 }
 a.HomePage-text5.col-4.ml-80px {
-  color: brown;
+  color: #ffb400;
   font-size: 20px;
   font-weight: 700;
 }
 .HomePage-text5:hover{
-  
   transform: scale(1.1);
+}
+span.ffff {
+  font-size: large;
+  color: #ffb400;
+}
+button.ffff.page-link {
+  font-size: large;
+  color: #ffb400;
 }
 
 
