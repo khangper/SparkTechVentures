@@ -15,10 +15,11 @@ import { ArrowRightLeft, Plus } from "lucide-react";
 import { useParams } from "react-router-dom";
 
 const fuelOptions = [
-  { label: "Gasoline", value: 0 },
-  { label: "Diesel", value: 1 },
-  { label: "Natural Gas", value: 2 },
-  { label: "Propane", value: 3 },
+  { label: "PETROL", value: 0 },
+  { label: "DIESEL", value: 1 },
+  { label: "ELECTRIC", value: 2 },
+  { label: "HYBRID", value: 3 },
+  { label: "GAS", value: 4 },
 ];
 
 export default function Compare() {
@@ -398,7 +399,7 @@ export default function Compare() {
               <td className="px-6 py-4 font-semibold">Weight</td>
               <td className="px-6 py-4 text-center">{product.weight} tons</td>
               <td className="px-6 py-4 text-center">
-                {productSecond.weight} tons
+                {productSecond ? productSecond.weight : ""}
               </td>
             </tr>
 
@@ -406,7 +407,7 @@ export default function Compare() {
               <td className="px-6 py-4 font-semibold">Dimensions</td>
               <td className="px-6 py-4 text-center">{product.dimensions}</td>
               <td className="px-6 py-4 text-center">
-                {productSecond.dimensions}
+                {productSecond ? productSecond.dimensions : ""}
               </td>
             </tr>
 
@@ -417,9 +418,11 @@ export default function Compare() {
                   ?.label || "Not specified"}
               </td>
               <td className="px-6 py-4 text-center">
-                {fuelOptions.find(
-                  (option) => option.value === productSecond.fuelType
-                )?.label || "Not specified"}
+                {productSecond
+                  ? fuelOptions.find(
+                      (option) => option.value === productSecond.fuelType
+                    )?.label || "Not specified"
+                  : ""}
               </td>
             </tr>
 
@@ -428,28 +431,30 @@ export default function Compare() {
               <td className="px-6 py-4 text-center">
                 <span
                   className={`px-3 py-1 text-xs font-medium rounded-full 
-              ${
-                product.status === "AVAILABLE"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-red-100 text-red-700"
-              }`}
+          ${
+            product.status === "AVAILABLE"
+              ? "bg-green-100 text-green-700"
+              : "bg-red-100 text-red-700"
+          }`}
                 >
                   {product.status === "AVAILABLE" ? "In stock" : "Out of stock"}
                 </span>
               </td>
               <td className="px-6 py-4 text-center">
-                <span
-                  className={`px-3 py-1 text-xs font-medium rounded-full 
-              ${
-                productSecond.status === "AVAILABLE"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-red-100 text-red-700"
-              }`}
-                >
-                  {productSecond.status === "AVAILABLE"
-                    ? "In stock"
-                    : "Out of stock"}
-                </span>
+                {productSecond && (
+                  <span
+                    className={`px-3 py-1 text-xs font-medium rounded-full 
+            ${
+              productSecond.status === "AVAILABLE"
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+                  >
+                    {productSecond.status === "AVAILABLE"
+                      ? "In stock"
+                      : "Out of stock"}
+                  </span>
+                )}
               </td>
             </tr>
 
@@ -459,7 +464,9 @@ export default function Compare() {
                 ${product.price?.toLocaleString()}
               </td>
               <td className="px-6 py-4 text-center text-blue-600 font-bold">
-                ${productSecond.price?.toLocaleString()}
+                {productSecond
+                  ? `$${productSecond.price?.toLocaleString()}`
+                  : ""}
               </td>
             </tr>
           </tbody>
