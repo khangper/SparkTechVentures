@@ -6,6 +6,14 @@ import api from "../../Context/api";
 import Lottie from "lottie-react";
 import loadingAnimation from "../../assets/loading.json";
 
+const fuelOptions = [
+  { label: "PETROL", value: 0 },
+  { label: "DIESEL", value: 1 },
+  { label: "ELECTRIC", value: 2 },
+  { label: "HYBRID", value: 3 },
+  { label: "GAS", value: 4 },
+];
+
 export default function LessorProductDetail() {
   const { id } = useParams(); // Lấy ID từ URL
   const [product, setProduct] = useState(null);
@@ -72,7 +80,11 @@ export default function LessorProductDetail() {
               <span>Stock: {product.stock}</span>
               <span>Weight: {product.weight} kg</span>
               <span>Dimensions: {product.dimensions}</span>
-              <span>Fuel Type: {product.fuelType}</span>
+              <span>
+                Fuel Type:{" "}
+                {fuelOptions.find((option) => option.value === product.fuelType)
+                  ?.label || "Unknown"}
+              </span>
             </div>
             <div className="flex justify-end">
               <Link to={`/lessor/product/${product.id}/edit`}>
