@@ -117,7 +117,7 @@ export default function LessorProduct() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-800 min-h-[56px]">
                     {product.name}
                   </h3>
                   <p
@@ -134,10 +134,11 @@ export default function LessorProduct() {
 
                   <div className="mt-4 flex justify-between items-center">
                     <span className="text-xl font-bold text-blue-500">
-                      ${product.price.toLocaleString()}
+                     
+                      {product.price.toLocaleString("vi-VN")} VNĐ
                     </span>
                     <button
-                      onClick={() => navigate(`product/${product.id}`)}
+                      onClick={() => navigate(`/lessor/product/${product.id}`)}
                       className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
                     >
                       Detail
