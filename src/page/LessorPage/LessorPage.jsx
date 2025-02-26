@@ -17,10 +17,11 @@ import { useNavigate } from "react-router-dom";
 import api from "../../Context/api";
 
 const fuelOptions = [
-  { label: "Gasoline", value: 0 },
-  { label: "Diesel", value: 1 },
-  { label: "Natural Gas", value: 2 },
-  { label: "Propane", value: 3 },
+  { label: "PETROL", value: 0 },
+  { label: "DIESEL", value: 1 },
+  { label: "ELECTRIC", value: 2 },
+  { label: "HYBRID", value: 3 },
+  { label: "GAS", value: 4 },
 ];
 
 export default function LessorPage() {
@@ -127,7 +128,7 @@ export default function LessorPage() {
     setFuel(value);
   };
 
-  const handleCategory = (id) => {
+  const handleCategory = (id) => {``
     setCategory(id);
   };
 

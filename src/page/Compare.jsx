@@ -15,10 +15,12 @@ import { ArrowRightLeft, Plus } from "lucide-react";
 import { useParams } from "react-router-dom";
 
 const fuelOptions = [
-  { label: "Gasoline", value: 0 },
-  { label: "Diesel", value: 1 },
-  { label: "Natural Gas", value: 2 },
-  { label: "Propane", value: 3 },
+  { label: "PETROL", value: 0 },
+  { label: "DIESEL", value: 1 },
+  { label: "ELECTRIC", value: 2 },
+  { label: "HYBRID", value: 3 },
+  { label: "GAS", value: 4},
+
 ];
 
 export default function Compare() {
