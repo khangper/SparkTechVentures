@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Question.css"
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 export default function Question() {
     const [activeTab, setActiveTab] = useState('tab1'); // Khởi tạo trạng thái cho tab
 
     const handleTabClick = (tab) => {
       setActiveTab(tab); // Cập nhật trạng thái khi tab được nhấn
     };
+    useEffect(() => {
+              Aos.init({
+                duration: 600, 
+                easing: "ease-out", 
+                once: true, 
+              });
+            }, []);
   return (
-    <div className='QA-containerall'>
+    <div className='QA-containerall' data-aos="zoom-out-down">
         {/* header QA */}
             <div className='Signup-header'>
         <div className='QA-Container'>

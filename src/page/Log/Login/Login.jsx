@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../Context/api";
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../redux/slices/authSlice";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,13 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+ useEffect(() => {
+          Aos.init({
+            duration: 600, 
+            easing: "ease-out", 
+            once: true, 
+          });
+        }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -81,7 +88,7 @@ export default function Login() {
         <div className="SU-Container">
           <div className="LG-ra1">
             <div className="LG-ra2">
-              <div className="LG-frame">
+              <div className="LG-frame" data-aos="fade-down-right">
                 <div className="CU-frame-2">
                   <div className="CU-frame-3">
                     <div className="CU-vector" />
@@ -98,7 +105,7 @@ export default function Login() {
                 </div>
               </div>
 
-              <div className="LG-input">
+              <div className="LG-input" data-aos="fade-down-left">
                 <div className="LG-frame-14">
                   <input
                     type="email"
