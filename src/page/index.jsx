@@ -14,6 +14,7 @@ import api from "../Context/api";
 import { GitCompareArrows } from "lucide-react";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import toast from "react-hot-toast";
 
 export default function Index() {
   const [searchParams] = useSearchParams();
@@ -135,7 +136,7 @@ export default function Index() {
     if (cartItems.length > 0) {
       const existingStore = cartItems[0].storeId; // Giả định tất cả sản phẩm trong giỏ cùng một store
       if (existingStore !== product.storeId) {
-        alert("You can only order products from the same store.");
+        toast.error("You can only order products from the same store.");
         return;
       }
     }
@@ -147,7 +148,7 @@ export default function Index() {
     if (productIndex >= 0) {
       // Nếu đã có, kiểm tra xem còn đủ hàng không trước khi tăng số lượng
       if (cartItems[productIndex].quantity + 1 > product.stock) {
-        alert("Not enough stock available.");
+        toast.error("Not enough stock available.");
         return;
       }
       cartItems[productIndex].quantity += 1;
@@ -165,7 +166,7 @@ export default function Index() {
 
     // Lưu lại giỏ hàng mới vào sessionStorage
     sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-    alert("Product added to cart!");
+    toast.success("Product added to cart!");
   };
 
   if (loading) {
