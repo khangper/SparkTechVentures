@@ -7,10 +7,11 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const fuelOptions = [
-  { label: "Gasoline", value: 1 },
-  { label: "Diesel", value: 2 },
-  { label: "Natural Gas", value: 3 },
-  { label: "Propane", value: 4 },
+  { label: "PETROL", value: 0 },
+  { label: "DIESEL", value: 1 },
+  { label: "ELECTRIC", value: 2 },
+  { label: "HYBRID", value: 3 },
+  { label: "GAS", value: 4 },
 ];
 
 export default function LessorEdit() {
