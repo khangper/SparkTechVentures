@@ -15,7 +15,7 @@ const OrderListPage = () => {
         alert("Please log in to view order history.");
         return;
       }
-
+  
       try {
         // Gọi API order
         const response = await api.get("/order", {
@@ -23,13 +23,19 @@ const OrderListPage = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-
+  
         if (response.data.isSuccess) {
           // Lọc đơn hàng theo accountId (nếu API chưa lọc sẵn)
           const userOrders = response.data.data.filter(
             (order) => order.customerId === parseInt(accountId, 10)
           );
-          setOrders(userOrders);
+  
+          // Sắp xếp theo thời gian mới nhất trước
+          const sortedOrders = userOrders.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+  
+          setOrders(sortedOrders);
         } else {
           alert(response.data.message || "Failed to load orders.");
         }
@@ -38,9 +44,10 @@ const OrderListPage = () => {
         alert("Could not fetch orders.");
       }
     };
-
+  
     fetchOrders();
   }, [token, accountId]);
+  
 
   if (!token || !accountId) {
     return <div>Please log in to view order history.</div>;
@@ -78,7 +85,7 @@ const OrderListPage = () => {
               }}
             >
              
-              <button type="button" class="btn btn-outline-info"> View Details</button>
+              <button type="button" className="btn btn-outline-info"> View Details</button>
             </Link>
           </div>
         ))

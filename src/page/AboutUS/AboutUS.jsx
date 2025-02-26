@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./AboutUS.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 export default function AboutUS() {
+  useEffect(() => {
+      Aos.init({
+        duration: 600, 
+        easing: "ease-out", 
+        once: true, 
+      });
+    }, []);
   return (
     <div className="Aboutcontainer">
-      <div className="AU-main-container">
+      <div data-aos="zoom-out-down" className="AU-main-container">
         <div className="AU-intro">
           <div className="AU-rectangle" />
           <div className="AU-rectangle-1" />
@@ -76,7 +84,7 @@ export default function AboutUS() {
         </div>
       </div>
 
-      <div className="Au-mid">
+      <div data-aos="fade-down" className="Au-mid">
         <div className="new">About Us</div>
         <div className="vector" />
         <div className="container ">
@@ -112,7 +120,7 @@ export default function AboutUS() {
           </div>
         </div>
       </div>
-
+      <div data-aos="fade-right">
       <div className="only-the-best">Only the Best</div>
       <div className="AU-end">
         <div className="container">
@@ -197,6 +205,8 @@ export default function AboutUS() {
           </div>
         </div>
       </div>
+      </div>
+
     </div>
   );
 }

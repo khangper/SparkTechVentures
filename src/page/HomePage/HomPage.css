@@ -666,6 +666,16 @@
 .LD-carousel-item img:hover {
   transform: scale(1.05);
 }
+a.HomePage-text5.col-4.ml-80px {
+  color: brown;
+  font-size: 20px;
+  font-weight: 700;
+}
+.HomePage-text5:hover{
+  
+  transform: scale(1.1);
+}
+
 
 /* .LD-title {
   width: 500px;

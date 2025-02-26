@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ContactUS.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 export default function ContactUS() {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
@@ -15,8 +16,16 @@ export default function ContactUS() {
   const handleToggle3 = () => setIsOpen3(!isOpen3);
   const handleToggle4 = () => setIsOpen4(!isOpen4);
   const handleToggle5 = () => setIsOpen5(!isOpen5);
+
+    useEffect(() => {
+        Aos.init({
+          duration: 600, 
+          easing: "ease-out", 
+          once: true, 
+        });
+      }, []);
   return (
-    <div className="CU-ALLcontainer">
+    <div className="CU-ALLcontainer" data-aos="zoom-out-down">
       <div className="CU-container">
         {/* Contact us head */}
         <div className="CU-header">

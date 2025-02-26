@@ -215,15 +215,23 @@
     overflow: hidden;
   }
   
-  /* .FT-image-pic {
-    position: relative;
-    width: 11px;
-    height: 20px;
-    margin: 2px 0 0 7px;
-    background: url(../assets/images/2184421d-6bfa-475f-a2c4-3cf3bc75e90f.png) no-repeat center;
-    background-size: 100% 100%;
-    z-index: 17;
-  } */
+.FT-inputfrom{
+  display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+   
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15sease-in-out, box-shadow .15sease-in-out;
+}
   
   .FT-contact-details {
     display: flex;

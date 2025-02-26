@@ -12,6 +12,9 @@
     height: 383px;
     background: rgba(30, 30, 30, 0.85);
 }
+.QA-ra1:hover{
+  background: rgba(30, 30, 30, 0.6);
+}
 
 .tabs button {
   background-color: white;
