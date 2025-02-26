@@ -680,7 +680,9 @@ span.ffff {
 }
 button.ffff.page-link {
   font-size: large;
-  color: #ffb400;
+  background-color: #ffb400;
+  color: white;
+  font-weight: 700;
 }
 
 
