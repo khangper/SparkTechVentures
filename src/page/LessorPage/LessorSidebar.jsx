@@ -48,8 +48,12 @@ const Sidebar = () => {
       label: "Products",
       submenu: [
         { id: "product-list", label: "Product List", path: "/lessor/products" },
-        { id: "product-categories", label: "Categories", path: "/categories" },
-        { id: "product-inventory", label: "Inventory", path: "/inventory" },
+        {
+          id: "product-categories",
+          label: "Categories",
+          path: "/lessor/categories",
+        },
+       
       ],
     },
     {
@@ -57,12 +61,18 @@ const Sidebar = () => {
       icon: ListOrdered,
       label: "Orders",
       submenu: [
-        // { id: "store-list", label: "Store List", path: "/stores" },
-        // { id: "store-analytics", label: "Analytics", path: "/store-analytics" },
         { id: "all-store", label: "All order", path: "/lessor/all-orders" },
       ],
     },
-    { id: "users", icon: Users, label: "Users", path: "/users" },
+    {
+      id: "stores",
+      icon: Store,
+      label: "Stores",
+      submenu: [
+        { id: "add-store", label: "Add Store", path: "/lessor/add-by-store" },
+      ],
+    },
+    // { id: "users", icon: Users, label: "Users", path: "/users" },
     { id: "settings", icon: Settings, label: "Settings", path: "/settings" },
     { id: "help", icon: HelpCircle, label: "Help", path: "/help" },
   ];

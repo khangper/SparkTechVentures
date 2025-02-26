@@ -38,6 +38,7 @@ import LessorHome from "../page/LessorPage/LessorHome.jsx";
 import LessorOrder from "../page/LessorPage/LessorOrder.jsx";
 import Profile from "../page/Profile/Profile.jsx";
 import FailVerify from "../page/Log/FailVerify/FailVerify.jsx";
+import LessorCategory from "../page/LessorPage/LessorCategory.jsx";
 
 export const indexRouter = createBrowserRouter([
   //   { path: "/login", element: <Login /> },
@@ -118,6 +119,8 @@ export const indexRouter = createBrowserRouter([
       { path: "add-by-store", element: <LessorStore /> },
       { path: "all-orders", element: <LessorOrder /> },
       { path: "profile", element: <Profile /> },
+      { path: "categories", element: <LessorCategory /> },
+
 
 
     ],
