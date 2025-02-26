@@ -190,7 +190,7 @@ export default function LessorPage() {
       const response = await api.post(`product`, productData);
       toast.success("Product has been added successfully! 🎉");
       setTimeout(() => {
-        navigate("/lessor");
+        navigate("/lessor/products");
       }, 1500);
     } catch (error) {
       toast.error(
