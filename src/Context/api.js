@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://sparktechventures-b7dhckb8bsgefbb9.southeastasia-01.azurewebsites.net/",
+  baseURL: "https://sparktechventures-b7dhckb8bsgefbb9.southeastasia-01.azurewebsites.net/api/",
   timeout: 500000,
 });
 
