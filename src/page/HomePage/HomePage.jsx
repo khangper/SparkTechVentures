@@ -144,9 +144,9 @@ export default function HomePage() {
   const totalPages = Math.ceil(searchResults.length / itemsPerPage);
   useEffect(() => {
     Aos.init({
-      duration: 600, 
-      easing: "ease-out", 
-      once: true, 
+      duration: 600,
+      easing: "ease-out",
+      once: true,
     });
   }, []);
   return (
@@ -330,7 +330,7 @@ export default function HomePage() {
                           <div className="HH-P-price">
                             <div className="textt"> {item.name}</div>
                             <div className="textt">
-                           
+
                               Price {item.price.toLocaleString("vi-VN")} VND/day
                             </div>
                           </div>
@@ -623,3 +623,172 @@ export default function HomePage() {
     </>
   );
 }
+// import React, { useRef } from "react";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Navigation, Pagination, Autoplay } from "swiper/modules";
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
+// import headerImage1 from "../../assets/images/headerimage.jpg";
+// import headerImage2 from "../../assets/images/headerimage2.jpg";
+// import headerImage3 from "../../assets/images/headerimage3.jpg";
+// import { ChevronRight, ChevronLeft } from "lucide-react";
+
+// export default function HomePage() {
+//   const prevRef = useRef(null);
+//   const nextRef = useRef(null);
+
+//   return (
+//     <div>
+//       {/* Header image */}
+//       <div className="grid grid-cols-2 ">
+//         <div className="bg-gray-200 mx-auto flex justify-center items-center p-20">
+//           <div>
+//             <h1 className="font-extrabold text-3xl">
+//               Tìm Kiếm{" "}
+//               <span className="text-yellow-500">Thiết Bị Hoàn Hảo</span> Cho Dự
+//               Án Của Bạn
+//             </h1>
+
+//             <p>
+//               Khám phá nền tảng cho thuê thiết bị xây dựng đáng tin cậy, giúp
+//               bạn tiếp cận nhanh chóng với các loại máy móc, công cụ chất lượng
+//               cao.
+//             </p>
+
+//             <button className="bg-yellow-500 py-3 px-5 text-white font-bold rounded hover:bg-yellow-600">
+//               Khám phá
+//             </button>
+//           </div>
+//         </div>
+//         <div className="relative w-full">
+//           {/* <button
+//             ref={prevRef}
+//             className="absolute  left-0 top-1/2 transform -translate-y-1/2 bg-yellow-500 text-white p-3 rounded-full shadow-lg hover:bg-yellow-600 transition-all"
+//           >
+//             <ChevronLeft size={20} />
+//           </button>
+//           <button
+//             ref={nextRef}
+//             className="absolute right-[935px] top-60 z-10 md:right-[735px] transform -translate-y-1/2 bg-yellow-500 text-white p-3 rounded-full shadow-lg hover:bg-yellow-600 transition-all"
+//           >
+//             <ChevronRight size={20} />
+//           </button> */}
+
+//           <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 z-10">
+//             <button
+//               ref={prevRef}
+//               className="bg-yellow-500 text-white p-3 rounded-full shadow-lg hover:bg-yellow-600 transition-all"
+//             >
+//               <ChevronLeft size={15} />
+//             </button>
+//             <button
+//               ref={nextRef}
+//               className="bg-yellow-500 text-white p-3 rounded-full shadow-lg hover:bg-yellow-600 transition-all"
+//             >
+//               <ChevronRight size={15} />
+//             </button>
+//           </div>
+
+//           <Swiper
+//             modules={[Navigation, Pagination, Autoplay]}
+//             pagination={{ clickable: true }}
+//             autoplay={{ delay: 3000 }}
+//             loop={true}
+//             navigation={{
+//               prevEl: prevRef.current,
+//               nextEl: nextRef.current,
+//             }}
+//             className="w-full h-full"
+//             onSwiper={(swiper) => {
+//               setTimeout(() => {
+//                 if (prevRef.current && nextRef.current) {
+//                   swiper.params.navigation.prevEl = prevRef.current;
+//                   swiper.params.navigation.nextEl = nextRef.current;
+//                   swiper.navigation.init();
+//                   swiper.navigation.update();
+//                 }
+//               });
+//             }}
+//           >
+//             <SwiperSlide>
+//               <img
+//                 src={headerImage1}
+//                 alt="Construction Equipment 1"
+//                 className="w-full h-full object-cover"
+//               />
+//             </SwiperSlide>
+//             <SwiperSlide>
+//               <img
+//                 src={headerImage2}
+//                 alt="Construction Equipment 2"
+//                 className="w-full h-full object-cover"
+//               />
+//             </SwiperSlide>
+//             <SwiperSlide>
+//               <img
+//                 src={headerImage3}
+//                 alt="Construction Equipment 3"
+//                 className="w-full h-full object-cover"
+//               />
+//             </SwiperSlide>
+//           </Swiper>
+//         </div>
+
+//         <style>
+//           {`
+//           .swiper-pagination-bullet {
+//             background-color: white !important; /* Chỉnh màu trắng */
+//             opacity: 0.6;
+//             transition: opacity 0.3s ease-in-out;
+//           }
+
+//           .swiper-pagination-bullet-active {
+//             background-color: white !important; /* Màu trắng cho dot active */
+//             opacity: 1;
+//           }
+//         `}
+//         </style>
+//       </div>
+
+//       <div className="grid grid-cols-3">
+//         <div className="flex flex-col justify-center items-start p-20 bg-[#2a2a2a] col-span-1 space-y-14">
+//           <h1 className="font-extrabold text-xl text-white">
+//             Thuê thiết bị xây dựng nhanh, tiện, giá tốt!
+//           </h1>
+
+//           <div className=" w-[100px] border-t-4 border-yellow-500"></div>
+
+//           <p className="text-white ">
+//             Chúng tôi cung cấp máy móc, công cụ xây dựng chất lượng cao, giúp
+//             bạn dễ dàng thuê với giá minh bạch, thủ tục nhanh chóng. Hỗ trợ giao
+//             nhận tận nơi và dịch vụ khách hàng 24/7, đảm bảo tiến độ công trình
+//             của bạn luôn suôn sẻ!
+//           </p>
+//           <div className="border-3 border-yellow-500 text-yellow-500 px-8 py-2  cursor-pointer">
+//             Về chúng tôi
+//           </div>
+//         </div>
+
+//         <div className="col-span-2">
+//           <iframe
+//             className="w-full h-full"
+//             src="https://www.youtube.com/embed/KIeHd_OdX1I?si=FAx_Salo6ktZ0MSi"
+//             title="YouTube video player"
+//             frameborder="0"
+//             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+//             referrerpolicy="strict-origin-when-cross-origin"
+//             allowfullscreen
+//           ></iframe>
+
+//           <div className="flex">
+//             <div>
+//               <p>Gọi cho chúng tôi</p>
+//               <span></span>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
