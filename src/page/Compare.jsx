@@ -206,7 +206,7 @@ export default function Compare() {
             />
           </div>
 
-          <div className="thumbnail-container">
+          <div className="thumbnail1-container">
             {images && images.length > 0 ? (
               images.map((image, index) => (
                 <div key={index} className="thumbnail">
@@ -295,7 +295,7 @@ export default function Compare() {
               />
             </div>
 
-            <div className="thumbnail-container">
+            <div className="thumbnail1-container">
               {imageSecond && imageSecond.length > 0 ? (
                 imageSecond.map((image, index) => (
                   <div key={index} className="thumbnail">

@@ -404,7 +404,7 @@ export default function HomePage() {
                           onClick={() => handlePageChange(currentPage - 1)}
                           disabled={currentPage === 1}
                         >
-                          <span aria-hidden="true">&laquo;</span>
+                          <span aria-hidden="true" className="ffff">&laquo;</span>
                         </button>
                       </li>
                       {Array.from({ length: totalPages }, (_, i) => (
@@ -415,7 +415,7 @@ export default function HomePage() {
                           }`}
                         >
                           <button
-                            className="page-link"
+                            className="page-link ffff"
                             onClick={() => handlePageChange(i + 1)}
                           >
                             {i + 1}
@@ -429,7 +429,7 @@ export default function HomePage() {
                           onClick={() => handlePageChange(currentPage + 1)}
                           disabled={currentPage === totalPages}
                         >
-                          <span aria-hidden="true">&raquo;</span>
+                          <span aria-hidden="true" className="ffff">&raquo;</span>
                         </button>
                       </li>
                     </ul>
