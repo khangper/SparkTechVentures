@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
-import bigstock from "../assets/images/bigstock.png";
-import smalltock1 from "../assets/images/smallstock1.png";
-import smalltock2 from "../assets/images/smallstock2.png";
-import smalltock3 from "../assets/images/smallstock3.png";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { ArrowRightLeft, ChevronRight, Home, Plus } from "lucide-react";
 import api from "../Context/api";
-import { ArrowRightLeft, Plus } from "lucide-react";
-import { useParams } from "react-router-dom";
 
 const fuelOptions = [
-  { label: "PETROL", value: 0 },
-  { label: "DIESEL", value: 1 },
-  { label: "ELECTRIC", value: 2 },
+  { label: "XĂNG", value: 0 },
+  { label: "DẦU DIESEL", value: 1 },
+  { label: "ĐIỆN", value: 2 },
   { label: "HYBRID", value: 3 },
   { label: "GAS", value: 4 },
 ];
@@ -31,7 +20,6 @@ export default function Compare() {
   const location = useLocation();
   const secondProduct = location.state?.secondProduct;
   const mode = location.state?.mode;
-  console.log(location);
   const [productSecond, setProductSecond] = useState("");
   const [images, setImages] = useState([]);
   const [imageSecond, setImageSecond] = useState([]);
@@ -54,7 +42,6 @@ export default function Compare() {
         );
         if (response.data.isSuccess) {
           setImageSecond(response.data.data);
-          console.log(response.data.data);
         }
       } catch (error) {
         console.error("Error: ", error);
@@ -62,8 +49,10 @@ export default function Compare() {
         setLoading(false);
       }
     };
-    fetchProductImage();
-    apiProduct();
+    if (secondProduct) {
+      fetchProductImage();
+      apiProduct();
+    }
   }, [secondProduct]);
 
   useEffect(() => {
@@ -85,7 +74,6 @@ export default function Compare() {
         const response = await api.get(`productimage/by-product/${idt}`);
         if (response.data.isSuccess) {
           setImages(response.data.data);
-          console.log(response.data.data);
         }
       } catch (error) {
         console.error("Error: ", error);
@@ -98,376 +86,258 @@ export default function Compare() {
   }, [idt]);
 
   const handleRedirectToHomePage = () => {
-    navigate("/", { state: { mode: "compare", productId: `${idt}` } });
-  };
-
-  const handleAddToCart = async () => {
-    const token = localStorage.getItem("accessToken");
-
-    if (token) {
-      console.log("Token exists:", token);
-    } else {
-      console.log("Token does not exist or user is not logged in.");
-    }
-
-    if (!token) {
-      alert("Please log in to add items to your cart.");
-      navigate("/login");
-      return;
-    }
-
-    try {
-      const orderId = 1;
-
-      const response = await api.post(
-        "/orderitem",
-        {
-          orderId: orderId,
-          productId: Number(productId),
-          quantity: 1,
-          price: product.price,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.isSuccess) {
-        alert(
-          `Product added to cart successfully (ID: ${response.data.data.id})`
-        );
-      } else {
-        alert(response.data.message || "Failed to add product to cart.");
-      }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      alert(
-        "An error occurred while adding the product to the cart. Please try again later."
-      );
-    }
+    navigate("/all", { state: { mode: "compare", productId: `${idt}` } });
   };
 
   if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!product) {
-    return <div>Product not found.</div>;
-  }
-  return (
-    <div>
-      <div className="breadcrumb-container">
-        <div className="breadcrumb">
-          <Link to="/">
-            <span herf="/">Home </span>
-          </Link>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-caret-right-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-          </svg>
-          <Link to="/AllProduct">
-            <span>View all</span>
-          </Link>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-caret-right-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-          </svg>
-          <span>Detail</span>
-        </div>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-500"></div>
       </div>
+    );
+  }
 
-      <div className="main-container-compare ">
-        <div className="left-image-container">
-          <span className="product-title">{product.name}</span>
-          <div className="font-bold">
-            <span className="vendor-prefix">by</span>
-            <span className="vendor-name"> {product.storeName}</span>
-          </div>
+  // if (!product) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen text-xl text-gray-700">
+  //       Không tìm thấy sản phẩm.
+  //     </div>
+  //   );
+  // }
 
-          <div className="main-image">
-            <img
-              src={product.defaultImage}
-              className="HH-Picture-small"
-              alt={product.name || "Product image"}
-            />
-          </div>
+  const ProductCard = ({ productData, productImages }) => (
+    <div className="flex flex-col bg-white shadow-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+      <div className="p-6 border-b">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          {productData?.name}
+        </h2>
+        <div className="text-sm text-gray-600 mb-4">
+          <span>bởi </span>
+          <span className="font-bold">{productData?.storeName}</span>
+        </div>
 
-          <div className="thumbnail1-container">
-            {images && images.length > 0 ? (
-              images.map((image, index) => (
-                <div key={index} className="thumbnail">
-                  <img src={image.imageUrl} alt={`Product view ${index + 1}`} />
+        <div className="aspect-w-4 aspect-h-3 mb-4">
+          <img
+            src={productData?.defaultImage}
+            alt={productData?.name}
+            className="w-full h-64 object-cover rounded-md"
+          />
+        </div>
+
+        <div className="grid grid-cols-4 gap-2 mb-4">
+          {productImages && productImages.length > 0
+            ? productImages.slice(0, 4).map((image, index) => (
+                <div key={index} className="aspect-square">
+                  <img
+                    src={image?.imageUrl}
+                    alt={`Hình ${index + 1}`}
+                    className="w-full h-full object-cover rounded-sm border hover:opacity-80 transition"
+                  />
                 </div>
               ))
-            ) : (
-              <>
-                <div className="thumbnail">
-                  <img src={smalltock1} alt="Excavator view 1" />
-                </div>
-                <div className="thumbnail">
-                  <img src={smalltock2} alt="Excavator view 2" />
-                </div>
-                <div className="thumbnail">
-                  <img src={smalltock3} alt="Excavator view 3" />
-                </div>
-              </>
-            )}
+            : null}
+        </div>
+
+        <div className="flex justify-between items-center mt-4">
+          <div className="bg-yellow-600 text-white px-6 py-2 rounded-full font-bold text-lg">
+            {productData?.price.toLocaleString("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            })}
+            /ngày
           </div>
-
-          <div className="price-status-compare">
-            <button className="price-btn">
-              <span className="currency">$</span>
-
-              <span className="price">{product.price}/Day</span>
-            </button>
+          <div
+            className={`px-3 py-1 text-sm font-medium rounded-full 
+            ${
+              productData?.status === "ACTIVE"
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {productData?.status === "ACTIVE" ? "Còn hàng" : "Hết hàng"}
           </div>
-          
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">
-              Description
-            </h2>
-            <p className="text-lg text-gray-600 mb-6 max-w-[100%]">
-              {product.description.replace(/<\/?[^>]+(>|$)/g, "")}
-            </p>
+        </div>
+      </div>
 
-            <div className="space-y-4">
-              <p className="flex items-center text-lg text-gray-800">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-car-front-fill mr-2 text-red-500"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z" />
-                </svg>
-                Category:{" "}
-                <span className="font-semibold">{product.categoryName}</span>
-              </p>
-              <p className="flex items-center text-lg text-gray-800">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-box mr-2 text-blue-500"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z" />
-                </svg>
-                Brand:{" "}
-                <span className="font-semibold">{product.brandName}</span>
-              </p>
-            </div>
+      <div className="p-6">
+        <h3 className="text-lg font-semibold mb-2 text-gray-800">Mô tả</h3>
+        <p className="text-gray-600 mb-4 line-clamp-3">
+          {productData?.description?.replace(/<\/?[^>]+(>|$)/g, "")}
+        </p>
+
+        <div className="space-y-2">
+          <div className="flex items-center">
+            <span className="w-24 text-gray-500">Danh mục:</span>
+            <span className="font-medium">{productData?.categoryName}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="w-24 text-gray-500">Thương hiệu:</span>
+            <span className="font-medium">{productData?.brandName}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* Breadcrumb */}
+      <nav className="flex mb-8 text-sm">
+        <Link
+          to="/"
+          className="flex items-center hover:text-blue-500 transition-colors no-underline"
+        >
+          <Home size={16} className="mr-1" />
+          <span>Trang chủ</span>
+        </Link>
+        <ChevronRight size={16} className="mx-2" />
+        <Link
+          to="/AllProduct"
+          className="hover:text-blue-500 transition-colors no-underline"
+        >
+          <span>Xem tất cả</span>
+        </Link>
+        <span className="mx-2 text-gray-500">/</span>
+        <span className="text-gray-700">So sánh</span>
+      </nav>
+
+      <h1 className="text-3xl font-bold text-center mb-10 text-yellow-800">
+        So Sánh Sản Phẩm
+      </h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {/* First Product */}
+        <div className="md:col-span-1">
+          <ProductCard productData={product} productImages={images} />
+        </div>
+
+        {/* Compare Icon */}
+        <div className="flex justify-center items-center">
+          <div className="bg-yellow-100 p-4 rounded-full">
+            <ArrowRightLeft size={40} className="text-yellow-600" />
           </div>
         </div>
 
-        <ArrowRightLeft size={90} className="mt-[250px]" />
-
-        {mode === "selected" && productSecond ? (
-          <div className="left-image-container">
-            <span className="product-title">{productSecond.name}</span>
-            <div className="font-bold">
-              <span className="vendor-prefix">by</span>
-              <span className="vendor-name"> {productSecond.storeName}</span>
-            </div>
-            {/* Ảnh lớn chính */}
-            <div className="main-image">
-              <img
-                className="HH-Picture-small"
-                src={productSecond.defaultImage}
-                alt={productSecond.name || "Product image"}
-              />
-            </div>
-
-            <div className="thumbnail1-container">
-              {imageSecond && imageSecond.length > 0 ? (
-                imageSecond.map((image, index) => (
-                  <div key={index} className="thumbnail">
-                    <img
-                      src={image.imageUrl}
-                      alt={`Product view ${index + 1}`}
-                    />
-                  </div>
-                ))
-              ) : (
-                <>
-                  <div className="thumbnail">
-                    <img src={smalltock1} alt="Excavator view 1" />
-                  </div>
-                  <div className="thumbnail">
-                    <img src={smalltock2} alt="Excavator view 2" />
-                  </div>
-                  <div className="thumbnail">
-                    <img src={smalltock3} alt="Excavator view 3" />
-                  </div>
-                </>
-              )}
-            </div>
-
-            <div className="price-status-compare">
-              <button className="price-btn">
-                <span className="currency">$</span>
-
-                <span className="price">{productSecond.price}/Day</span>
-              </button>
-            </div>
-
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4 text-gray-800">
-                Description
-              </h2>
-              <p className="text-lg text-gray-600 mb-6 max-w-[100%]">
-                {productSecond.description.replace(/<\/?[^>]+(>|$)/g, "")}
-              </p>
-
-              <div className="space-y-4">
-                <p className="flex items-center text-lg text-gray-800">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-car-front-fill mr-2 text-red-500"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z" />
-                  </svg>
-                  Category:{" "}
-                  <span className="font-semibold">
-                    {productSecond.categoryName}
-                  </span>
-                </p>
-                <p className="flex items-center text-lg text-gray-800">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-box mr-2 text-blue-500"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z" />
-                  </svg>
-                  Brand:{" "}
-                  <span className="font-semibold">
-                    {productSecond.brandName}
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="mt-[155px]">
+        {/* Second Product or Add Product Button */}
+        <div className="md:col-span-1">
+          {mode === "selected" && productSecond ? (
+            <ProductCard
+              productData={productSecond}
+              productImages={imageSecond}
+            />
+          ) : (
             <div
-              className="bg-pink-300 p-20 border rounded-3xl cursor-pointer"
               onClick={handleRedirectToHomePage}
+              className="flex flex-col justify-center items-center h-full bg-gradient-to-br from-yellow-50 to-amber-50 rounded-lg border-2 border-dashed border-yellow-300 p-12 cursor-pointer transition-all duration-300 hover:border-yellow-500 hover:shadow-md"
             >
-              <div className="bg-black text-gray-300 p-6 border-8 border-white ">
-                <Plus size={60} />
+              <div className="bg-yellow-500 p-4 rounded-full mb-4">
+                <Plus size={36} className="text-white" />
               </div>
+              <span className="text-lg font-medium text-yellow-600">
+                Thêm Sản Phẩm Để So Sánh
+              </span>
+              <p className="text-gray-500 text-sm text-center mt-2">
+                Nhấp vào đây để chọn sản phẩm khác để so sánh
+              </p>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-      <div className="overflow-x-auto p-4 flex justify-center">
-        <table className="w-full max-w-4xl text-sm text-left text-gray-600 shadow-md sm:rounded-lg border border-gray-200">
-          <thead className="bg-blue-500 text-white text-sm uppercase">
-            <tr>
-              <th className="px-6 py-3 text-center">Specification</th>
-              <th className="px-6 py-3 text-center">{product.name}</th>
-              <th className="px-6 py-3 text-center">{productSecond.name}</th>
+
+      {/* Comparison Table */}
+      <div className="overflow-x-auto mb-12">
+        <table className="w-full text-left border-collapse rounded-lg overflow-hidden shadow-lg">
+          <thead>
+            <tr className="bg-gradient-to-r from-yellow-600 to-amber-600 text-white">
+              <th className="px-6 py-4 text-center">Thông số kỹ thuật</th>
+              <th className="px-6 py-4 text-center">{product?.name}</th>
+              <th className="px-6 py-4 text-center">
+                {productSecond ? productSecond?.name : "Sản phẩm thứ hai"}
+              </th>
             </tr>
           </thead>
 
           <tbody>
-            <tr className="border-b bg-gray-50 hover:bg-gray-100 transition">
-              <td className="px-6 py-4 font-semibold">Weight</td>
-              <td className="px-6 py-4 text-center">{product.weight} tons</td>
-              <td className="px-6 py-4 text-center">
-                {productSecond ? productSecond.weight : ""}
+            <tr className="bg-white hover:bg-yellow-50 transition">
+              <td className="px-6 py-4 font-semibold border-b">Trọng lượng</td>
+              <td className="px-6 py-4 text-center border-b">
+                {product?.weight} tấn
+              </td>
+              <td className="px-6 py-4 text-center border-b">
+                {productSecond ? `${productSecond.weight} tấn` : "-"}
               </td>
             </tr>
 
-            <tr className="border-b bg-white hover:bg-gray-100 transition">
-              <td className="px-6 py-4 font-semibold">Dimensions</td>
-              <td className="px-6 py-4 text-center">{product.dimensions}</td>
-              <td className="px-6 py-4 text-center">
-                {productSecond ? productSecond.dimensions : ""}
+            <tr className="bg-gray-50 hover:bg-yellow-50 transition">
+              <td className="px-6 py-4 font-semibold border-b">Kích thước</td>
+              <td className="px-6 py-4 text-center border-b">
+                {product?.dimensions || "-"}
+              </td>
+              <td className="px-6 py-4 text-center border-b">
+                {productSecond ? productSecond.dimensions || "-" : "-"}
               </td>
             </tr>
 
-            <tr className="border-b bg-gray-50 hover:bg-gray-100 transition">
-              <td className="px-6 py-4 font-semibold">Fuel Type</td>
-              <td className="px-6 py-4 text-center">
-                {fuelOptions.find((option) => option.value === product.fuelType)
-                  ?.label || "Not specified"}
+            <tr className="bg-white hover:bg-yellow-50 transition">
+              <td className="px-6 py-4 font-semibold border-b">
+                Loại nhiên liệu
               </td>
-              <td className="px-6 py-4 text-center">
+              <td className="px-6 py-4 text-center border-b">
+                {fuelOptions.find((option) => option.value === product?.fuelType)
+                  ?.label || "Không xác định"}
+              </td>
+              <td className="px-6 py-4 text-center border-b">
                 {productSecond
                   ? fuelOptions.find(
                       (option) => option.value === productSecond.fuelType
-                    )?.label || "Not specified"
-                  : ""}
+                    )?.label || "Không xác định"
+                  : "-"}
               </td>
             </tr>
 
-            <tr className="border-b bg-white hover:bg-gray-100 transition">
-              <td className="px-6 py-4 font-semibold">Availability</td>
-              <td className="px-6 py-4 text-center">
+            <tr className="bg-gray-50 hover:bg-yellow-50 transition">
+              <td className="px-6 py-4 font-semibold border-b">Tình trạng</td>
+              <td className="px-6 py-4 text-center border-b">
                 <span
                   className={`px-3 py-1 text-xs font-medium rounded-full 
-          ${
-            product.status === "AVAILABLE"
-              ? "bg-green-100 text-green-700"
-              : "bg-red-100 text-red-700"
-          }`}
+                  ${
+                    product?.status === "ACTIVE"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
                 >
-                  {product.status === "AVAILABLE" ? "In stock" : "Out of stock"}
+                  {product?.status === "ACTIVE" ? "Còn hàng" : "Hết hàng"}
                 </span>
               </td>
-              <td className="px-6 py-4 text-center">
-                {productSecond && (
+              <td className="px-6 py-4 text-center border-b">
+                {productSecond ? (
                   <span
                     className={`px-3 py-1 text-xs font-medium rounded-full 
-            ${
-              productSecond.status === "AVAILABLE"
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
+                    ${
+                      productSecond?.status === "ACTIVE"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                    }`}
                   >
-                    {productSecond.status === "AVAILABLE"
-                      ? "In stock"
-                      : "Out of stock"}
+                    {productSecond?.status === "ACTIVE"
+                      ? "Còn hàng"
+                      : "Hết hàng"}
                   </span>
+                ) : (
+                  "-"
                 )}
               </td>
             </tr>
 
-            <tr className="border-b bg-gray-50 hover:bg-gray-100 transition">
-              <td className="px-6 py-4 font-semibold">Price</td>
-              <td className="px-6 py-4 text-center text-blue-600 font-bold">
-                ${product.price?.toLocaleString()}
+            <tr className="bg-white hover:bg-yellow-50 transition">
+              <td className="px-6 py-4 font-semibold">Giá</td>
+              <td className="px-6 py-4 text-center font-bold text-yellow-600">
+                {product?.price?.toLocaleString()}đ
               </td>
-              <td className="px-6 py-4 text-center text-blue-600 font-bold">
+              <td className="px-6 py-4 text-center font-bold text-yellow-600">
                 {productSecond
-                  ? `$${productSecond.price?.toLocaleString()}`
-                  : ""}
+                  ? `${productSecond?.price?.toLocaleString()}đ`
+                  : "-"}
               </td>
             </tr>
           </tbody>
