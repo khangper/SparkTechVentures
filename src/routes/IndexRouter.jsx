@@ -39,6 +39,17 @@ import LessorOrder from "../page/LessorPage/LessorOrder.jsx";
 import Profile from "../page/Profile/Profile.jsx";
 import FailVerify from "../page/Log/FailVerify/FailVerify.jsx";
 import LessorCategory from "../page/LessorPage/LessorCategory.jsx";
+import HomeAll from "../page/HomePage/HomeAll.jsx";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+
+  return null;
+};
 
 export const indexRouter = createBrowserRouter([
   //   { path: "/login", element: <Login /> },
@@ -56,6 +67,9 @@ export const indexRouter = createBrowserRouter([
   //   { path: "/paysuccess", element: <PaymentPageSuccess /> },
   //   { path: "/paycancel", element: <PaymentPageCancel /> },
   //   { path: "/compare/:id", element: <Compare /> },
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <Signup /> },
+
   {
     path: "/",
     element: <RootLayout />,
@@ -68,14 +82,13 @@ export const indexRouter = createBrowserRouter([
       { path: "/all-product", element: <AllProduct /> },
       { path: "/about", element: <AboutUS /> },
       { path: "/contact", element: <ContactUS /> },
-      { path: "/login", element: <Login /> },
-      { path: "/signup", element: <Signup /> },
       { path: "/question", element: <Question /> },
       { path: "/blog", element: <Blog /> },
       { path: "/thanks", element: <ThanksPage /> },
       { path: "/paysuccess", element: <PaymentPageSuccess /> },
       { path: "/paycancel", element: <PaymentPageCancel /> },
       { path: "/compare/:id", element: <Compare /> },
+      { path: "/all", element: <HomeAll /> },
     ],
   },
 
@@ -119,9 +132,6 @@ export const indexRouter = createBrowserRouter([
       { path: "all-orders", element: <LessorOrder /> },
       { path: "profile", element: <Profile /> },
       { path: "categories", element: <LessorCategory /> },
-
-
-
     ],
   },
   {
