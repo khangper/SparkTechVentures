@@ -80,7 +80,7 @@ function PaymentPageSuccess() {
                 alt="Payment Success"
               />
               <div className="PaymentsuccessPage-title">
-                Chúc mừng bạn đã thanh toán thành công
+                Hủy thanh toán thành công
               </div>
               {orderId && (
                 <div className="PaymentsuccessPage-order">
@@ -93,9 +93,9 @@ function PaymentPageSuccess() {
                 </div>
               )} */}
               <Link to="/" style={{ textDecoration: "none" }}>
-                <div className="PaymentsuccessPage-button">
-                  <div className="TK-text">Quay về trang chủ</div>
-                </div>
+                <button className="px-6 py-3 mt-4 font-semibold text-white transition-all duration-300 bg-yellow-400 rounded-lg hover:bg-yellow-500 hover:shadow-lg focus:ring-4 focus:ring-yellow-300 focus:outline-none transform hover:-translate-y-1">
+                  Quay về trang chủ
+                </button>
               </Link>
             </div>
           </div>
