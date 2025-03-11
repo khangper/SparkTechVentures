@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { isBefore, differenceInDays } from "date-fns";
 import api from "../../Context/api";
+import toast from "react-hot-toast";
 
 const CheckoutPage = () => {
   const location = useLocation();
@@ -155,7 +156,7 @@ const CheckoutPage = () => {
       });
     } catch (error) {
       console.error("Lỗi:", error);
-      alert("Đã xảy ra lỗi. Kiểm tra console để biết chi tiết.");
+       toast.error(error.response?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.")
     }
   };
 
