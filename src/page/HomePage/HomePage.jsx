@@ -661,6 +661,9 @@ export default function HomePage() {
   const nextRef = useRef(null);
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
+
+
   useEffect(() => {
     const productAPI = async () => {
       try {
@@ -681,7 +684,7 @@ export default function HomePage() {
     <div className="w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 min-h-[660px]">
         <motion.div
-          className="bg-gray-200 mx-auto flex justify-center items-center p-20"
+          className="bg-white mx-auto flex justify-center items-center p-20"
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
@@ -813,12 +816,14 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
         >
           <motion.h1
             className="font-extrabold text-xl text-white"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
           >
             Thuê thiết bị xây dựng nhanh, tiện, giá tốt!
           </motion.h1>
@@ -828,6 +833,7 @@ export default function HomePage() {
             initial={{ width: 0 }}
             whileInView={{ width: 100 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
           ></motion.div>
 
           <motion.p
@@ -835,6 +841,7 @@ export default function HomePage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
+            viewport={{ once: true }}
           >
             Chúng tôi cung cấp máy móc, công cụ xây dựng chất lượng cao, giúp
             bạn dễ dàng thuê với giá minh bạch, thủ tục nhanh chóng. Hỗ trợ giao
@@ -848,6 +855,7 @@ export default function HomePage() {
             transition={{ duration: 0.5, delay: 0.8 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            viewport={{ once: true }}
           >
             Về chúng tôi
           </motion.div>
@@ -859,6 +867,7 @@ export default function HomePage() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
             <iframe
               className="w-full h-full"
@@ -876,6 +885,7 @@ export default function HomePage() {
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
             >
               <div className="space-y-4 pl-4">
                 <div className="font-bold text-xl">Gọi cho chúng tôi</div>
@@ -888,6 +898,7 @@ export default function HomePage() {
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
             >
               <motion.div
                 whileHover={{ scale: 1.2 }}

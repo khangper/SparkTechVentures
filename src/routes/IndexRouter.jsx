@@ -40,6 +40,7 @@ import Profile from "../page/Profile/Profile.jsx";
 import FailVerify from "../page/Log/FailVerify/FailVerify.jsx";
 import LessorCategory from "../page/LessorPage/LessorCategory.jsx";
 import HomeAll from "../page/HomePage/HomeAll.jsx";
+import ProductByCategory from "../page/HomePage/ProductByCategory.jsx";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -89,6 +90,8 @@ export const indexRouter = createBrowserRouter([
       { path: "/paycancel", element: <PaymentPageCancel /> },
       { path: "/compare/:id", element: <Compare /> },
       { path: "/all", element: <HomeAll /> },
+      { path: "/category/:id", element: <ProductByCategory /> },
+    
     ],
   },
 
@@ -109,6 +112,7 @@ export const indexRouter = createBrowserRouter([
       { path: "PaymentPage", element: <PaymentPage /> },
       { path: "member", element: <Member /> },
       { path: "ShoppingCart", element: <ShoppingCart /> },
+      { path: "/profile", element: <Profile /> },
     ],
   },
 
