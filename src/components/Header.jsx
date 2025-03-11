@@ -147,22 +147,24 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto max-w-screen-lg flex justify-between items-center px-4 transition-all">
-        <div className="flex items-center space-x-3">
-          <img
-            src={logo}
-            alt="Logo"
-            className={`w-10 h-10 rounded-full border-2 border-yellow-500 transition-all ${
-              isScrolled ? "w-8 h-8" : "w-10 h-10"
-            }`}
-          />
-          <span
-            className={`text-yellow-500 font-bold transition-all ${
-              isScrolled ? "text-lg" : "text-xl"
-            }`}
-          >
-            SparkTech Ventures
-          </span>
-        </div>
+        <Link to={"/"}>
+          <div className="flex items-center space-x-3">
+            <img
+              src={logo}
+              alt="Logo"
+              className={`w-10 h-10 rounded-full border-2 border-yellow-500 transition-all ${
+                isScrolled ? "w-8 h-8" : "w-10 h-10"
+              }`}
+            />
+            <span
+              className={`text-yellow-500 font-bold transition-all ${
+                isScrolled ? "text-lg" : "text-xl"
+              }`}
+            >
+              SparkTech Ventures
+            </span>
+          </div>
+        </Link>
 
         <nav className="hidden md:flex space-x-6 text-gray-700 font-medium">
           <Link to={"/"} className="no-underline">
