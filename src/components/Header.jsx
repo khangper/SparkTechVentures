@@ -115,7 +115,8 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { username, email, picture } = useSelector((state) => state.auth);
-const imageNotSignIn = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png";
+  const imageNotSignIn =
+    "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
@@ -176,13 +177,14 @@ const imageNotSignIn = "https://www.pngfind.com/pngs/m/610-6104451_image-placeho
               Trang chủ
             </a>
           </Link>
-
-          <a
-            href="#"
-            className="hover:text-yellow-500 text-slate-500 transition no-underline"
-          >
-            Giới thiệu
-          </a>
+          <Link to={`about`}>
+            <a
+              href="#"
+              className="hover:text-yellow-500 text-slate-500 transition no-underline"
+            >
+              Giới thiệu
+            </a>
+          </Link>
 
           <div className="relative group">
             <button className="flex items-center space-x-1 hover:text-yellow-500 transition text-slate-500">
@@ -269,43 +271,43 @@ const imageNotSignIn = "https://www.pngfind.com/pngs/m/610-6104451_image-placeho
             </div>
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
-              <Link to={"profile"} className="no-underline">
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
-                >
-                  Trang cá nhân
-                </a>
-              </Link>
-          
-              <Link to={`/transaction`} className="no-underline">
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
-                >
-                  Lịch sử mua
-                </a>
-              </Link>
-          
-              {!isLoggedIn ? (
-                <Link to={"/login"} className="no-underline">
+                <Link to={"profile"} className="no-underline">
                   <a
+                    href="#"
+                    className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
+                  >
+                    Trang cá nhân
+                  </a>
+                </Link>
+
+                <Link to={`/transaction`} className="no-underline">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
+                  >
+                    Lịch sử mua
+                  </a>
+                </Link>
+
+                {!isLoggedIn ? (
+                  <Link to={"/login"} className="no-underline">
+                    <a
+                      href="#"
+                      className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline border-t border-gray-200"
+                    >
+                      Đăng nhập
+                    </a>
+                  </Link>
+                ) : (
+                  <a
+                    onClick={handleLogout}
                     href="#"
                     className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline border-t border-gray-200"
                   >
-                    Đăng nhập
+                    Đăng xuất
                   </a>
-                </Link>
-              ) : (
-                <a
-                  onClick={handleLogout}
-                  href="#"
-                  className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline border-t border-gray-200"
-                >
-                  Đăng xuất
-                </a>
-              )}
-            </div>
+                )}
+              </div>
             )}
           </div>
         </div>
