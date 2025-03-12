@@ -86,10 +86,7 @@ export default function AboutUS() {
         <div className="container ">
           <div className="row ">
             <div className="AU-test col-6">
-            Spark Tech Ventures, chúng tôi tự hào là đơn vị hàng đầu trong lĩnh vực cho thuê thiết bị và máy móc xây dựng. Được thành lập
-với sứ mệnh hỗ trợ ngành xây dựng, chúng tôi cung cấp
-các giải pháp thiết bị chất lượng cao, đáng tin cậy và phù hợp
-với nhu cầu của khách hàng.
+            Spark Tech Ventures tự hào là đơn vị hàng đầu trong lĩnh vực cho thuê thiết bị xây dựng, cung cấp giải pháp chất lượng, đáng tin cậy, đáp ứng mọi nhu cầu của khách hàng.
               <br />
               <br />
               Chúng tôi cung cấp danh mục thiết bị đa dạng, bao gồm cần cẩu,
