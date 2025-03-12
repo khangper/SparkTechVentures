@@ -115,9 +115,13 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { username, email, picture } = useSelector((state) => state.auth);
-
+const imageNotSignIn = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png";
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  console.log(isLoggedIn);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -258,31 +262,41 @@ export default function Header() {
               onClick={toggleMenu}
             >
               <img
-                src={picture}
+                src={picture || imageNotSignIn}
                 alt="User Avatar"
                 className="w-10 h-10 rounded-full border-2 border-yellow-500"
               />
             </div>
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
-                <Link to={"profile"} className="no-underline">
+              <Link to={"profile"} className="no-underline">
+                <a
+                  href="#"
+                  className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
+                >
+                  Trang cá nhân
+                </a>
+              </Link>
+          
+              <Link to={`/transaction`} className="no-underline">
+                <a
+                  href="#"
+                  className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
+                >
+                  Lịch sử mua
+                </a>
+              </Link>
+          
+              {!isLoggedIn ? (
+                <Link to={"/login"} className="no-underline">
                   <a
                     href="#"
-                    className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
+                    className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline border-t border-gray-200"
                   >
-                    Trang cá nhân
+                    Đăng nhập
                   </a>
                 </Link>
-
-                <Link to={`/transaction`} className="no-underline">
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
-                  >
-                    Lịch sử mua
-                  </a>
-                </Link>
-
+              ) : (
                 <a
                   onClick={handleLogout}
                   href="#"
@@ -290,7 +304,8 @@ export default function Header() {
                 >
                   Đăng xuất
                 </a>
-              </div>
+              )}
+            </div>
             )}
           </div>
         </div>
