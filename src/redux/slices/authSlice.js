@@ -1,17 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoggedIn: false, 
-  userRole: "",
+  isLoggedIn: false,
+  token: "",
   accountId: "",
+  role: "",
+  username: "",
+  fullName: "",
+  gender: null,
+  email: "",
+  phone: "",
+  address: "",
+  dateOfBirth: "",
+  picture: "",
+  storeId: null,
+  storeName: null,
 };
-
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     login: (state, action) => {
+      const {
+        token,
+        accountId,
+        role,
+        username,
+        fullName,
+        gender,
+        email,
+        phone,
+        address,
+        dateOfBirth,
+        picture,
+        storeId,
+        storeName,
+      } = action.payload;
+
       localStorage.setItem("accessToken", action.payload.token);
       localStorage.setItem("role", action.payload.role);
       localStorage.setItem("accountId", action.payload.accountId);
@@ -19,18 +45,30 @@ const authSlice = createSlice({
       localStorage.setItem("email", action.payload.email);
 
       state.isLoggedIn = true;
-      state.userRole = action.payload.role;
-      state.accountId = action.payload.accountId;
-      state.username = action.payload.username;
-      state.email = action.payload.email;
-      state.picture = action.payload.picture;
-
+      state.token = token;
+      state.accountId = accountId;
+      state.role = role;
+      state.username = username;
+      state.fullName = fullName;
+      state.gender = gender;
+      state.email = email;
+      state.phone = phone;
+      state.address = address;
+      state.dateOfBirth = dateOfBirth;
+      state.picture = picture;
+      state.storeId = storeId;
+      state.storeName = storeName;
     },
+    // logout: (state) => {
+    //   localStorage.clear();
+    //   state.isLoggedIn = false;
+    //   state.userRole = "";
+    //   state.accessToken = "";
+    // },
     logout: (state) => {
       localStorage.clear();
-      state.isLoggedIn = false;
-      state.userRole = "";
-      state.accessToken = null;
+      // sessionStorage.clear(); // Nếu có lưu sessionStorage
+      return { ...initialState }; // Reset Redux về trạng thái ban đầu
     },
   },
 });
