@@ -22,7 +22,7 @@ export default function AboutUS() {
               <div className="AU-frame-2">
                 <div className="AU-vector" />
                 <div className="AU-about-our-spark-tech">
-                  <span className="AU-about-our">Giới thiệu về</span>
+                  <span className="AU-about-our">Giới thiệu </span>
                   <span className="AU-tech-ventures">Công ty</span>
                   <span className="AU-about-our-3"> </span>
                   <span className="AU-tech-ventures-4">Tech Ventures</span>
@@ -111,9 +111,9 @@ cho khách hàng. Hãy để chúng tôi đồng hành cùng bạn trong các d�
             </div>
           </div>
         </div>
-      </div>
+      </div>      
       <div data-aos="fade-right">
-      <div className="only-the-best">Chỉ có tốt nhất</div>
+      <div className="only-the-best">CHỈ CÓ TỐT NHẤT</div>
       <div className="AU-end">
         <div className="container">
           <div className="row">
@@ -161,7 +161,7 @@ cho khách hàng. Hãy để chúng tôi đồng hành cùng bạn trong các d�
                   </span>
                   <span className="AUE-leading-brands-equipment">
                   Chúng tôi coi trọng vấn đề an toàn trong mọi việc chúng tôi làm. Tất cả các thiết bị
-đều tuân thủ các tiêu chuẩn và quy định an toàn hiện hành,
+đều tuân thủ các tiêu chuẩn ,
 mang đến cho bạn sự an tâm khi sử dụng.
                   </span>
                 </div>
