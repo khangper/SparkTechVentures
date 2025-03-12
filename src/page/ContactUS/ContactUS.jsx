@@ -27,6 +27,7 @@ export default function ContactUS() {
   return (
     <div className="CU-ALLcontainer" data-aos="zoom-out-down">
       <div className="CU-container">
+        <div className="CU-Padding">
         {/* Contact us head */}
         <div className="CU-header">
           <div className="CU-rectangle">
@@ -35,17 +36,15 @@ export default function ContactUS() {
                 <div className="CU-frame-2">
                   <div className="CU-frame-3">
                     <div className="CU-vector" />
-                    <span className="CU-contact-us">Contact Us</span>
+                    <span className="CU-contact-us">Liên hệ</span>
                   </div>
                 </div>
                 <div className="CU-frame-4">
                   <span className="CU-lorem-ipsum">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                    quis egestas pellentesque libero dolor in diam consequat ut.
-                    Mi nibh amet viverra id aliquet neque odio.
+                  Chúng tôi luôn sẵn sàng hỗ trợ bạn! Nếu bạn có bất kỳ câu hỏi nào về dịch vụ cho thuê thiết bị xây dựng, đừng ngần ngại liên hệ với chúng tôi.
                   </span>
                   <button className="CU-button">
-                    <span className="CU-send-message">SEND A MESSAGE</span>
+                    <span className="CU-send-message">GỬI TIN NHẮN</span>
                   </button>
                 </div>
               </div>
@@ -54,24 +53,24 @@ export default function ContactUS() {
           <div className="CU-rectangle-5">
             <div className="CU-frame-6">
               <div className="CU-frame-7">
-                <span className="CU-contact-info">Contact Info</span>
+                <span className="CU-contact-info">Thông tin liên lạc</span>
                 <div className="CU-frame-8">
                   <div className="CU-frame-9">
-                    <span className="CU-our-office">Our Office</span>
+                    <span className="CU-our-office">Văn phòng của chúng tôi</span>
                     <span className="CU-divi-st">
                       1234 Divi St. #1000, San Francisc, CA 93251
                     </span>
                   </div>
                   <div className="CU-frame-a">
                     <span className="CU-open-office-hours">
-                      Open Office Hours
+                      Giờ hoạt động
                     </span>
                     <span className="CU-office-hours">
                       M-F: 9am – 6pm S-S: 10am – 4pm
                     </span>
                   </div>
                   <div className="CU-frame-b">
-                    <span className="CU-get-in-touch">Get in Touch</span>
+                    <span className="CU-get-in-touch">LIÊN HỆ</span>
                     <span className="CU-construction-inc">
                       constructioninc.com <br />
                       (346) 426-2351
@@ -96,25 +95,27 @@ export default function ContactUS() {
               <div className="CU-mid-main-container">
                 <span className="call">Call: (541) 931-3526</span>
                 <span className="make-ideas-reality">
-                  We Can’t Wait to Make Your Ideas a Reality
+                Chúng tôi không thể chờ đợi để được gặp bạn
                 </span>
               </div>
             </div>
             <div className="flex col-6">
               <button className="CU-mid-button">
-                <span className="AUE-free-quote">ONLINE ESTIMATE FORM</span>
+                <span className="AUE-free-quote">BIỂU MẪU ƯỚC TÍNH TRỰC TUYẾN</span>
               </button>
             </div>
           </div>
         </div>
       </div>
+        </div>
+
       {/* Contact us end */}
       <div className="CU-end">
         <div className="container">
           <div className="row">
             <div className="col-6">
               <div className="CU-end-Titile">
-                <div className="CU-new">Get In Touch</div>
+                <div className="CU-new">Liên hệ</div>
                 {/* <div className="vector" /> */}
               </div>
               <div className="CU-end-from CU-end-from1">
@@ -160,7 +161,7 @@ export default function ContactUS() {
                       aria-controls="collapseExample1"
                       onClick={handleToggle1}
                     >
-                      Donec rutrum congue leo eget malesuada?
+                      Làm thế nào để thuê thiết bị xây dựng trên website?
                     </a>
                   </p>
                   <div
@@ -186,7 +187,7 @@ export default function ContactUS() {
                       aria-controls="collapseExample2"
                       onClick={handleToggle2}
                     >
-                      Vivamus suscipit tortor eget felis porttitor volutpat?
+                      Thời gian thuê thiết bị tối thiểu và tối đa là bao lâu?
                     </a>
                   </p>
                   <div
@@ -212,7 +213,7 @@ export default function ContactUS() {
                       aria-controls="collapseExample3"
                       onClick={handleToggle3}
                     >
-                      Curabitur non nulla sit amet nisl tempus?
+                      Giá thuê thiết bị đã bao gồm chi phí vận chuyển chưa?
                     </a>
                   </p>
                   <div
@@ -238,7 +239,7 @@ export default function ContactUS() {
                       aria-controls="collapseExample4"
                       onClick={handleToggle4}
                     >
-                      Pellentesque in ipsum id orci porta dapibus?
+                     Thiết bị thuê có được bảo trì và kiểm tra trước khi giao không?
                     </a>
                   </p>
                   <div
@@ -264,7 +265,7 @@ export default function ContactUS() {
                       aria-controls="collapseExample5"
                       onClick={handleToggle5}
                     >
-                      Curabitur non nulla sit amet nisl?
+                      Tôi có thể hủy hoặc gia hạn hợp đồng thuê thiết bị không?
                     </a>
                   </p>
                   <div

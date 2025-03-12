@@ -118,6 +118,9 @@
   background-size: cover;
 
 }
+.relative group{
+  margin-top: -5px;
+}
 
 .Header-dai-hoc-fpt-quan {
   display: flex;

@@ -207,29 +207,35 @@ export default function Header() {
             </div>
           </div>
 
-          <div className="relative group">
+          {/* <div className="relative group">
             <button className="flex items-center space-x-1 hover:text-yellow-500 transition text-slate-500">
               <span>Trang khác</span>
               <ChevronDown size={16} />
             </button>
             <div className="absolute left-0 mt-2 w-40 bg-white shadow-lg rounded-md hidden group-hover:block ">
               <a
-                href="#"
+                href="/contact"
                 className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
               >
                 Liên hệ
               </a>
               <a
-                href="#"
+                href="/blog"
                 className="block px-4 py-2 hover:bg-yellow-500 hover:text-white text-slate-500 no-underline"
               >
                 Blog
               </a>
             </div>
-          </div>
+          </div> */}
+                    <a
+            href="/blog"
+            className="hover:text-yellow-500 transition text-slate-500 no-underline"
+          >
+            Blog
+          </a>
 
           <a
-            href="#"
+            href="/contact"
             className="hover:text-yellow-500 transition text-slate-500 no-underline"
           >
             Liên hệ
