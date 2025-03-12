@@ -74,7 +74,7 @@ export default function CategoryGrid() {
           >
             <div className="flex justify-center">
               <img
-                src={item.image || truck}
+                src={item.imageUrl }
                 alt={item.categoryName}
                 className="w-16 h-16 object-contain"
               />

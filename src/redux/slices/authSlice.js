@@ -59,11 +59,16 @@ const authSlice = createSlice({
       state.storeId = storeId;
       state.storeName = storeName;
     },
+    // logout: (state) => {
+    //   localStorage.clear();
+    //   state.isLoggedIn = false;
+    //   state.userRole = "";
+    //   state.accessToken = "";
+    // },
     logout: (state) => {
       localStorage.clear();
-      state.isLoggedIn = false;
-      state.userRole = "";
-      state.accessToken = null;
+      // sessionStorage.clear(); // Nếu có lưu sessionStorage
+      return { ...initialState }; // Reset Redux về trạng thái ban đầu
     },
   },
 });
