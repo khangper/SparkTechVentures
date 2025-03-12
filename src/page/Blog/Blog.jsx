@@ -40,11 +40,11 @@ function Blog() {
 <img src={bigstock2} className="card-img-top" alt="..."/>
   <div className="card-body">
   <span className="BB-handheld-hydraulic-iron">
-  Vestibulum Nisl Felis
+  Làm Thế Nào Để Chọn Đúng Thiết Bị Xây Dựng Cho Dự Án Của Bạn?
               </span>
               <div className="may-9-2014-category">May 9, 2014 | Category</div>
               <span className="BB-straightening-repairing-iron">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
+              Hướng dẫn chi tiết cách lựa chọn thiết bị phù hợp giúp tối ưu chi phí và hiệu suất thi công.
               </span>
 
   </div>
@@ -53,12 +53,12 @@ function Blog() {
 <img src={bigstock1} className="card-img-top" alt="..."/>
   <div className="card-body">
   <span className="BB-handheld-hydraulic-iron">
-  Vestibulum Nisl Felis
+  Thuê Thiết Bị Xây Dựng – Giải Pháp Tiết Kiệm Chi Phí Cho Doanh Nghiệp
               </span>
               <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
+              So sánh chi phí giữa thuê và mua thiết bị, giúp bạn đưa ra quyết định tối ưu cho ngân sách công trình.
               </span>
 
   </div>
@@ -67,12 +67,12 @@ function Blog() {
 <img src={bigstock3} className="card-img-top" alt="..."/>
   <div className="card-body">
   <span className="BB-handheld-hydraulic-iron">
-  Proin Eu Augue Efficitur
+  Bảo Dưỡng Thiết Bị Xây Dựng Định Kỳ Quan Trọng Như Thế Nào?
               </span>
               <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
+              Lý do bạn nên sử dụng thiết bị được bảo trì tốt để đảm bảo an toàn và hiệu suất công việc.
               </span>
 
   </div>
@@ -89,12 +89,12 @@ function Blog() {
 <img src={bigstock2} className="card-img-top" alt="..."/>
   <div className="card-body">
   <span className="BB-handheld-hydraulic-iron">
-  Vestibulum Nisl Felis
+  Những Lợi Ích Khi Thuê Thiết Bị Xây Dựng Thay Vì Mua Mới
               </span>
               <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
+              Phân tích các lợi ích của việc thuê thiết bị, bao gồm giảm chi phí đầu tư ban đầu và linh hoạt sử dụng.
               </span>
   </div>
 </div>
@@ -102,12 +102,12 @@ function Blog() {
 <img src={bigstock1} className="card-img-top" alt="..."/>
   <div className="card-body">
   <span className="BB-handheld-hydraulic-iron">
-  Donec Sit Amet Nibh
+  5 Lưu Ý Quan Trọng Khi Thuê Thiết Bị Xây Dựng
               </span>
               <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
+              Những điều cần biết để đảm bảo bạn thuê được thiết bị chất lượng, đúng giá và đúng nhu cầu.
               </span>
 
   </div>
@@ -116,12 +116,12 @@ function Blog() {
 <img src={bigstock3} className="card-img-top" alt="..."/>
   <div className="card-body">
   <span className="BB-handheld-hydraulic-iron">
-  Vestibulum Nisl Felis
+  Cách Đặt Thuê Thiết Bị Xây Dựng Nhanh Chóng Trên Website
               </span>
               <div className="may-9-2014-category">May 9, 2014 | Category</div>
 
               <span className="BB-straightening-repairing-iron">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. 
+              Hướng dẫn từng bước để bạn có thể thuê thiết bị dễ dàng chỉ trong vài phút.
               </span>
 
   </div>
