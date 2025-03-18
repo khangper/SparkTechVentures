@@ -22,37 +22,35 @@ export default function AboutUS() {
               <div className="AU-frame-2">
                 <div className="AU-vector" />
                 <div className="AU-about-our-spark-tech">
-                  <span className="AU-about-our">About Our </span>
-                  <span className="AU-tech-ventures">Spark</span>
+                  <span className="AU-about-our">Giới thiệu </span>
+                  <span className="AU-tech-ventures">Công ty</span>
                   <span className="AU-about-our-3"> </span>
                   <span className="AU-tech-ventures-4">Tech Ventures</span>
-                  <span className="AU-company"> Company</span>
+                  <span className="AU-company"> Của chúng tôi</span>
                 </div>
               </div>
               <div className="AU-frame-5">
                 <span className="AU-construction-equipment">
-                  We specialize in providing high quality construction equipment
-                  rental services to support the needs of customers in the
-                  construction industry.
+                Chúng tôi chuyên cung cấp dịch vụ cho thuê thiết bị xây dựng chất lượng cao để hỗ trợ nhu cầu của khách hàng trong ngành xây dựng.
                 </span>
                 <button className="AU-button">
-                  <span className="AU-get-free-quote">GET A FREE QUOTE</span>
+                  <span className="AU-get-free-quote">NHẬN BÁO GIÁ MIỄN PHÍ</span>
                 </button>
               </div>
             </div>
 
             <div className="Aumain-container">
-              <div className="what-we-do">What We Do</div>
+              <div className="what-we-do">Chúng tôi làm gì</div>
 
               <div className="AUS-frame-1">
                 <div className="AUS-group" />
                 <div className="AUS-frame-2">
                   <span className="AUS-building-construction">
-                    Construction Equipment Rentals
+                  Cho thuê thiết bị xây dựng
                   </span>
                   <span className="AUS-construction-equipment">
-                    A variety of construction equipment, suitable for projects
-                    from small to large
+                  Nhiều loại thiết bị xây dựng, phù hợp với các dự án
+                  từ nhỏ đến lớn
                   </span>
                 </div>
               </div>
@@ -61,21 +59,19 @@ export default function AboutUS() {
                 <div className="AUS-group-4" />
                 <div className="AUS-frame-5">
                   <span className="AUS-building-repairs">
-                    Equipment Maintenance
+                  Bảo trì thiết bị
                   </span>
                   <span className="AUS-periodic-maintenance">
-                    Periodic maintenance and repair to ensure equipment operates
-                    efficiently and safely.
+                  Bảo trì và sửa chữa định kỳ để đảm bảo thiết bị hoạt động hiệu quả và an toàn.
                   </span>
                 </div>
               </div>
               <div className="AUS-frame-6">
                 <div className="AUS-group-7" />
                 <div className="AUS-frame-8">
-                  <span className="AUS-custom-design">Delivery Service:</span>
+                  <span className="AUS-custom-design">Dịch vụ giao hàng:</span>
                   <span className="AUS-text-6">
-                    Deliver and receive equipment on-site, saving time and
-                    effort for customers.
+                  Giao và nhận thiết bị tận nơi, tiết kiệm thời gian và công sức cho khách hàng.
                   </span>
                 </div>
               </div>
@@ -85,43 +81,36 @@ export default function AboutUS() {
       </div>
 
       <div data-aos="fade-down" className="Au-mid">
-        <div className="new">About Us</div>
+        <div className="new">Về Chúng tôi</div>
         <div className="vector" />
         <div className="container ">
           <div className="row ">
             <div className="AU-test col-6">
-              Spark Tech Ventures, we are proud to be the leading unit in the
-              field of construction equipment and machinery rental. Established
-              with the mission to support the construction industry, we provide
-              high-quality, reliable and suitable equipment solutions for
-              customers' needs.
+            Spark Tech Ventures tự hào là đơn vị hàng đầu trong lĩnh vực cho thuê thiết bị xây dựng, cung cấp giải pháp chất lượng, đáng tin cậy, đáp ứng mọi nhu cầu của khách hàng.
               <br />
               <br />
-              We provide a diverse portfolio of equipment, including cranes,
-              rollers, steel benders, stamping machines, and compactors, all of
-              which are regularly maintained to ensure optimal performance. With
-              a dedicated and experienced staff, we are committed to providing
-              excellent customer service and professional advice to help you
-              choose the most suitable equipment for your project.
+              Chúng tôi cung cấp danh mục thiết bị đa dạng, bao gồm cần cẩu,
+con lăn, máy uốn thép, máy dập và máy đầm, tất cả
+đều được bảo dưỡng thường xuyên để đảm bảo hiệu suất tối ưu. Với
+đội ngũ nhân viên tận tụy và giàu kinh nghiệm, chúng tôi cam kết cung cấp
+dịch vụ khách hàng tuyệt vời và tư vấn chuyên nghiệp để giúp bạn
+lựa chọn thiết bị phù hợp nhất cho dự án của mình.
             </div>
             <div className="AU-test col-6">
-              We also understand that time is money, so our on-site equipment
-              delivery and pick-up service helps you save effort and time during
-              the construction process. Furthermore, our regular maintenance
-              service ensures that the equipment is always operating safely and
-              efficiently.
+            Chúng tôi cũng hiểu rằng thời gian là tiền bạc, vì vậy dịch vụ giao và nhận thiết bị tại chỗ của chúng tôi giúp bạn tiết kiệm công sức và thời gian trong
+quá trình xây dựng. Hơn nữa, dịch vụ bảo trì thường xuyên của chúng tôi đảm bảo rằng thiết bị luôn hoạt động an toàn và
+hiệu quả.
               <br />
               <br />
-              Spark Tech Ventures, customer satisfaction is our top priority. We
-              are constantly striving to improve our services and bring the best
-              value to our customers. Let us accompany you in your construction
-              projects!
+              Spark Tech Ventures, sự hài lòng của khách hàng là ưu tiên hàng đầu của chúng tôi. Chúng tôi
+liên tục nỗ lực cải thiện dịch vụ và mang lại giá trị tốt nhất
+cho khách hàng. Hãy để chúng tôi đồng hành cùng bạn trong các dự án xây dựng của bạn!
             </div>
           </div>
         </div>
-      </div>
+      </div>      
       <div data-aos="fade-right">
-      <div className="only-the-best">Only the Best</div>
+      <div className="only-the-best">CHỈ CÓ TỐT NHẤT</div>
       <div className="AU-end">
         <div className="container">
           <div className="row">
@@ -130,12 +119,10 @@ export default function AboutUS() {
                 <div className="AUE-group" />
                 <div className="AUE-frame-4">
                   <span className="AUE-eco-friendly-construction">
-                    Eco Friendly Construction
+                  Xây dựng thân thiện với môi trường
                   </span>
                   <span className="AUE-leading-brands-equipment">
-                    We provide equipment manufactured by leading brands in the
-                    industry, thoroughly tested and regularly maintained to
-                    ensure efficient and safe operation.
+                  Chúng tôi cung cấp thiết bị được sản xuất bởi các thương hiệu hàng đầu trong ngành, được kiểm tra kỹ lưỡng và bảo trì thường xuyên để đảm bảo hoạt động hiệu quả và an toàn.
                   </span>
                 </div>
               </div>
@@ -143,12 +130,10 @@ export default function AboutUS() {
                 <div className="AUE-group" />
                 <div className="AUE-frame-4">
                   <span className="AUE-eco-friendly-construction">
-                    Professional Team
+                  Đội ngũ chuyên nghiệp
                   </span>
                   <span className="AUE-leading-brands-equipment">
-                    Our staff is well trained and experienced in the
-                    construction industry, always ready to support and advise
-                    you on the most suitable equipment selection.
+                  Đội ngũ nhân viên của chúng tôi được đào tạo bài bản và có kinh nghiệm trong ngành xây dựng, luôn sẵn sàng hỗ trợ và tư vấn cho bạn lựa chọn thiết bị phù hợp nhất.
                   </span>
                 </div>
               </div>
@@ -156,12 +141,10 @@ export default function AboutUS() {
                 <div className="AUE-group" />
                 <div className="AUE-frame-4">
                   <span className="AUE-eco-friendly-construction">
-                    Excellent Customer Service
+                  Dịch vụ khách hàng tuyệt vời
                   </span>
                   <span className="AUE-leading-brands-equipment">
-                    We are committed to providing an excellent customer
-                    experience with prompt and dedicated support. Your
-                    satisfaction is our top priority.
+                  Chúng tôi cam kết cung cấp trải nghiệm tuyệt vời cho khách hàng với sự hỗ trợ nhanh chóng và tận tâm. Sự hài lòng của bạn là ưu tiên hàng đầu của chúng tôi.
                   </span>
                 </div>
               </div>
@@ -171,12 +154,12 @@ export default function AboutUS() {
                 <div className="AUE-group" />
                 <div className="AUE-frame-4">
                   <span className="AUE-eco-friendly-construction">
-                    Safety First
+                  An toàn là trên hết
                   </span>
                   <span className="AUE-leading-brands-equipment">
-                    We take safety seriously in everything we do. All equipment
-                    complies with current safety standards and regulations,
-                    giving you peace of mind when using it.
+                  Chúng tôi coi trọng vấn đề an toàn trong mọi việc chúng tôi làm. Tất cả các thiết bị
+đều tuân thủ các tiêu chuẩn ,
+mang đến cho bạn sự an tâm khi sử dụng.
                   </span>
                 </div>
               </div>
@@ -184,18 +167,18 @@ export default function AboutUS() {
                 <div className="AUE-group" />
                 <div className="AUE-frame-4">
                   <span className="AUE-eco-friendly-construction">
-                    Continuous Innovation
+                  Đổi mới liên tục
                   </span>
                   <span className="AUE-leading-brands-equipment">
-                    We are constantly improving our services and equipment to
-                    meet the increasing needs of our customers. We are always
-                    looking for new and more efficient solutions to serve you
-                    best.
+                  Chúng tôi liên tục cải thiện dịch vụ và thiết bị của mình để
+đáp ứng nhu cầu ngày càng tăng của khách hàng. Chúng tôi luôn
+tìm kiếm các giải pháp mới và hiệu quả hơn để phục vụ bạn
+tốt nhất.
                   </span>
                 </div>
               </div>
               <button className="AUE-button">
-                <span className="AUE-free-quote">FREE QUOTE</span>
+                <span className="AUE-free-quote">BÁO GIÁ MIỄN PHÍ</span>
               </button>
             </div>
             <div className="col-4">
