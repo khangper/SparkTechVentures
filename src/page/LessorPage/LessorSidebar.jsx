@@ -72,8 +72,8 @@ const Sidebar = () => {
       ],
     },
     // { id: "users", icon: Users, label: "Users", path: "/users" },
-    { id: "settings", icon: Settings, label: "Settings", path: "/settings" },
-    { id: "help", icon: HelpCircle, label: "Help", path: "/help" },
+    // { id: "settings", icon: Settings, label: "Settings", path: "/settings" },
+    // { id: "help", icon: HelpCircle, label: "Help", path: "/help" },
   ];
 
   return (

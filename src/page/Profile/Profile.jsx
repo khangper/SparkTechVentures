@@ -115,14 +115,14 @@ const Profile = () => {
             </div>
           )}
 
-          <div className="flex space-x-4 mt-6">
+          {/* <div className="flex space-x-4 mt-6">
             <button className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition">
               Edit Profile
             </button>
             <button className="px-6 py-2 border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-100 transition">
               Change Password
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
