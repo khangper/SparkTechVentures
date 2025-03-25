@@ -662,8 +662,6 @@ export default function HomePage() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     const productAPI = async () => {
       try {
@@ -810,6 +808,176 @@ export default function HomePage() {
         </style>
       </div>
 
+      <div className="bg-slate-100 ">
+        <motion.div
+          className=" p-3 pt-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex justify-center items-center flex-col">
+            <h2 className="font-bold"> Danh Sách Thiết Bị</h2>
+            <p className="text-gray-400">
+              Khám phá các thiết bị xây dựng chất lượng cao, phù hợp với mọi
+              công trình. Thuê nhanh chóng, giá cả minh bạch!
+            </p>
+          </div>
+        </motion.div>
+
+        <div className="grid grid-cols-3 mx-3 ">
+          {products.slice(0, 6).map((product, index) => (
+            <motion.div
+              key={product.id || index}
+              className="flex flex-col m-2 bg-white rounded-lg relative"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              onClick={() => handleProductClick(product.id)}
+            >
+              <div className="overflow-hidden rounded-lg h-60 w-full">
+                <motion.img
+                  src={product.defaultImage}
+                  className="w-full h-full object-cover transition-transform"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                />
+              </div>
+
+              <div className="absolute left-3 top-[212px] bg-white text-yellow-500 text-sm font-semibold px-3 py-1 rounded-t-lg">
+                {product.categoryName}
+              </div>
+
+              <div className="px-4 mt-2">
+                <h5 className="font-bold text-yellow-500 pb-2">
+                  {product.price.toLocaleString("vi-VN")} VND/ngày
+                </h5>
+                <h4 className="hover:text-yellow-500 cursor-pointer h-[57.59px]">
+                  {product.name}
+                </h4>
+                <p className="text-gray-400">{product.storeName}</p>
+              </div>
+              <div className="grid grid-cols-3 border-t-4 border-yellow-500 border-dashed text-gray-600 text-sm p-1">
+                <div className="flex items-center justify-center border-r border-dashed border-yellow-300 p-2">
+                  <Truck className="w-5 h-5 text-yellow-500 mr-1" />
+                  {product.weight} Kg
+                </div>
+
+                <div className="flex items-center justify-center border-r border-dashed border-yellow-300 p-2">
+                  <Gauge className="w-5 h-5 text-yellow-500 mr-1" />
+                  {product.stock} cái
+                </div>
+
+                <div className="flex items-center justify-center p-2">
+                  <Fuel className="w-5 h-5 text-yellow-500 mr-1" />
+                  {fuelOptions.find(
+                    (option) => option.value === product.fuelType
+                  )?.label || "Không xác định"}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        <div className="flex items-center justify-center py-4">
+          <motion.button
+            className="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-bold text-white rounded-lg shadow-2xl bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-amber-500 hover:to-yellow-500 transition-all duration-300"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-yellow-600 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-full group-hover:h-56 opacity-10"></span>
+            <Link to={"/all"} className="no-underline text-white">
+              <span className="relative flex items-center">
+                Xem Tất Cả
+                <ChevronRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </Link>
+          </motion.button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-8 gap-8 bg-white">
+        <motion.img
+          className="max-h-[544px] w-full object-cover col-span-3"
+          src={headerimage4}
+          alt="Construction Equipment"
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        />
+
+        <motion.div
+          className="flex flex-col items-start justify-center space-y-16 col-span-5"
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.h1
+            className="font-extrabold text-3xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            Dịch Vụ Cho Thuê Thiết Bị Xây Dựng Uy Tín
+          </motion.h1>
+
+          <motion.p
+            className="text-gray-600"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Chúng tôi cung cấp các thiết bị xây dựng chất lượng cao với mức giá
+            cạnh tranh. Dễ dàng thuê các loại máy móc từ xe lu, máy xúc đến giàn
+            giáo chỉ trong vài bước.
+          </motion.p>
+
+          <motion.ul className="space-y-3">
+            {[
+              "Thiết bị đa dạng, phù hợp mọi công trình",
+              "Giá thuê hợp lý, thủ tục đơn giản",
+              "Hỗ trợ kỹ thuật & giao nhận tận nơi",
+            ].map((item, index) => (
+              <motion.li
+                key={index}
+                className="flex items-center text-gray-700"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Check
+                  className="text-yellow-500 mr-2"
+                  size={20}
+                  strokeWidth={3}
+                />
+                {item}
+              </motion.li>
+            ))}
+          </motion.ul>
+
+          <Link to={`all`}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-yellow-500 text-white py-3 px-6 rounded-md font-semibold shadow-md hover:bg-yellow-600 transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              Xem Thiết Bị
+            </motion.button>
+          </Link>
+        </motion.div>
+      </div>
+
+      <CategoryGrid />
+
       <div className="grid grid-cols-1 lg:grid-cols-3">
         <motion.div
           className="flex flex-col justify-center items-start p-20 bg-[#2a2a2a] col-span-1 space-y-14"
@@ -909,173 +1077,6 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
           </div>
-        </div>
-      </div>
-
-      <CategoryGrid />
-
-      <div className="grid grid-cols-8 gap-8 bg-white">
-        <motion.img
-          className="max-h-[544px] w-full object-cover col-span-3"
-          src={headerimage4}
-          alt="Construction Equipment"
-          initial={{ opacity: 0, x: -100 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        />
-
-        <motion.div
-          className="flex flex-col items-start justify-center space-y-16 col-span-5"
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <motion.h1
-            className="font-extrabold text-3xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            Dịch Vụ Cho Thuê Thiết Bị Xây Dựng Uy Tín
-          </motion.h1>
-
-          <motion.p
-            className="text-gray-600"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Chúng tôi cung cấp các thiết bị xây dựng chất lượng cao với mức giá
-            cạnh tranh. Dễ dàng thuê các loại máy móc từ xe lu, máy xúc đến giàn
-            giáo chỉ trong vài bước.
-          </motion.p>
-
-          <motion.ul className="space-y-3">
-            {[
-              "Thiết bị đa dạng, phù hợp mọi công trình",
-              "Giá thuê hợp lý, thủ tục đơn giản",
-              "Hỗ trợ kỹ thuật & giao nhận tận nơi",
-            ].map((item, index) => (
-              <motion.li
-                key={index}
-                className="flex items-center text-gray-700"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-              >
-                <Check
-                  className="text-yellow-500 mr-2"
-                  size={20}
-                  strokeWidth={3}
-                />
-                {item}
-              </motion.li>
-            ))}
-          </motion.ul>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-yellow-500 text-white py-3 px-6 rounded-md font-semibold shadow-md hover:bg-yellow-600 transition-all"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            Xem Thiết Bị
-          </motion.button>
-        </motion.div>
-      </div>
-      <div className="bg-slate-100 ">
-        <motion.div
-          className="grid grid-cols-2 p-3 pt-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex flex-col">
-            <h2 className="font-bold"> Danh Sách Thiết Bị</h2>
-            <p className="text-gray-400">
-              Khám phá các thiết bị xây dựng chất lượng cao, phù hợp với mọi
-              công trình. Thuê nhanh chóng, giá cả minh bạch!
-            </p>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-3 mx-3 ">
-          {products.slice(0, 6).map((product, index) => (
-            <motion.div
-              key={product.id || index}
-              className="flex flex-col m-2 bg-white rounded-lg relative"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              onClick={() => handleProductClick(product.id)}
-            >
-              <div className="overflow-hidden rounded-lg h-60 w-full">
-                <motion.img
-                  src={product.defaultImage}
-                  className="w-full h-full object-cover transition-transform"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                />
-              </div>
-
-              <div className="absolute left-3 top-[212px] bg-white text-yellow-500 text-sm font-semibold px-3 py-1 rounded-t-lg">
-                {product.categoryName}
-              </div>
-
-              <div className="px-4 mt-2">
-                <h5 className="font-bold text-yellow-500 pb-2">
-                  {product.price.toLocaleString("vi-VN")} VND/ngày
-                </h5>
-                <h4 className="hover:text-yellow-500 cursor-pointer">
-                  {product.name}
-                </h4>
-                <p className="text-gray-400">{product.storeName}</p>
-              </div>
-              <div className="grid grid-cols-3 border-t-4 border-yellow-500 border-dashed text-gray-600 text-sm p-1">
-                <div className="flex items-center justify-center border-r border-dashed border-yellow-300 p-2">
-                  <Truck className="w-5 h-5 text-yellow-500 mr-1" />
-                  {product.weight} Kg
-                </div>
-
-                <div className="flex items-center justify-center border-r border-dashed border-yellow-300 p-2">
-                  <Gauge className="w-5 h-5 text-yellow-500 mr-1" />
-                  {product.stock} cái
-                </div>
-
-                <div className="flex items-center justify-center p-2">
-                  <Fuel className="w-5 h-5 text-yellow-500 mr-1" />
-                  {fuelOptions.find(
-                    (option) => option.value === product.fuelType
-                  )?.label || "Không xác định"}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        <div className="flex items-center justify-center py-4">
-          <motion.button
-            className="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-bold text-white rounded-lg shadow-2xl bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-amber-500 hover:to-yellow-500 transition-all duration-300"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-yellow-600 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-full group-hover:h-56 opacity-10"></span>
-            <Link to={"/all"} className="no-underline text-white">
-              <span className="relative flex items-center">
-                Xem Tất Cả
-                <ChevronRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </Link>
-          </motion.button>
         </div>
       </div>
     </div>

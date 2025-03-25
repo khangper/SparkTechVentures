@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../Context/api";
-import { Eye } from 'lucide-react';
+import { Eye } from "lucide-react";
 
 const OrderManagementDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -62,23 +62,23 @@ const OrderManagementDashboard = () => {
     <div className="">
       <div className="max-w-7xl mx-auto mt-4">
         <h1 className="text-2xl font-bold text-gray-800 mb-2">
-          Order Management
+          Quản lý đơn hàng
         </h1>
 
         {/* Controls */}
         <div className="bg-white p-4 rounded-lg shadow mb-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="w-full md:w-64">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 ">
+            <div className="w-full">
               <input
                 type="text"
-                placeholder="Search ..."
+                placeholder="Tìm kiếm ..."
                 className="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
 
-            <div className="w-full md:w-auto">
+            {/* <div className="w-full md:w-auto">
               <select
                 className="px-4 py-2 border rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
                 value={statusFilter}
@@ -89,7 +89,7 @@ const OrderManagementDashboard = () => {
                 <option value="COMPLETED">Completed</option>
                 <option value="CANCELLED">Cancelled</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -109,37 +109,37 @@ const OrderManagementDashboard = () => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Customer
+                    Khách hàng
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Product
+                    Sản phẩm
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Value
+                    Giá
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Rental date
+                    Thời gian thuê
                   </th>
-                  <th
+                  {/* <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     Status
-                  </th>
+                  </th> */}
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Action
+                    CHI TIẾT
                   </th>
                 </tr>
               </thead>
@@ -171,7 +171,7 @@ const OrderManagementDashboard = () => {
                       <div>Nhận: {formatDate(order.dateOfReceipt)}</div>
                       <div>Trả: {formatDate(order.dateOfReturn)}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    {/* <td className="px-6 py-4 whitespace-nowrap">
                       <span
                         className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
                           order.status
@@ -185,24 +185,14 @@ const OrderManagementDashboard = () => {
                           ? "CANCELLED"
                           : order.status}
                       </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium items-center flex">
+                    </td> */}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center flex justify-center">
                       <button
                         onClick={() => handleViewDetails(order)}
-                        className="text-blue-600 hover:text-blue-900 mr-4"
+                        className="text-blue-600 hover:text-blue-900 "
                       >
-                        <Eye size={18}/>
+                        <Eye size={18} />
                       </button>
-                      {order.status === "PENDING" && (
-                        <>
-                          <button className="text-green-600 hover:text-green-900 mr-4">
-                            Accept
-                          </button>
-                          <button className="text-red-600 hover:text-red-900">
-                            Cancel
-                          </button>
-                        </>
-                      )}
                     </td>
                   </tr>
                 ))}
@@ -225,7 +215,7 @@ const OrderManagementDashboard = () => {
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold">
-                  Order Details #{selectedOrder.id}
+                  CHI TIẾT ĐƠN HÀNG #{selectedOrder.id}
                 </h2>
                 <button
                   onClick={closeModal}
@@ -251,19 +241,19 @@ const OrderManagementDashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <h3 className="text-lg font-medium mb-2">
-                    Customer Information
+                    THÔNG TIN KHÁCH HÀNG
                   </h3>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p>
-                      <span className="font-medium">Name:</span>{" "}
+                      <span className="font-medium">Tên:</span>{" "}
                       {selectedOrder.recipientName}
                     </p>
                     <p>
-                      <span className="font-medium">Phone Number:</span>{" "}
+                      <span className="font-medium">Số điện thoại:</span>{" "}
                       {selectedOrder.recipientPhone}
                     </p>
                     <p>
-                      <span className="font-medium">Address:</span>{" "}
+                      <span className="font-medium">Địa chỉ:</span>{" "}
                       {selectedOrder.address}
                     </p>
                   </div>
@@ -271,10 +261,10 @@ const OrderManagementDashboard = () => {
 
                 <div>
                   <h3 className="text-lg font-medium mb-2">
-                    Order Information
+                    THÔNG TIN ĐƠN HÀNG
                   </h3>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p>
+                    {/* <p>
                       <span className="font-medium">Status:</span>
                       <span
                         className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
@@ -289,17 +279,19 @@ const OrderManagementDashboard = () => {
                           ? "CANCELLED"
                           : selectedOrder.status}
                       </span>
-                    </p>
+                    </p> */}
                     <p>
-                      <span className="font-medium">Payment Method:</span>{" "}
+                      <span className="font-medium">
+                        Phương thức thanh toán:
+                      </span>{" "}
                       {selectedOrder.paymentMethod}
                     </p>
                     <p>
-                      <span className="font-medium">Purchase Method:</span>{" "}
+                      <span className="font-medium">Phương thức mua hàng:</span>{" "}
                       {selectedOrder.purchaseMethod}
                     </p>
                     <p>
-                      <span className="font-medium">Created At:</span>{" "}
+                      <span className="font-medium">Ngày tạo:</span>{" "}
                       {formatDate(selectedOrder.createdAt)}
                     </p>
                   </div>
@@ -307,21 +299,21 @@ const OrderManagementDashboard = () => {
               </div>
 
               <div className="mb-6">
-                <h3 className="text-lg font-medium mb-2">Rental Period</h3>
+                <h3 className="text-lg font-medium mb-2">Thời gian thuê</h3>
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <p>
-                    <span className="font-medium">Start Date:</span>{" "}
+                    <span className="font-medium">Ngày bắt đầu:</span>{" "}
                     {formatDate(selectedOrder.dateOfReceipt)}
                   </p>
                   <p>
-                    <span className="font-medium">Return Date:</span>{" "}
+                    <span className="font-medium">Ngày kết thúc:</span>{" "}
                     {formatDate(selectedOrder.dateOfReturn)}
                   </p>
                 </div>
               </div>
 
               <div className="mb-6">
-                <h3 className="text-lg font-medium mb-2">Products</h3>
+                <h3 className="text-lg font-medium mb-2">Các sản phẩm</h3>
                 <div className="bg-gray-50 rounded-lg overflow-hidden">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-100">
@@ -330,25 +322,25 @@ const OrderManagementDashboard = () => {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Product
+                          Sản phẩm
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Quantity
+                          Số lượng
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Unit Price
+                          Đơn giá
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Total Price
+                          Thành tiền
                         </th>
                       </tr>
                     </thead>
@@ -379,7 +371,7 @@ const OrderManagementDashboard = () => {
                           colSpan="3"
                           className="px-6 py-4 text-sm font-medium text-gray-900 text-right"
                         >
-                          Total:
+                          Tổng cộng:
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
                           {selectedOrder.totalPrice.toLocaleString("vi-VN")} VND
@@ -392,7 +384,7 @@ const OrderManagementDashboard = () => {
 
               {selectedOrder.paymentMethod === "PAYOS" && (
                 <div className="mb-6">
-                  <h3 className="text-lg font-medium mb-2">Payment</h3>
+                  <h3 className="text-lg font-medium mb-2">Thanh toán: </h3>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p>
                       <span className="font-medium">Payment URL:</span>{" "}
@@ -410,7 +402,7 @@ const OrderManagementDashboard = () => {
               )}
 
               <div className="flex justify-end gap-4 mt-6">
-                {selectedOrder.status === "PENDING" && (
+                {/* {selectedOrder.status === "PENDING" && (
                   <>
                     <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
                       Confirm Order
@@ -419,12 +411,12 @@ const OrderManagementDashboard = () => {
                       Cancel Order
                     </button>
                   </>
-                )}
+                )} */}
                 <button
                   onClick={closeModal}
                   className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
                 >
-                  Close
+                  Đóng
                 </button>
               </div>
             </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { ArrowRightLeft, ChevronRight, Home, Plus } from "lucide-react";
+import { ArrowRightLeft, ChevronRight, Home, Plus, ShoppingCart } from "lucide-react";
 import api from "../Context/api";
+import toast from "react-hot-toast";
 
 const fuelOptions = [
   { label: "XĂNG", value: 0 },
@@ -85,6 +86,57 @@ export default function Compare() {
     fetchProduct();
   }, [idt]);
 
+  const handleAddToCart = () => {
+    if (!product) return;
+
+    if (product.stock === 0) {
+      toast.error("This product is out of stock.");
+      return;
+    }
+
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      toast.error("Please log in to add items to your cart.");
+      navigate("/login");
+      return;
+    }
+
+    const existingCart = sessionStorage.getItem("cartItems");
+    let cartItems = existingCart ? JSON.parse(existingCart) : [];
+
+    if (cartItems.length > 0) {
+      const existingStore = cartItems[0].storeId;
+      if (existingStore !== product.storeId) {
+        toast.error("You can only order products from the same store.");
+        return;
+      }
+    }
+
+    const productIndex = cartItems.findIndex(
+      (item) => item.productId === product.id
+    );
+
+    if (productIndex >= 0) {
+      if (cartItems[productIndex].quantity + 1 > product.stock) {
+        toast.error("Not enough stock available.");
+        return;
+      }
+      cartItems[productIndex].quantity += 1;
+    } else {
+      cartItems.push({
+        productId: product.id,
+        productName: product.name,
+        price: product.price,
+        quantity: 1,
+        defaultImage: product.defaultImage,
+        storeId: product.storeId,
+      });
+    }
+
+    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+    toast.success("Product added to cart!");
+  };
+
   const handleRedirectToHomePage = () => {
     navigate("/all", { state: { mode: "compare", productId: `${idt}` } });
   };
@@ -157,6 +209,15 @@ export default function Compare() {
             {productData?.status === "ACTIVE" ? "Còn hàng" : "Hết hàng"}
           </div>
         </div>
+
+        <button
+          onClick={handleAddToCart}
+          className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2  my-3"
+          disabled={productData?.stock === 0}
+        >
+          <ShoppingCart />
+          <span>{productData?.stock === 0 ? "Hết hàng" : "Thêm vào giỏ hàng"}</span>
+        </button>
       </div>
 
       <div className="p-6">
@@ -283,8 +344,9 @@ export default function Compare() {
                 Loại nhiên liệu
               </td>
               <td className="px-6 py-4 text-center border-b">
-                {fuelOptions.find((option) => option.value === product?.fuelType)
-                  ?.label || "Không xác định"}
+                {fuelOptions.find(
+                  (option) => option.value === product?.fuelType
+                )?.label || "Không xác định"}
               </td>
               <td className="px-6 py-4 text-center border-b">
                 {productSecond

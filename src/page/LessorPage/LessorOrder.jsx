@@ -40,7 +40,7 @@ export default function LessorOrder() {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
+    return date.toLocaleDateString("vi-en", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -133,15 +133,15 @@ export default function LessorOrder() {
         <div className="bg-white rounded-xl shadow-sm p-6 ">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Order Management
+              Quản lý đơn hàng
             </h2>
             {/* <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center">
               <ShoppingCart className="h-4 w-4 mr-2" />
-              New Order
+              Đơn hàng mới
             </button> */}
           </div>
 
-          {/* Search and filters */}
+          {/* Tìm kiếm và bộ lọc */}
           <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative">
               <Search
@@ -150,7 +150,7 @@ export default function LessorOrder() {
               />
               <input
                 type="text"
-                placeholder="Search by name or ID..."
+                placeholder="Tìm theo tên hoặc ID..."
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 value={searchTerm}
                 onChange={(e) => {
@@ -173,9 +173,9 @@ export default function LessorOrder() {
                   setCurrentPage(1);
                 }}
               >
-                <option value="">All Statuses</option>
-                <option value="PENDING">Pending</option>
-                <option value="COMPLETED">Completed</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="PENDING">Đang xử lý</option>
+                <option value="COMPLETED">Hoàn thành</option>
               </select>
             </div>
 
@@ -192,14 +192,14 @@ export default function LessorOrder() {
                   setCurrentPage(1);
                 }}
               >
-                <option value="">All Payment Methods</option>
-                <option value="CASH">Cash</option>
+                <option value="">Tất cả phương thức</option>
+                <option value="CASH">Tiền mặt</option>
                 <option value="PAYOS">PayOS</option>
               </select>
             </div>
           </div>
 
-          {/* Table */}
+          {/* Bảng */}
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -207,27 +207,27 @@ export default function LessorOrder() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     ID
                   </th>
+                  {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Khách hàng
+                  </th> */}
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Customer
+                    Người nhận
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Recipient
+                    Số tiền (VND)
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount (VND)
+                    Thời gian
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Dates
+                    Trạng thái
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
+                    Thanh toán
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Payment
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Thao tác
+                  </th> */}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -236,7 +236,9 @@ export default function LessorOrder() {
                     <td colSpan="8" className="px-6 py-4 text-center">
                       <div className="flex justify-center items-center space-x-2">
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
-                        <span className="text-gray-500">Loading orders...</span>
+                        <span className="text-gray-500">
+                          Đang tải đơn hàng...
+                        </span>
                       </div>
                     </td>
                   </tr>
@@ -249,9 +251,9 @@ export default function LessorOrder() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         #{order.id}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {order.customerName}
-                      </td>
+                      </td> */}
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                         <div>{order.recipientName}</div>
                         <div className="text-xs text-gray-400">
@@ -259,12 +261,12 @@ export default function LessorOrder() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {order.totalPrice}
+                        {order.totalPrice.toLocaleString("vi-VN")}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <div>{formatDate(order.dateOfReceipt)}</div>
                         <div className="text-xs text-gray-400">
-                          to {formatDate(order.dateOfReturn)}
+                          đến {formatDate(order.dateOfReturn)}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -273,20 +275,26 @@ export default function LessorOrder() {
                             order.status
                           )}`}
                         >
-                          {getStatusText(order.status)}
+                          {getStatusText(order.status) === "Completed"
+                            ? "Hoàn thành"
+                            : getStatusText(order.status) === "Pending"
+                            ? "Đang xử lý"
+                            : getStatusText(order.status) === "CANCELLED"
+                            ? "Đã hủy"
+                            : "Đã trả"}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {order.paymentMethod === "CASH" ? "Cash" : "PayOS"}
+                        {order.paymentMethod === "CASH" ? "Tiền mặt" : "PayOS"}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      {/* <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button className="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50 transition-colors mr-2">
                           <Eye size={18} />
                         </button>
                         <button className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50 transition-colors">
                           <Trash2 size={18} />
                         </button>
-                      </td>
+                      </td> */}
                     </tr>
                   ))
                 ) : (
@@ -297,9 +305,9 @@ export default function LessorOrder() {
                     >
                       <div className="flex flex-col items-center">
                         <ShoppingCart className="h-12 w-12 text-gray-300 mb-2" />
-                        <p>No orders found</p>
+                        <p>Không tìm thấy đơn hàng</p>
                         <p className="text-xs text-gray-400 mt-1">
-                          Try adjusting your search or filters
+                          Thử điều chỉnh tìm kiếm hoặc bộ lọc
                         </p>
                       </div>
                     </td>
@@ -320,7 +328,7 @@ export default function LessorOrder() {
                   className="flex items-center px-3 py-1 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 transition-colors duration-200"
                 >
                   <ChevronLeft size={16} className="mr-1" />
-                  Prev
+                  Trước
                 </button>
                 {[
                   ...Array(
@@ -394,7 +402,7 @@ export default function LessorOrder() {
                   }
                   className="flex items-center px-3 py-1 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 transition-colors duration-200"
                 >
-                  Next
+                  Tiếp
                   <ChevronRight size={16} className="ml-1" />
                 </button>
               </nav>

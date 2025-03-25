@@ -9,7 +9,8 @@ import Login from "../page/Log/Login/Login.jsx";
 import Signup from "../page/Log/Signup/Signup.jsx";
 import Question from "../page/Question/Question.jsx";
 import Blog from "../page/Blog/Blog.jsx";
-// import Admin from "./page/AdminPage/Admin.jsx";
+import Admin from "../page/AdminPage/Admin.jsx";
+import StoreManagement from "../page/AdminPage/StoreManagement.jsx";
 import Member from "../page/Member/Member.jsx";
 import ShoppingCart from "../page/ShoppingCart/ShoppingCart.jsx";
 import CheckoutPage from "../page/CheckoutPage/CheckoutPage.jsx";
@@ -41,6 +42,8 @@ import FailVerify from "../page/Log/FailVerify/FailVerify.jsx";
 import LessorCategory from "../page/LessorPage/LessorCategory.jsx";
 import HomeAll from "../page/HomePage/HomeAll.jsx";
 import ProductByCategory from "../page/HomePage/ProductByCategory.jsx";
+import AdminLayout from "../layout/AdminLayout.jsx";
+import UserManagement from "../page/AdminPage/UserManagement.jsx";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -138,6 +141,7 @@ export const indexRouter = createBrowserRouter([
       { path: "categories", element: <LessorCategory /> },
     ],
   },
+
   {
     path: "/staff",
     element: (
@@ -148,4 +152,19 @@ export const indexRouter = createBrowserRouter([
     errorElement: <Error />,
     children: [{ index: true, element: <StaffPage /> }],
   },
+
+  {
+    path: "/admin",
+    element: (
+      <RequireAuth allowedRoles={["ADMIN"]}>
+        <AdminLayout />
+      </RequireAuth>
+    ),
+    children: [
+      { index: true, element:  <Admin/> },
+      { path: "users", element: <UserManagement /> },
+      { path: "stores", element: <StoreManagement /> },
+    ],
+  }
+  
 ]);
