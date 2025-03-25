@@ -147,7 +147,7 @@ export default function Index() {
         </Link>
         <ChevronRight size={16} className="mx-2" />
         <Link
-          to="/AllProduct"
+          to="/all"
           className="hover:text-blue-500 transition-colors no-underline"
         >
           <span>Xem tất cả</span>

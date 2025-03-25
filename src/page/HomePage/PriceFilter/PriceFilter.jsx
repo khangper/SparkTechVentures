@@ -46,10 +46,10 @@ const PriceFilter = ({ onPriceChange }) => {
         />
       </div>
       <div className="price-range">
-        Price: {new Intl.NumberFormat().format(minPrice)} - {new Intl.NumberFormat().format(maxPrice)} VND/day
+        Giá: {new Intl.NumberFormat().format(minPrice)} - {new Intl.NumberFormat().format(maxPrice)} VND/day
       </div>
       <button className="filter-button" onClick={handleFilterClick}>
-        Filter
+        Lọc
       </button>
     </div>
   );
