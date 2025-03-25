@@ -124,6 +124,7 @@ const ShoppingCart = () => {
                       </div>
                       <div className="flex flex-col items-end space-y-4 mt-4 md:mt-0">
                         <p className="font-bold text-lg text-blue-600">
+                          {/* {item.price.toLocaleString("vi-VN")} VND/ngày */}
                           {item.price.toLocaleString("vi-VN")} VND/ngày
                         </p>
                         <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-sm">
@@ -184,13 +185,14 @@ const ShoppingCart = () => {
                           </span>
                         </span>
                         <span className="font-medium text-blue-600">
-                          {(item.price * item.quantity).toLocaleString(
+                          {/* {(item.price * item.quantity).toLocaleString(
                             "vi-VN",
                             {
                               style: "currency",
                               currency: "VND",
                             }
-                          )}
+                          )} */}
+                          {((item.price) * (item.quantity)).toLocaleString("vi-VN")} VND/ngày
                         </span>
                       </div>
                     ))}
