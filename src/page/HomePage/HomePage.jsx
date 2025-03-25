@@ -1035,7 +1035,7 @@ export default function HomePage() {
                 <h5 className="font-bold text-yellow-500 pb-2">
                   {product.price.toLocaleString("vi-VN")} VND/ngày
                 </h5>
-                <h4 className="hover:text-yellow-500 cursor-pointer">
+                <h4 className="hover:text-yellow-500 cursor-pointer h-[57.59px]">
                   {product.name}
                 </h4>
                 <p className="text-gray-400">{product.storeName}</p>

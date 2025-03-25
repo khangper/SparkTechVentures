@@ -1,64 +1,43 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
 import { motion } from "framer-motion";
 import { CircleDollarSign } from "lucide-react";
 import api from "../../Context/api";
 import RevenueChart from "./RevenueChart";
-import OrderManagementDashboard from "./OrderManagementDashboard ";
+import OrderManagementDashboard from "../../page/LessorPage/OrderManagementDashboard ";
 
-export default function LessorHome() {
-  const [revenue, setRevenue] = useState();
-  const [summaries, setSummaries] = useState();
+export default function TrangChuChuChoThue() {
+  const [doanhThu, setDoanhThu] = useState();
+  const [tongQuan, setTongQuan] = useState();
 
   useEffect(() => {
-    const fetchRevenue = async () => {
+    const layDoanhThu = async () => {
       try {
         const response = await api.get(`lessor/revenue`);
         if (response.data && response.data.data.length > 0) {
-          setRevenue(response.data.data[0].totalRevenue);
+          setDoanhThu(response.data.data[0].totalRevenue);
         }
       } catch (error) {
-        console.error("Error fetching revenue:", error);
+        console.error("Lỗi khi lấy doanh thu:", error);
       }
     };
 
-    const fetchSummary = async () => {
+    const layTongQuan = async () => {
       try {
         const response = await api.get(`lessor/summary`);
-        setSummaries(response.data.data);
+        setTongQuan(response.data.data);
       } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error("Lỗi khi lấy thông tin tổng quan:", error);
       }
     };
 
-    fetchRevenue();
-    fetchSummary();
+    layDoanhThu();
+    layTongQuan();
   }, []);
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
+  const theHienTuong = {
+    an: { opacity: 0, y: 50 },
+    hien: {
       opacity: 1,
       y: 0,
       transition: { duration: 0.5, ease: "easeOut" },
@@ -68,20 +47,20 @@ export default function LessorHome() {
   return (
     <motion.div
       className="p-3"
-      initial="hidden"
-      animate="visible"
+      initial="an"
+      animate="hien"
       variants={{
-        visible: { transition: { staggerChildren: 0.2 } },
+        hien: { transition: { staggerChildren: 0.2 } },
       }}
     >
       <motion.div
         className="p-4 bg-white shadow-md space-y-4 flex justify-between items-center rounded-xl"
-        variants={cardVariants}
+        variants={theHienTuong}
       >
         <div className="space-y-4">
-          <div className="font-extrabold text-3xl">Your total revenue: </div>
+          <div className="font-extrabold text-3xl">Tổng doanh thu của bạn: </div>
           <div className="text-2xl font-bold bg-gradient-to-r from-red-500 to-yellow-500 text-transparent bg-clip-text">
-            {revenue ? revenue.toLocaleString("vi-VN") : "0"} VNĐ
+            {doanhThu ? doanhThu.toLocaleString("vi-VN") : "0"} VNĐ
           </div>
         </div>
         <CircleDollarSign className="text-gray-400" size={80} />
@@ -90,119 +69,62 @@ export default function LessorHome() {
       <motion.div className="flex mt-3 justify-around">
         {[
           {
-            label: "Number of orders",
-            value: summaries?.totalOrders,
-            color: "green",
-            isIncrease: true,
-            percentage: "12%",
+            nhan: "Số lượng đơn hàng",
+            giaTri: tongQuan?.totalOrders,
+            mau: "green",
+            tang: true,
+            phanTram: "12%",
           },
           {
-            label: "Total Equipment",
-            value: summaries?.totalEquipment,
-            color: "green",
-            isIncrease: true,
-            percentage: "28%",
+            nhan: "Tổng số thiết bị",
+            giaTri: tongQuan?.totalEquipment,
+            mau: "green",
+            tang: true,
+            phanTram: "28%",
           },
           {
-            label: "Products on rent",
-            value: 12,
-            color: "red",
-            isIncrease: false,
-            percentage: "7%",
+            nhan: "Sản phẩm đang cho thuê",
+            giaTri: 12,
+            mau: "red",
+            tang: false,
+            phanTram: "7%",
           },
-        ].map((item, index) => (
+        ].map((muc, index) => (
           <motion.div
             key={index}
             className="space-y-6 p-6 bg-white flex flex-col justify-center rounded-3xl shadow-lg border border-gray-200 w-80"
-            variants={cardVariants}
+            variants={theHienTuong}
           >
-            <label className="font-bold text-center">{item.label}</label>
+            <label className="font-bold text-center">{muc.nhan}</label>
             <div className="flex justify-center items-center">
               <div>
                 <div className="flex items-center justify-center gap-3">
                   <span className="text-2xl font-bold text-black">
-                    {item.value}
+                    {muc.giaTri}
                   </span>
                   <div className="flex items-center gap-1">
                     <div
-                      className={`p-[6px] rounded-3xl bg-${item.color}-100 flex items-center justify-center font-semibold text-${item.color}-600 text-sm`}
+                      className={`p-[6px] rounded-3xl bg-${muc.mau}-100 flex items-center justify-center font-semibold text-${muc.mau}-600 text-sm`}
                     >
-                      {item.isIncrease ? (
+                      {muc.tang ? (
                         <ArrowUp size={14} />
                       ) : (
                         <ArrowDown size={14} />
                       )}
                     </div>
-                    <span className={`font-semibold text-${item.color}-600`}>
-                      {item.percentage}
+                    <span className={`font-semibold text-${muc.mau}-600`}>
+                      {muc.phanTram}
                     </span>
                   </div>
                 </div>
-                <div className="text-slate-400">compared to last week</div>
+                <div className="text-slate-400">So với tuần trước</div>
               </div>
             </div>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* <div className="flex mt-3 justify-around">
-        <div className="space-y-6 p-6 bg-white flex flex-col justify-center rounded-3xl shadow-lg border border-gray-200 w-80">
-          <label className="font-bold text-center">Number of orders</label>
-          <div className="flex justify-center items-center">
-            <div>
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-2xl font-bold text-black">
-                  {summaries?.totalOrders}
-                </span>
-                <div className="flex items-center gap-1">
-                  <div className="p-[6px] rounded-3xl bg-green-100 flex items-center justify-center font-semibold text-green-600 text-sm">
-                    <ArrowUp size={14} className="" />
-                  </div>
-                  <span className="font-semibold text-green-600">15%</span>
-                </div>
-              </div>
-              <div className="text-slate-400">compared to last week</div>
-            </div>
-          </div>
-        </div>
-        <div className="space-y-6 p-6 bg-white flex flex-col justify-center rounded-3xl shadow-lg border border-gray-200 w-80">
-          <label className="font-bold text-center">Total Equipment</label>
-          <div className="flex justify-center items-center">
-            <div>
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-2xl font-bold text-black">
-                  {summaries?.totalEquipment}
-                </span>
-                <div className="flex items-center gap-1">
-                  <div className="p-[6px] rounded-3xl bg-green-100 flex items-center justify-center font-semibold text-green-600 text-sm">
-                    <ArrowUp size={14} className="" />
-                  </div>
-                  <span className="font-semibold text-green-600">15%</span>
-                </div>
-              </div>
-              <div className="text-slate-400">compared to last week</div>
-            </div>
-          </div>
-        </div>
-        <div className="space-y-6 p-6 bg-white flex flex-col justify-center rounded-3xl shadow-lg border border-gray-200 w-80">
-          <label className="font-bold text-center">Products on rent</label>
-          <div className="flex justify-center items-center">
-            <div>
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-2xl font-bold text-black">12</span>
-                <div className="flex items-center gap-1">
-                  <div className="p-[6px] rounded-3xl bg-red-100 flex items-center justify-center font-semibold text-red-600 text-sm">
-                    <ArrowDown size={14} className="" />
-                  </div>
-                  <span className="font-semibold text-red-600">15%</span>
-                </div>
-              </div>
-              <div className="text-slate-400">compared to last week</div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      <motion.div variants={cardVariants}>
+      <motion.div variants={theHienTuong}>
         <OrderManagementDashboard />
       </motion.div>
     </motion.div>

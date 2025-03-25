@@ -41,16 +41,20 @@ const Sidebar = () => {
   };
 
   const menuItems = [
-    { id: "home", icon: Home, label: "Home", path: "/lessor" },
+    { id: "home", icon: Home, label: "Trang chủ", path: "/lessor" },
     {
       id: "products",
       icon: Package,
-      label: "Products",
+      label: "Sản phẩm",
       submenu: [
-        { id: "product-list", label: "Product List", path: "/lessor/products" },
+        {
+          id: "product-list",
+          label: "Danh sách sản phẩm",
+          path: "/lessor/products",
+        },
         {
           id: "product-categories",
-          label: "Categories",
+          label: "Danh mục sản phẩm",
           path: "/lessor/categories",
         },
       ],
@@ -58,22 +62,20 @@ const Sidebar = () => {
     {
       id: "listordered",
       icon: ListOrdered,
-      label: "Orders",
+      label: " Đơn hàng",
       submenu: [
-        { id: "all-store", label: "All order", path: "/lessor/all-orders" },
+        { id: "all-store", label: "Danh sách đơn hàng", path: "/lessor/all-orders" },
       ],
     },
     {
       id: "stores",
       icon: Store,
-      label: "Stores",
+      label: "Cửa hàng ",
       submenu: [
-        { id: "add-store", label: "Add Store", path: "/lessor/add-by-store" },
+        { id: "add-store", label: "Tạo cửa hàng", path: "/lessor/add-by-store" },
       ],
     },
-    // { id: "users", icon: Users, label: "Users", path: "/users" },
-    // { id: "settings", icon: Settings, label: "Settings", path: "/settings" },
-    // { id: "help", icon: HelpCircle, label: "Help", path: "/help" },
+
   ];
 
   return (
@@ -192,10 +194,10 @@ const Sidebar = () => {
                 <div className="absolute -bottom-2 left-16 mb-2 w-36 bg-white rounded-md shadow-xl py-1 ring-1 ring-black/5 backdrop-blur-sm">
                   <button
                     onClick={handleLogout}
-                    className="flex items-center w-full p-1 text-sm text-gray-700 hover:bg-gray-100"
+                    className="flex items-center w-full p-1 text-sm text-red-700 hover:bg-gray-100"
                   >
                     <LogOut className="w-3 h-3 mr-2" />
-                    Log out
+                   Đăng xuất
                   </button>
                   <button
                     onClick={() => {
@@ -205,7 +207,7 @@ const Sidebar = () => {
                     className="flex items-center w-full p-1 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     <UserPen className="w-3 h-3 mr-2" />
-                    Profile
+                    Trang cá nhân
                   </button>
                 </div>
               )}

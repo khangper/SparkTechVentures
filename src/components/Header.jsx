@@ -186,7 +186,7 @@ export default function Header() {
             </a>
           </Link>
 
-          <div className="relative group">
+          {/* <div className="relative group">
             <button className="flex items-center space-x-1 hover:text-yellow-500 transition text-slate-500">
               <span>Xây dựng</span>
               <ChevronDown size={16} />
@@ -205,7 +205,7 @@ export default function Header() {
                 Mua bán
               </a>
             </div>
-          </div>
+          </div> */}
 
           {/* <div className="relative group">
             <button className="flex items-center space-x-1 hover:text-yellow-500 transition text-slate-500">
