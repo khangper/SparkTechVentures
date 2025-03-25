@@ -299,7 +299,7 @@ export default function HomePage() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Tìm kiếm ..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -495,7 +495,7 @@ export default function HomePage() {
           {/* News Section */}
           <div className="bg-gray-100 py-16" data-aos="zoom-out-right">
             <div className="container mx-auto px-4 max-w-7xl">
-              <h2 className="text-3xl font-bold text-center mb-2">News</h2>
+              <h2 className="text-3xl font-bold text-center mb-2">Tin Tức</h2>
               <div className="w-24 h-1 bg-yellow-500 mx-auto mb-12"></div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -513,7 +513,7 @@ export default function HomePage() {
                       Quá trình nắn thẳng và sửa chữa các thanh sắt, thép đã
                       được lắp đặt trên sàn bê tông, cột chịu lực...
                     </p>
-                    <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-medium py-2 px-6 rounded transition-colors">
+                    <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 rounded transition-colors">
                       TÌM HIỂU THÊM
                     </button>
                   </div>
@@ -534,7 +534,7 @@ export default function HomePage() {
                       Có một điểm chung dễ nhận thấy ở các tòa nhà cao tầng:
                       việc nâng và hạ khối lượng lớn vật liệu.
                     </p>
-                    <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-medium py-2 px-6 rounded transition-colors">
+                    <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 rounded transition-colors">
                       TÌM HIỂU THÊM
                     </button>
                   </div>
@@ -556,7 +556,7 @@ export default function HomePage() {
                       công trình dân dụng nói riêng, thường có những đặc điểm
                       sau:
                     </p>
-                    <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-medium py-2 px-6 rounded transition-colors">
+                    <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 rounded transition-colors">
                       TÌM HIỂU THÊM
                     </button>
                   </div>
@@ -564,7 +564,7 @@ export default function HomePage() {
               </div>
 
               <div className="text-center mt-10">
-                <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-medium py-3 px-8 rounded-md transition-colors">
+                <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-3 px-8 rounded-md transition-colors">
                  Xem tất cả
                 </button>
               </div>
@@ -572,7 +572,7 @@ export default function HomePage() {
           </div>
 
           {/* About Section */}
-          <div className="flex flex-col lg:flex-row" data-aos="zoom-out-left">
+          {/* <div className="flex flex-col lg:flex-row" data-aos="zoom-out-left">
             <div className="lg:w-1/2 bg-black p-12 flex flex-col justify-center">
               <h2 className="text-3xl font-bold text-white mb-6">
                 We're Been Building For Over 10 Years
@@ -621,10 +621,10 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Customer Feedback */}
-          <div
+          {/* <div
             className="bg-gray-100 py-16"
             data-aos="fade-up"
             data-aos-duration="3000"
@@ -660,7 +660,7 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </>
