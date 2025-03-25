@@ -86,10 +86,10 @@ export default function Compare() {
     fetchProduct();
   }, [idt]);
 
-  const handleAddToCart = () => {
-    if (!product) return;
+  const handleAddToCart = (productToAdd) => {
+    if (!productToAdd) return;
 
-    if (product.stock === 0) {
+    if (productToAdd.stock === 0) {
       toast.error("This product is out of stock.");
       return;
     }
@@ -106,35 +106,35 @@ export default function Compare() {
 
     if (cartItems.length > 0) {
       const existingStore = cartItems[0].storeId;
-      if (existingStore !== product.storeId) {
-        toast.error("You can only order products from the same store.");
+      if (existingStore !== productToAdd.storeId) {
+        toast.error("Bạn chỉ có thể đặt hàng sản phẩm từ cùng một cửa hàng.");
         return;
       }
     }
 
     const productIndex = cartItems.findIndex(
-      (item) => item.productId === product.id
+      (item) => item.productId === productToAdd.id
     );
 
     if (productIndex >= 0) {
-      if (cartItems[productIndex].quantity + 1 > product.stock) {
+      if (cartItems[productIndex].quantity + 1 > productToAdd.stock) {
         toast.error("Not enough stock available.");
         return;
       }
       cartItems[productIndex].quantity += 1;
     } else {
       cartItems.push({
-        productId: product.id,
-        productName: product.name,
-        price: product.price,
+        productId: productToAdd.id,
+        productName: productToAdd.name,
+        price: productToAdd.price,
         quantity: 1,
-        defaultImage: product.defaultImage,
-        storeId: product.storeId,
+        defaultImage: productToAdd.defaultImage,
+        storeId: productToAdd.storeId,
       });
     }
 
     sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-    toast.success("Product added to cart!");
+    toast.success(`${productToAdd.name}  đã được thêm vào giỏ hàng!`);
   };
 
   const handleRedirectToHomePage = () => {
@@ -211,7 +211,7 @@ export default function Compare() {
         </div>
 
         <button
-          onClick={handleAddToCart}
+          onClick={() => handleAddToCart(productData)}
           className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2  my-3"
           disabled={productData?.stock === 0}
         >
