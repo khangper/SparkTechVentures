@@ -39,6 +39,7 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [isReversed, setIsReversed] = useState(false);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -60,7 +61,6 @@ export default function Dashboard() {
         setDashboard(response.data.data);
         console.log(response.data.data);
       } catch (error) {
-        console.error("Failed to fetch orders: ", error);
       }
     };
 
@@ -73,6 +73,10 @@ export default function Dashboard() {
       order.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       order.paymentMethod.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const sortedOrders = isReversed 
+    ? [...filteredOrders].reverse()
+    : filteredOrders;
 
   const openModal = (order) => {
     setSelectedOrder(order);
@@ -140,12 +144,12 @@ export default function Dashboard() {
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Đơn hàng</h2>
 
-        {/* Search Bar */}
-        <div className="mb-4">
-          <div className="relative">
+        {/* Search Bar and Reverse Button */}
+        <div className="mb-4 flex gap-4 items-center">
+          <div className="relative flex-1">
             <input
               type="text"
-              placeholder="Search by ID, customer name, or payment method..."
+              placeholder="Tìm kiếm ID, tên khách hàng, phương thức thanh toán"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -167,6 +171,33 @@ export default function Dashboard() {
               </svg>
             </button>
           </div>
+          
+          <button
+            onClick={() => setIsReversed(!isReversed)}
+            className={`px-4 py-2 rounded-lg border transition-all duration-200 flex items-center gap-2
+              ${isReversed 
+                ? 'bg-yellow-500 text-white border-yellow-500 hover:bg-yellow-600' 
+                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+              }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={`h-5 w-5 transition-transform duration-200 ${isReversed ? 'rotate-180' : ''}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
+              />
+            </svg>
+            <span className="hidden sm:inline">
+              {isReversed ? 'Mới nhất' : 'Cũ nhất'}
+            </span>
+          </button>
         </div>
 
         <div className="overflow-x-auto bg-white rounded-xl shadow">
@@ -197,7 +228,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {filteredOrders.map((order) => (
+              {sortedOrders.map((order) => (
                 <tr key={order.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     {order.id}
@@ -233,9 +264,9 @@ export default function Dashboard() {
       </div>
       {/* Order Detail Modal */}
       {showModal && selectedOrder && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
-          <div className="relative z-50 bg-white rounded-lg shadow-xl max-w-3xl w-full mx-4 transform transition-all animate-fade-in-up">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
+          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" onClick={closeModal}></div>
+          <div className="relative z-50 bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 my-8 max-h-[90vh] overflow-y-auto transform transition-all animate-fade-in-up">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold">
@@ -334,7 +365,7 @@ export default function Dashboard() {
                     href={selectedOrder.payOsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 underline"
+                    className="text-blue-600 hover:text-blue-800 underline break-words"
                   >
                     {selectedOrder.payOsUrl}
                   </a>
