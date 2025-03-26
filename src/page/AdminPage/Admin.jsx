@@ -2,21 +2,40 @@ import { CircleDollarSign, Users, Store, Eye } from "lucide-react";
 import OrderManagementDashboard from "../LessorPage/OrderManagementDashboard ";
 import { useEffect, useState } from "react";
 import api from "../../Context/api";
+import Lottie from "lottie-react";
+import loadingdashboard from "../../assets/loadingdashboard.json";
 
-const Card = ({ title, value, icon: Icon, color }) => (
-  <div className={`bg-white p-6 rounded-xl shadow border-l-4 ${color}`}>
-    <div className="flex items-center justify-between">
-      <div>
-        <h4 className="text-gray-500 text-sm font-medium">{title}</h4>
-        <p className="text-xl font-semibold">{value}</p>
+const Card = ({ title, value, icon: Icon, color }) => {
+  const getIconColor = (iconComponent) => {
+    switch (iconComponent) {
+      case CircleDollarSign:
+        return "text-yellow-500";
+      case Users:
+        return "text-green-500";
+      case Store:
+        return "text-purple-500";
+      default:
+        return "";
+    }
+  };
+
+  return (
+    <div className={`bg-white p-6 rounded-xl shadow border-l-4 ${color}`}>
+      <div className="flex items-center justify-between">
+        <div>
+          <h4 className="text-gray-500 text-sm font-medium">{title}</h4>
+          <p className="text-xl font-semibold">{value}</p>
+        </div>
+        {Icon && <Icon className={`w-8 h-8 ${getIconColor(Icon)}`} />}
       </div>
-      <Icon className="w-8 h-8 text-gray-400" />
     </div>
-  </div>
-);
+  );
+};
 
 export default function Dashboard() {
   const [orders, setOrders] = useState([]);
+  const [dashboard, setDashboard] = useState();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -32,6 +51,20 @@ export default function Dashboard() {
     };
 
     fetchOrders();
+  }, []);
+
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const response = await api.get("admin/dashboard");
+        setDashboard(response.data.data);
+        console.log(response.data.data);
+      } catch (error) {
+        console.error("Failed to fetch orders: ", error);
+      }
+    };
+
+    fetchDashboard();
   }, []);
 
   const filteredOrders = orders.filter(
@@ -56,20 +89,54 @@ export default function Dashboard() {
       <h1 className="text-2xl font-bold">Admin Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card
-          title="Total Revenue"
-          value="$12,340"
+          title="Tổng doanh thu"
+          value={
+            dashboard ? (
+              dashboard.totalRevenue.toLocaleString()
+            ) : (
+              <Lottie
+                animationData={loadingdashboard}
+                loop={true}
+                className="w-32"
+              />
+            )
+          }
           icon={CircleDollarSign}
-          color="border-blue-500"
+          color="border-yellow-500"
         />
-        <Card title="Users" value="154" icon={Users} color="border-green-500" />
         <Card
-          title="Stores"
-          value="18"
+          title="Tổng người dùng"
+          value={
+            dashboard ? (
+              dashboard.totalUsers
+            ) : (
+              <Lottie
+                animationData={loadingdashboard}
+                loop={true}
+                className="w-32"
+              />
+            )
+          }
+          icon={Users}
+          color="border-green-500"
+        />
+        <Card
+          title="Tổng cửa hàng"
+          value={
+            dashboard ? (
+              dashboard.totalStores
+            ) : (
+              <Lottie
+                animationData={loadingdashboard}
+                loop={true}
+                className="w-32"
+              />
+            )
+          }
           icon={Store}
           color="border-purple-500"
         />
       </div>
-
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Đơn hàng</h2>
 
@@ -164,7 +231,6 @@ export default function Dashboard() {
           </table>
         </div>
       </div>
-
       {/* Order Detail Modal */}
       {showModal && selectedOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">

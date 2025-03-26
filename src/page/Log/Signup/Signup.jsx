@@ -375,7 +375,7 @@ export default function Signup() {
                         id="lessor"
                         name="role"
                         type="radio"
-                        checked={role === 1}
+                        checked={role === 2}
                         onChange={() => setRole(2)}
                         className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300"
                       />

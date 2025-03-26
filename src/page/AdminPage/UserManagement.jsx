@@ -2,6 +2,8 @@ import axios from "axios";
 import { User } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import api from "../../Context/api";
+import Lottie from "lottie-react";
+import loadingadmin from "../../assets/loadingadmin.json";
 
 export default function UserManagement() {
     const [users, setUsers] = useState([]);
@@ -68,9 +70,13 @@ export default function UserManagement() {
 
             <div className="overflow-x-auto">
                 {loading ? (
-                    <div className="text-center text-gray-500 py-10">
-                        Loading users...
-                    </div>
+                           <div className="flex justify-center items-center">
+                           <Lottie
+                               animationData={loadingadmin}
+                               loop={true}
+                               className=" w-40"
+                             />
+                         </div>
                 ) : filtered.length === 0 ? (
                     <div className="text-center text-gray-500 py-10">No users found.</div>
                 ) : (
