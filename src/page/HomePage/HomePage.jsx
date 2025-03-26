@@ -712,17 +712,19 @@ export default function HomePage() {
               cao.
             </motion.p>
 
-            <motion.button
-              className="bg-yellow-500 py-3 px-5 text-white font-bold rounded hover:bg-yellow-600"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              viewport={{ once: true }}
-            >
-              Khám phá
-            </motion.button>
+            <Link to={`all`}>
+              <motion.button
+                className="bg-yellow-500 py-3 px-5 text-white font-bold rounded hover:bg-yellow-600"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                viewport={{ once: true }}
+              >
+                Khám phá
+              </motion.button>
+            </Link>
           </div>
         </motion.div>
         <motion.div
@@ -1016,17 +1018,19 @@ export default function HomePage() {
             nhận tận nơi và dịch vụ khách hàng 24/7, đảm bảo tiến độ công trình
             của bạn luôn suôn sẻ!
           </motion.p>
-          <motion.div
-            className="border-3 border-yellow-500 text-yellow-500 px-8 py-2 cursor-pointer hover:bg-yellow-500 hover:text-white transition-all"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            viewport={{ once: true }}
-          >
-            Về chúng tôi
-          </motion.div>
+          <Link to={`about`}>
+            <motion.div
+              className="border-3 border-yellow-500 text-yellow-500 px-8 py-2 cursor-pointer hover:bg-yellow-500 hover:text-white transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              viewport={{ once: true }}
+            >
+              Về chúng tôi
+            </motion.div>
+          </Link>
         </motion.div>
 
         <div className="lg:col-span-2">
