@@ -164,6 +164,8 @@ export const indexRouter = createBrowserRouter([
       { index: true, element:  <Admin/> },
       { path: "users", element: <UserManagement /> },
       { path: "stores", element: <StoreManagement /> },
+      { path: "profile", element: <Profile /> },
+
     ],
   }
   
