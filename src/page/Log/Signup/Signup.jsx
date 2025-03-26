@@ -13,6 +13,8 @@ import {
   FiCalendar,
   FiHome,
   FiPhone,
+  FiEye,
+  FiEyeOff,
 } from "react-icons/fi";
 import { motion } from "framer-motion";
 import logo from "../../../assets/logo.jpg";
@@ -22,7 +24,7 @@ export default function Signup() {
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
   const [gender, setGender] = useState(0);
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("2003-10-19");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
@@ -32,10 +34,51 @@ export default function Signup() {
   const [role, setRole] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
+
+  const validatePassword = (value) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,12}$/;
+    
+    if (!value) {
+      setPasswordError("Mật khẩu không được để trống");
+      return false;
+    }
+    
+    if (value.length < 6) {
+      setPasswordError("Mật khẩu phải có ít nhất 6 ký tự");
+      return false;
+    }
+
+    if (value.length > 12) {
+      setPasswordError("Mật khẩu không được vượt quá 12 ký tự");
+      return false;
+    }
+
+    if (!passwordRegex.test(value)) {
+      setPasswordError("Mật khẩu phải có 6-12 ký tự, bao gồm ít nhất 1 chữ hoa, 1 số và 1 ký tự đặc biệt (!@#$%^&*)");
+      return false;
+    }
+
+    setPasswordError("");
+    return true;
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    validatePassword(value);
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    if (!validatePassword(password)) {
+      setIsSubmitting(false);
+      return;
+    }
 
     if (password !== rePassword) {
       setErrorMessage("Mật khẩu không khớp");
@@ -84,6 +127,7 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-yellow-100 flex items-center justify-center p-4">
+    
       <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -235,65 +279,7 @@ export default function Signup() {
                   </div>
                 </div>
 
-                {/* Phone */}
-                <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-1">
-                    Số điện thoại
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FiPhone className="h-5 w-5 text-amber-400" />
-                    </div>
-                    <input
-                      type="text"
-                      className="pl-10 w-full py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="Số điện thoại"
-                    />
-                  </div>
-                </div>
-
-                {/* Password */}
-                <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-1">
-                    Mật khẩu
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FiLock className="h-5 w-5 text-amber-400" />
-                    </div>
-                    <input
-                      type="password"
-                      className="pl-10 w-full py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Mật khẩu"
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Confirm Password */}
-                <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-1">
-                    Xác nhận mật khẩu
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FiLock className="h-5 w-5 text-amber-400" />
-                    </div>
-                    <input
-                      type="password"
-                      className="pl-10 w-full py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
-                      value={rePassword}
-                      onChange={(e) => setRePassword(e.target.value)}
-                      placeholder="Xác nhận mật khẩu"
-                      required
-                    />
-                  </div>
-                </div>
-
+                
                 {/* Gender */}
                 <div>
                   <label className="block text-gray-700 text-sm font-medium mb-1">
@@ -310,41 +296,70 @@ export default function Signup() {
                   </select>
                 </div>
 
-                {/* Date of Birth */}
+                {/* Password */}
                 <div>
                   <label className="block text-gray-700 text-sm font-medium mb-1">
-                    Ngày sinh
+                    Mật khẩu
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FiCalendar className="h-5 w-5 text-amber-400" />
+                      <FiLock className="h-5 w-5 text-amber-400" />
                     </div>
                     <input
-                      type="date"
-                      className="pl-10 w-full py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
-                      value={dateOfBirth}
-                      onChange={(e) => setDateOfBirth(e.target.value)}
+                      type={showPassword ? "text" : "password"}
+                      className={`pl-10 w-full py-2 border ${
+                        passwordError ? 'border-red-500' : 'border-gray-300'
+                      } rounded-lg focus:ring-amber-500 focus:border-amber-500`}
+                      value={password}
+                      onChange={handlePasswordChange}
+                      placeholder="Mật khẩu"
                       required
                     />
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {!showPassword ? (
+                        <FiEyeOff className="h-5 w-5" />
+                      ) : (
+                        <FiEye className="h-5 w-5" />
+                      )}
+                    </button>
                   </div>
+                  {passwordError && (
+                    <p className="mt-1 text-sm text-red-600">{passwordError}</p>
+                  )}
                 </div>
 
-                {/* Address */}
-                <div className="md:col-span-2">
+                {/* Confirm Password */}
+                <div>
                   <label className="block text-gray-700 text-sm font-medium mb-1">
-                    Địa chỉ
+                    Xác nhận mật khẩu
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FiHome className="h-5 w-5 text-amber-400" />
+                      <FiLock className="h-5 w-5 text-amber-400" />
                     </div>
                     <input
-                      type="text"
+                      type={showRePassword ? "text" : "password"}
                       className="pl-10 w-full py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      placeholder="Địa chỉ"
+                      value={rePassword}
+                      onChange={(e) => setRePassword(e.target.value)}
+                      placeholder="Mật khẩu"
+                      required
                     />
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                      onClick={() => setShowRePassword(!showRePassword)}
+                    >
+                      {!showRePassword ? (
+                        <FiEyeOff className="h-5 w-5" />
+                      ) : (
+                        <FiEye className="h-5 w-5" />
+                      )}
+                    </button>
                   </div>
                 </div>
 
@@ -388,6 +403,51 @@ export default function Signup() {
                     </div>
                   </div>
                 </div>
+
+                {/* Conditional fields for Lessor */}
+                {role === 2 && (
+                  <>
+                    {/* Phone */}
+                    <div className="md:col-span-2">
+                      <label className="block text-gray-700 text-sm font-medium mb-1">
+                        Số điện thoại
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FiPhone className="h-5 w-5 text-amber-400" />
+                        </div>
+                        <input
+                          type="text"
+                          className="pl-10 w-full py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="Số điện thoại"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Address */}
+                    <div className="md:col-span-2">
+                      <label className="block text-gray-700 text-sm font-medium mb-1">
+                        Địa chỉ
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FiHome className="h-5 w-5 text-amber-400" />
+                        </div>
+                        <input
+                          type="text"
+                          className="pl-10 w-full py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          placeholder="Địa chỉ"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               {errorMessage && (
@@ -424,4 +484,3 @@ export default function Signup() {
     </div>
   );
 }
-
