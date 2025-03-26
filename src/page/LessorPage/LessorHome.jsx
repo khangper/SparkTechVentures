@@ -7,32 +7,41 @@ import RevenueChart from "./RevenueChart";
 import OrderManagementDashboard from "../../page/LessorPage/OrderManagementDashboard ";
 
 export default function TrangChuChuChoThue() {
-  const [doanhThu, setDoanhThu] = useState();
+  const [dashboard, setDashboard] = useState();
   const [tongQuan, setTongQuan] = useState();
 
-  useEffect(() => {
-    const layDoanhThu = async () => {
-      try {
-        const response = await api.get(`lessor/revenue`);
-        if (response.data && response.data.data.length > 0) {
-          setDoanhThu(response.data.data[0].totalRevenue);
-        }
-      } catch (error) {
-        console.error("Lỗi khi lấy doanh thu:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const layDoanhThu = async () => {
+  //     try {
+  //       const response = await api.get(`lessor/revenue`);
+  //       if (response.data && response.data.data.length > 0) {
+  //         setDoanhThu(response.data.data[0].totalRevenue);
+  //       }
+  //     } catch (error) {
+  //       console.error("Lỗi khi lấy doanh thu:", error);
+  //     }
+  //   };
 
-    const layTongQuan = async () => {
+  //   const layTongQuan = async () => {
+  //     try {
+  //       const response = await api.get(`lessor/summary`);
+  //       setTongQuan(response.data.data);
+  //     } catch (error) {
+  //       console.error("Lỗi khi lấy thông tin tổng quan:", error);
+  //     }
+  //   };
+
+  //   layDoanhThu();
+  //   layTongQuan();
+  // }, []);
+  useEffect(() => {
+    const dashboardSummary = async () => {
       try {
         const response = await api.get(`lessor/summary`);
-        setTongQuan(response.data.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy thông tin tổng quan:", error);
-      }
+        setDashboard(response.data.data);
+      } catch (error) {}
     };
-
-    layDoanhThu();
-    layTongQuan();
+    dashboardSummary();
   }, []);
 
   const theHienTuong = {
@@ -58,9 +67,14 @@ export default function TrangChuChuChoThue() {
         variants={theHienTuong}
       >
         <div className="space-y-4">
-          <div className="font-extrabold text-3xl">Tổng doanh thu của bạn: </div>
+          <div className="font-extrabold text-3xl">
+            Tổng doanh thu của bạn:{" "}
+          </div>
           <div className="text-2xl font-bold bg-gradient-to-r from-red-500 to-yellow-500 text-transparent bg-clip-text">
-            {doanhThu ? doanhThu.toLocaleString("vi-VN") : "0"} VNĐ
+            {dashboard
+              ? (dashboard?.totalRevenue).toLocaleString("vi-VN")
+              : "0"}{" "}
+            VNĐ
           </div>
         </div>
         <CircleDollarSign className="text-gray-400" size={80} />
@@ -70,24 +84,34 @@ export default function TrangChuChuChoThue() {
         {[
           {
             nhan: "Số lượng đơn hàng",
-            giaTri: tongQuan?.totalOrders,
-            mau: "green",
-            tang: true,
-            phanTram: "12%",
+            giaTri: dashboard?.totalOrders,
+            mau: dashboard?.totalOrdersPercentageChange >= 0 ? "green" : "red", // Màu sắc dựa trên tăng/giảm
+            tang: dashboard?.totalOrdersPercentageChange >= 0, // true nếu tăng, false nếu giảm
+            phanTram: `${Math.abs(
+              dashboard?.totalOrdersPercentageChange || 0
+            )}%`, // Hiển thị giá trị tuyệt đối
           },
           {
             nhan: "Tổng số thiết bị",
-            giaTri: tongQuan?.totalEquipment,
-            mau: "green",
-            tang: true,
-            phanTram: "28%",
+            giaTri: dashboard?.totalEquipment,
+            mau:
+              dashboard?.totalEquipmentPercentageChange >= 0 ? "green" : "red",
+            tang: dashboard?.totalEquipmentPercentageChange >= 0,
+            phanTram: `${Math.abs(
+              dashboard?.totalEquipmentPercentageChange || 0
+            )}%`,
           },
           {
             nhan: "Sản phẩm đang cho thuê",
-            giaTri: 12,
-            mau: "red",
-            tang: false,
-            phanTram: "7%",
+            giaTri: dashboard?.totalRentedEquipment,
+            mau:
+              dashboard?.totalRentedEquipmentPercentageChange >= 0
+                ? "green"
+                : "red",
+            tang: dashboard?.totalRentedEquipmentPercentageChange >= 0,
+            phanTram: `${Math.abs(
+              dashboard?.totalRentedEquipmentPercentageChange || 0
+            )}%`,
           },
         ].map((muc, index) => (
           <motion.div
