@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Eye, CheckCircle, XCircle, Store } from "lucide-react";
 import api from "../../Context/api";
 import toast from "react-hot-toast";
+import Lottie from "lottie-react";
+import loadingadmin from "../../assets/loadingadmin.json";
 
 export default function StoreManagement() {
   const [stores, setStores] = useState([]);
@@ -134,8 +136,12 @@ export default function StoreManagement() {
 
       <div className="overflow-x-auto">
         {loading ? (
-          <div className="text-center text-gray-500 py-10">
-            Loading stores...
+          <div className="flex justify-center items-center">
+            <Lottie
+                animationData={loadingadmin}
+                loop={true}
+                className=" w-40"
+              />
           </div>
         ) : currentStores.length === 0 ? (
           <div className="text-center text-gray-500 py-10">
@@ -352,7 +358,7 @@ export default function StoreManagement() {
 
                   <div>
                     <h3 className="text-sm font-medium text-gray-500">
-                    Tên cửa hàng
+                      Tên cửa hàng
                     </h3>
                     <p className="text-base font-semibold">
                       {selectedStore.name}
@@ -361,7 +367,7 @@ export default function StoreManagement() {
 
                   <div>
                     <h3 className="text-sm font-medium text-gray-500">
-                    Số điện thoại
+                      Số điện thoại
                     </h3>
                     <p className="text-base">{selectedStore.phone}</p>
                   </div>
@@ -375,7 +381,7 @@ export default function StoreManagement() {
 
                   <div>
                     <h3 className="text-sm font-medium text-gray-500">
-                     Ngày mở cửa
+                      Ngày mở cửa
                     </h3>
                     <p className="text-base">
                       {new Date(selectedStore.openingDay).toLocaleDateString(
@@ -386,7 +392,7 @@ export default function StoreManagement() {
 
                   <div>
                     <h3 className="text-sm font-medium text-gray-500">
-                      Giờ mở cửa 
+                      Giờ mở cửa
                     </h3>
                     <p className="text-base">
                       {new Date(
@@ -400,7 +406,7 @@ export default function StoreManagement() {
 
                   <div>
                     <h3 className="text-sm font-medium text-gray-500">
-                     Giờ đóng cửa
+                      Giờ đóng cửa
                     </h3>
                     <p className="text-base">
                       {new Date(
@@ -457,7 +463,7 @@ export default function StoreManagement() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <h3 className="text-sm font-medium text-gray-500">
-                     Ngày tạo
+                      Ngày tạo
                     </h3>
                     <p className="text-base">
                       {formatDateToVN(selectedStore.createdAt)}
@@ -465,7 +471,7 @@ export default function StoreManagement() {
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-gray-500">
-                     Ngày cập nhật
+                      Ngày cập nhật
                     </h3>
                     <p className="text-base">
                       {formatDateToVN(selectedStore.updatedAt)}
@@ -473,8 +479,6 @@ export default function StoreManagement() {
                   </div>
                 </div>
               </div>
-
-    
             </div>
           </div>
         </div>
