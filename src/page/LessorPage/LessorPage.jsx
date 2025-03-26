@@ -26,7 +26,7 @@ const fuelOptions = [
 
 export default function LessorPage() {
   const [currentStep, setCurrentStep] = useState(1);
-  const steps = ["Basic", "Media", "Price", "Publish"];
+  const steps = ["Cơ bản", "Ảnh", "Giá", "Xuất bản"];
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -128,7 +128,8 @@ export default function LessorPage() {
     setFuel(value);
   };
 
-  const handleCategory = (id) => {``
+  const handleCategory = (id) => {
+    ``;
     setCategory(id);
   };
 
@@ -330,7 +331,7 @@ export default function LessorPage() {
               htmlFor="Name"
               className="block text-sm/6 font-medium text-gray-900 mt-8"
             >
-              Name
+              Tên sản phẩm
             </label>
             <div className="mt-1 w-[100%]">
               <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-yellow-500 p-2">
@@ -350,7 +351,7 @@ export default function LessorPage() {
               htmlFor="category"
               className="block text-sm/6 font-medium text-gray-900 mt-20"
             >
-              Category
+              Loại
             </label>
             <div className="mt-1 w-[100%]">
               <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-yellow-500 p-2">
@@ -377,7 +378,7 @@ export default function LessorPage() {
               htmlFor="brand"
               className="block text-sm/6 font-medium text-gray-900 mt-20"
             >
-              Brand
+              Thương hiệu
             </label>
             <div className="mt-1 w-[100%]">
               <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-yellow-500 p-2">
@@ -389,7 +390,7 @@ export default function LessorPage() {
                   className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
                 >
                   <option value="" disabled>
-                    Select a brand
+                    Chọn thương hiệu
                   </option>
                   {brands.map((br) => (
                     <option key={br.id} value={br.id}>
@@ -404,7 +405,7 @@ export default function LessorPage() {
               htmlFor="description"
               className="block text-sm/6 font-medium text-gray-900 mt-20"
             >
-              Description
+              Mô tả
             </label>
             <div className="">
               <ReactQuill
@@ -422,7 +423,7 @@ export default function LessorPage() {
                     htmlFor="stock"
                     className="block text-sm/6 font-medium text-gray-900 "
                   >
-                    Stock
+                    Số lượng
                   </label>
                   <div className="flex items-center gap-5 justify-center">
                     <button
@@ -466,7 +467,7 @@ export default function LessorPage() {
                     htmlFor="weight"
                     className="block text-sm/6 font-medium text-gray-900 "
                   >
-                    Weight (kg)
+                    Cân nặng (kg)
                   </label>
                   <div className="flex items-center gap-5 justify-center">
                     <button
@@ -501,7 +502,7 @@ export default function LessorPage() {
                     htmlFor="fuel"
                     className="block text-sm font-medium text-gray-900"
                   >
-                    Fuel
+                    Loại nhiên liệu
                   </label>
                   <select
                     id="fuel"
@@ -511,7 +512,7 @@ export default function LessorPage() {
                     className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                   >
                     <option value="" disabled>
-                      Select Fuel Type
+                      Chọn loại nhiên liệu
                     </option>
                     {fuelOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -525,7 +526,7 @@ export default function LessorPage() {
                     htmlFor="dimensions"
                     className="block text-sm font-medium text-gray-900"
                   >
-                    Dimensions
+                    Kích thước
                   </label>
                   <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-yellow-500 p-2">
                     <input
@@ -551,7 +552,7 @@ export default function LessorPage() {
                 htmlFor="Media"
                 className="block text-sm font-medium text-gray-900 "
               >
-                Default Image
+                Ảnh Thumbnail
               </label>
 
               <div
@@ -579,7 +580,7 @@ export default function LessorPage() {
                         <ImageUp />
                       </div>
                       <span className="text-lg font-medium text-gray-700 cursor-pointer hover:text-gray-900">
-                        Upload Image
+                        Upload ảnh
                       </span>
                     </div>
                   )}
@@ -610,17 +611,17 @@ export default function LessorPage() {
 
                   <Upload className="mx-auto h-12 w-12 text-gray-400" />
                   <h3 className="mt-2 text-lg font-medium text-gray-700">
-                    Drag and drop images here
+                    Kéo và thả hình ảnh vào đây
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">
-                    or click to select a photo from your device
+                    hoặc nhấp để chọn ảnh từ thiết bị của bạn
                   </p>
                 </div>
               </div>
               {images.length > 0 && (
                 <div className="mb-6">
                   <h3 className="text-lg font-medium text-gray-700 mb-3">
-                    Selected photo({images.length})
+                   Ảnh đã chọn ({images.length})
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                     {images.map((image, index) => (
@@ -707,40 +708,40 @@ export default function LessorPage() {
           <>
             <div className="bg-white rounded-lg mt-20 p-20">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                Review and Publish
+                Đánh giá và xuất bản
               </h2>
               <div className="space-y-4">
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Name: {name}
+                    Sản phẩm: {name}
                   </p>
                   <p className="text-base text-gray-900"></p>
                 </div>
 
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Category:{getCategoryName(category)}
+                    Loại:{getCategoryName(category)}
                   </p>
                   <p className="text-base text-gray-900"></p>
                 </div>
 
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Brand: {getBrandName(brand)}
+                    Thương hiệu: {getBrandName(brand)}
                   </p>
                   <p className="text-base text-gray-900"></p>
                 </div>
 
                 <div className="flex space-x-1">
                   <p className="text-sm font-medium text-gray-600">
-                    Description: {description.replace(/<\/?[^>]+(>|$)/g, "")}
+                    Mô tả: {description.replace(/<\/?[^>]+(>|$)/g, "")}
                   </p>
                   <div className="text-sm text-gray-900"></div>
                 </div>
 
                 <div>
                   <p className="text-sm font-medium text-gray-600">
-                    Price (VND): {price}
+                    Giá (VND): {price}
                   </p>
                   <p className="text-base text-gray-900"></p>
                 </div>
@@ -777,7 +778,7 @@ export default function LessorPage() {
                 : "bg-yellow-500 text-white hover:bg-yellow-600"
             }`}
           >
-            Previous
+            Sau
           </button>
           <button
             onClick={() =>
@@ -791,7 +792,7 @@ export default function LessorPage() {
                 : "bg-yellow-500 text-white hover:bg-yellow-600"
             }`}
           >
-            {currentStep === steps.length ? "Submit" : "Next"}
+            {currentStep === steps.length ? "Upload" : "Tiếp theo"}
           </button>
         </div>
       </div>

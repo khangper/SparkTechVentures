@@ -20,6 +20,7 @@ const OrderManagementDashboard = () => {
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [isReversed, setIsReversed] = useState(false);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -58,6 +59,10 @@ const OrderManagementDashboard = () => {
     setSelectedOrder(null);
   };
 
+  const sortedOrders = isReversed
+    ? [...filteredOrders].reverse()
+    : filteredOrders;
+
   return (
     <div className="">
       <div className="max-w-7xl mx-auto mt-4">
@@ -76,6 +81,37 @@ const OrderManagementDashboard = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
+            </div>
+            <div className="flex-shrink-0">
+              <button
+                onClick={() => setIsReversed(!isReversed)}
+                className={`px-4 py-2 rounded-lg border transition-all duration-200 flex items-center gap-2
+              ${
+                isReversed
+                  ? "bg-yellow-500 text-white border-yellow-500 hover:bg-yellow-600"
+                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+              }`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 transition-transform duration-200 ${
+                    isReversed ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
+                  />
+                </svg>
+                <span className="hidden sm:inline">
+                  {isReversed ? "Mới nhất" : "Cũ nhất"}
+                </span>
+              </button>
             </div>
 
             {/* <div className="w-full md:w-auto">
@@ -144,7 +180,7 @@ const OrderManagementDashboard = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {filteredOrders.map((order) => (
+                {sortedOrders.map((order) => (
                   <tr key={order.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       #{order.id}
@@ -209,77 +245,62 @@ const OrderManagementDashboard = () => {
       </div>
 
       {/* Order Details Modal */}
-      {selectedOrder && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 ">
-          <div className="bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-screen overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold">
-                  CHI TIẾT ĐƠN HÀNG #{selectedOrder.id}
-                </h2>
-                <button
-                  onClick={closeModal}
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    ></path>
-                  </svg>
-                </button>
+        {selectedOrder && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[85vh] overflow-hidden">
+          <div className="flex justify-between items-center p-4 border-b">
+            <h2 className="text-xl font-bold">
+              CHI TIẾT ĐƠN HÀNG #{selectedOrder.id}
+            </h2>
+            <button
+              onClick={closeModal}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+              >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+              </svg>
+            </button>
+          </div>
+
+          <div className="p-6 overflow-y-auto" style={{ maxHeight: 'calc(85vh - 70px)' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+            <h3 className="text-lg font-medium mb-2">
+              THÔNG TIN KHÁCH HÀNG
+            </h3>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <p>
+                <span className="font-medium">Tên:</span>{" "}
+                {selectedOrder.recipientName}
+              </p>
+              <p>
+                <span className="font-medium">Số điện thoại:</span>{" "}
+                {selectedOrder.recipientPhone}
+              </p>
+              <p>
+                <span className="font-medium">Địa chỉ:</span>{" "}
+                {selectedOrder.address}
+              </p>
+            </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <h3 className="text-lg font-medium mb-2">
-                    THÔNG TIN KHÁCH HÀNG
-                  </h3>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p>
-                      <span className="font-medium">Tên:</span>{" "}
-                      {selectedOrder.recipientName}
-                    </p>
-                    <p>
-                      <span className="font-medium">Số điện thoại:</span>{" "}
-                      {selectedOrder.recipientPhone}
-                    </p>
-                    <p>
-                      <span className="font-medium">Địa chỉ:</span>{" "}
-                      {selectedOrder.address}
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-medium mb-2">
-                    THÔNG TIN ĐƠN HÀNG
-                  </h3>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    {/* <p>
-                      <span className="font-medium">Status:</span>
-                      <span
-                        className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
-                          selectedOrder.status
-                        )}`}
-                      >
-                        {selectedOrder.status === "PENDING"
-                          ? "PENDING"
-                          : selectedOrder.status === "COMPLETED"
-                          ? "COMPLETED"
-                          : selectedOrder.status === "CANCELLED"
-                          ? "CANCELLED"
-                          : selectedOrder.status}
-                      </span>
-                    </p> */}
+              <div>
+            <h3 className="text-lg font-medium mb-2">
+              THÔNG TIN ĐƠN HÀNG
+            </h3>
+            <div className="bg-gray-50 p-4 rounded-lg">
+      
                     <p>
                       <span className="font-medium">
                         Phương thức thanh toán:
@@ -382,7 +403,7 @@ const OrderManagementDashboard = () => {
                 </div>
               </div>
 
-              {selectedOrder.paymentMethod === "PAYOS" && (
+              {/* {selectedOrder.paymentMethod === "PAYOS" && (
                 <div className="mb-6">
                   <h3 className="text-lg font-medium mb-2">Thanh toán: </h3>
                   <div className="bg-gray-50 p-4 rounded-lg">
@@ -399,7 +420,7 @@ const OrderManagementDashboard = () => {
                     </p>
                   </div>
                 </div>
-              )}
+              )} */}
 
               <div className="flex justify-end gap-4 mt-6">
                 {/* {selectedOrder.status === "PENDING" && (
